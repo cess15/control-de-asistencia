@@ -13,22 +13,4 @@ public class IndexController {
 		return "index";
 	}
 
-	@GetMapping(value = "/about")
-	public String about(Model model) {
-		model.addAttribute("title", "ISTB | Acerca de Nosotros");
-		return "about";
-	}
-
-	@GetMapping(value = "/cycv")
-	public String cycv(Model model) {
-		model.addAttribute("title", "ISTB | Curriculum Vitaem");
-		return "cycv";
-	}
-
-	@GetMapping(value = "/contact")
-	public String contact(Model model) {
-		model.addAttribute("title", "ISTB | Contacto");
-		return "contact";
-	}
-
 }

@@ -1,7 +1,7 @@
 <nav class="navbar header-nav navbar-expand-lg" th:fragment="nav">
 	<div class="container-fluid">
 		<a class="navbar-brand" th:href="@{index}"><img
-			th:src="@{images/logo.png}" alt="image"></a>
+			th:src="@{images/logo.png}" alt="image" width="160px"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbar-wd" aria-controls="navbar-wd"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -10,19 +10,13 @@
 		<div class="collapse navbar-collapse justify-content-end"
 			id="navbar-wd">
 			<ul class="navbar-nav">
-				<li><a class="nav-link" th:href="@{index}">Home</a></li>
-				<li><a class="nav-link" th:href="@{about}">Aboutus</a></li>
-				<li><a class="nav-link" th:href="@{cycv}">create your cv</a></li>
-				<li><a class="nav-link" th:href="@{contact}">Contact Us</a></li>
+				<li><a class="nav-link" th:href="@{/}">Inicio</a></li>
+				<li><a class="nav-link" href="#caracteristicas">Características</a></li>
+				<li><a class="nav-link" href="#about">Acerca de nosotros</a></li>
+				<li><a class="nav-link" href="#contact">Contacto</a></li>
 				<li><a class="nav-link active"
-					style="background: #fff; color: #000;" th:href="@{contact}">Sinup
-						now</a></li>
+					style="background: #fff; color: #000;" href="#">Iniciar sesión</a></li>
 			</ul>
-		</div>
-		<div class="search-box">
-			<input type="text" class="search-txt" placeholder="Search"> <a
-				class="search-btn"> <img th:src="@{images/search_icon.png}" alt="#" />
-			</a>
 		</div>
 	</div>
 </nav>
