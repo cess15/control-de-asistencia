@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/app :: head"></head>
+
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"> </header>
+		<!-- End header -->
+	</div>
+
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+
+		<!-- HEADER DESKTOP-->
+
+		<header th:replace="layout/app :: header-desktop"> </header>
+
+		<!-- HEADER DESKTOP-->
+		<!-- MENU SIDEBAR-->
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
+		<!-- END MENU SIDEBAR-->
+
+
+		<!-- MAIN CONTENT-->
+
+		<div class="main-content">
+			<div class="section__content section__content--p30">
+				<div class="container-fluid">
+					<!-- 						<form th:action="@{/uploadfile}" method="POST" enctype="multipart/form-data"> -->
+					<!-- 							<input type="file" name="file"> -->
+					<!-- 							<button type="submit">Envíar</button> -->
+					<!-- 						</form> -->
+					<div class="row">
+						<div class="col-md-12">
+							<h3 class="title-5 m-b-35">listado de docentes</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<form action="#" method="post" class="form-horizontal">
+								<div class="row form-group">
+									<div class="col col-md-12">
+										<div class="input-group">
+											<div class="input-group-btn">
+												<button class="btn btn-primary"
+													onclick="event.preventDefault();">
+													<i class="fa fa-search"></i> Buscar
+												</button>
+											</div>
+											<input type="text" id="input1-group2" name="input1-group2"
+												placeholder="Buscar docente" class="form-control">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-lg-6">
+							<div class="table-data__tool">
+								<div class="table-data__tool-right">
+									<a th:href="@{/create-user}">
+										<button class="au-btn au-btn-icon au-btn--green au-btn--small">
+											<i class="zmdi zmdi-plus"></i>agregar
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+
+						<div class="table-responsive table-responsive-data2">
+							<table class="table table-data2 text-center">
+								<thead>
+									<tr>
+										<th>cédula</th>
+										<th>apellidos</th>
+										<th>nombres</th>
+										<th>correo electrónico</th>
+										<th>telefono</th>
+										<th>acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="tr-shadow">
+										<td>1205268595</td>
+										<td>Jordan Cordones</td>
+										<td>Freddy Maximiliano</td>
+										<td><span class="block-email">lori@example.com</span></td>
+										<td class="desc">0985698521</td>
+										<td>
+											<div class="table-data-feature">
+												<button class="item" data-toggle="tooltip"
+													data-placement="top" title="Editar">
+													<i class="zmdi zmdi-edit"></i>
+												</button>
+												<button class="item" type="button" data-toggle="modal"
+													data-target="#eliminarDocente" title="Eliminar">
+													<i class="zmdi zmdi-delete"></i>
+												</button>
+												<button class="item" data-toggle="tooltip"
+													data-placement="top" title="Más">
+													<i class="zmdi zmdi-more"></i>
+												</button>
+											</div>
+										</td>
+									</tr>
+									<tr class="spacer"></tr>
+
+								</tbody>
+							</table>
+						</div>
+						<!-- END DATA TABLE-->
+					</div>
+				</div>
+				<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+			</div>
+			<div class="modal fade" id="eliminarDocente" tabindex="-1"
+				role="dialog" aria-labelledby="staticModalLabel"
+				data-backdrop="static" style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticModalLabel">Eliminar
+								docente</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>¿Esta seguro que desea eliminar a este docente?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancelar</button>
+							<button type="button" class="btn btn-primary">Confirmar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END MAIN CONTENT-->
+	</div>
+	<!-- END PAGE CONTAINER-->
+
+	<div th:replace="layout/app :: endPage"></div>
+</body>
+
+</html>
+<!-- end document-->

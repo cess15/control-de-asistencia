@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.thymeleaf.org">
+<!-- Basic -->
+
+<head th:replace="landing/layout :: head"></head>
+
+<body data-spy="scroll" data-target="#navbar-wd" data-offset="98">
+
+	<!-- LOADER -->
+	<div th:replace="landing/layout :: preLoader"></div>
+	<!-- end loader -->
+	<!-- END LOADER -->
+
+	<!-- Start header -->
+	<header th:replace="landing/layout :: header"> </header>
+	<!-- End header -->
+
+	<div class="content-body">
+		<!-- Start Banner -->
+		<div class="ulockd-home-slider">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="pogoSlider" id="js-main-slider">
+						<div class="pogoSlider-slide"
+							style="background-image: url(/images/slider-01.jpg);">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="slide_text">
+											<h3>
+												<span class="theme_color">MANEJE</span> FÁCILMENTE <br>
+												CONTROLES DE ASISTENCIA
+											</h3>
+											<br>
+											<h4>
+												GENERACIÓN DE REPORTES<br>Y JUSTIFICATIVOS EN MINUTOS
+											</h4>
+											<br>
+											<p>
+												Cree su justificativo en línea<br> y genere un PDF al
+												instante.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="pogoSlider-slide"
+							style="background-image: url(/images/slider-01.jpg);">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="slide_text">
+											<h3>
+												<span class="theme_color">MANEJE</span> FÁCILMENTE <br>
+												CONTROLES DE ASISTENCIA
+											</h3>
+											<br>
+											<h4>
+												GENERACIÓN DE REPORTES<br>Y JUSTIFICATIVOS EN MINUTOS
+											</h4>
+											<br>
+											<p>
+												Cree su justificativo en línea<br> y genere un PDF al
+												instante.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- .pogoSlider -->
+
+				</div>
+			</div>
+		</div>
+		<!-- End Banner -->
+		<div>
+			<div class="section layout_padding" id="caracteristicas">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="full center">
+								<div class="heading_main text_align_center">
+									<h2>
+										<span class="theme_color">UNA SOLA PLATAFORMA</span> TODOS LOS
+										JUSTIFICATIVOS
+									</h2>
+									<p class="large">Administre de manera rápida y eficaz la
+										entrega de justificativos por inasistencia de docentes</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- section -->
+			<div class="section layout_padding theme_bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12 text_align_center">
+							<div class="full">
+								<img class="img-responsive" src="/images/resume_img.png" alt="#" />
+							</div>
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sm-12 white_fonts">
+							<h3 class="small_heading">TODO LO QUE NECESITAS EN UNA
+								SOLUCIÓN</h3>
+							<p>ORGANIZADO, EFICIENTE Y RÁPIDO</p>
+							<p>
+								Lleve un control diario del registro de asistencia de los
+								docentes. El panel de administración de asistencias le permite
+								marcar a los profesores que han faltado, y generar una
+								notificación por correo de manera automática para todos los
+								docentes que no hayan asistido.<br>
+							</p>
+							<p>El profesor podrá entrar a la plataforma y llenar un
+								formulario con los detalles de la justificación de la
+								inasistencia. Al concluir el formulario se le permitirá generar
+								un PDF que deberá presentar de forma física al área de Recursos
+								Humanos (RRHH)</p>
+							<a href="#" class="hvr-radial-out button-theme">Inicie aquí ></a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end section -->
+
+			<div id="about">
+				<!-- section -->
+				<div class="section layout_padding">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="full center margin-bottom_30">
+									<div class="heading_main text_align_center">
+										<h2>
+											<span class="theme_color">ACERCA DE</span> NOSOTROS
+										</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12">
+								<div id="demo" class="carousel slide" data-ride="carousel">
+
+									<!-- The slideshow -->
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<div class="row">
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" th:src="@{images/img1.png}"
+														alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" src="/images/img2.png" alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" src="/images/img3.png" alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" src="/images/img4.png" alt="#" />
+												</div>
+											</div>
+										</div>
+										<div class="carousel-item">
+											<div class="row">
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" th:src="@{images/img1.png}"
+														alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" th:src="@{images/img2.png}" alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" th:src="@{images/img3.png}" alt="#" />
+												</div>
+												<div class="col-lg-3 col-md-6 col-sm-12">
+													<img class="img-responsive" th:src="@{images/img4.png}" alt="#" />
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Left and right controls -->
+									<a class="carousel-control-prev" href="#demo" data-slide="prev">
+										<span class="carousel-control-prev-icon"></span>
+									</a> <a class="carousel-control-next" href="#demo"
+										data-slide="next"> <span
+										class="carousel-control-next-icon"></span>
+									</a>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="col-lg-6">
+								<h1 class="center">
+									<b>Misión</b>
+								</h1>
+								<p>Somos una Institución de Educación Superior orientada a
+									formar profesionales tecnológicos competentes, con valores
+									éticos y morales que contribuyen al desarrollo social,
+									económico, político y cultural del país, mediante el
+									fortalecimiento sistemático de la docencia, vinculación con la
+									sociedad e investigación.</p>
+							</div>
+							<div class="col-lg-6">
+								<h1 class="center">
+									<b>Visión</b>
+								</h1>
+								<p>Ser un Instituto Tecnológico de Educación Superior
+									acreditado, con una oferta académica pertinente a las
+									necesidades del territorio, siendo un referente a nivel
+									nacional que contribuye a la sociedad con profesionales
+									integrales que aportan al desarrollo sostenible del país.</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- end section -->
+			</div>
+
+			<div id="contact"></div>
+			<!-- section -->
+			<div class="section layout_padding theme_bg">
+				<!-- section -->
+				<div id="contact">
+					<div class="container">
+						<h1 class="large text-light center">
+							<b>Contacto</b>
+						</h1>
+						<br>
+						<div class="row">
+							<div class="col-lg-7 col-sm-7 col-xs-12">
+								<div class="contact-block">
+									<form id="contactForm">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" class="form-control text-light"
+														id="name" name="name" placeholder="Su nombre" required
+														data-error="Por favor, ingrese su nombre">
+													<div class="help-block with-errors"></div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" placeholder="Su correo" id="email"
+														class="form-control text-light" name="name" required
+														data-error="Por favor, ingrese un correo">
+													<div class="help-block with-errors"></div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="text" placeholder="Su número" id="number"
+														class="form-control text-light" name="number" required
+														data-error="Por favor, ingrese un número">
+													<div class="help-block with-errors"></div>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<textarea class="form-control text-light" id="message"
+														placeholder="Su mensaje" rows="8"
+														data-error="Escriba su mensaje" required></textarea>
+													<div class="help-block with-errors"></div>
+												</div>
+												<div class="submit-button text-center">
+													<button class="btn btn-common" id="submit" type="submit">Envíe
+														mensaje</button>
+													<div id="msgSubmit" class="h3 text-center hidden"></div>
+													<div class="clearfix"></div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+
+							<div class="col-lg-5 col-sm-5 col-xs-12">
+								<div class="left-contact">
+									<div class="media cont-line">
+										<div class="media-left icon-b">
+											<i class="fa fa-location-arrow" aria-hidden="true"></i>
+										</div>
+										<div class="media-body dit-right">
+											<h4 class="text-light">Dirección</h4>
+											<p class="text-light">Av Enrique Ponce Luque Babahoyo</p>
+										</div>
+									</div>
+									<div class="media cont-line">
+										<div class="media-left icon-b">
+											<i class="fa fa-envelope" aria-hidden="true"></i>
+										</div>
+										<div class="media-body dit-right">
+											<h4 class="text-light">Correo electrónico</h4>
+											<p class="text-light">info@istb.edu.ec</p>
+										</div>
+									</div>
+									<div class="media cont-line">
+										<div class="media-left icon-b">
+											<i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+										</div>
+										<div class="media-body dit-right">
+											<h4 class="text-light">Número de teléfono</h4>
+											<p class="text-light">
+												+593 98 872 2143 <br> 05273244
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<!-- end section -->
+			</div>
+			<!-- end section -->
+
+			<!-- section -->
+			<div class="section layout_padding">
+				<div class="container">
+					<div class="row">
+
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="full">
+								<a target="_blank" href="http://academia.istb.edu.ec/">
+									<div class="center">
+										<img th:src="@{images/icon1.png}" alt="#" />
+									</div>
+									<div class="center">
+										<h4>Sistema académico</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="full">
+								<a target="_blank" href="https://istb.edu.ec/proyectos-pis/">
+									<div class="center">
+										<img th:src="@{images/icon2.png}" alt="#" />
+									</div>
+									<div class="center">
+										<h4>Repositorio</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-4 col-sm-12">
+							<div class="full">
+								<a target="_blank" href="http://aulavirtual.istb.edu.ec/">
+									<div class="center">
+										<img th:src="@{images/icon3.png}" alt="#" />
+									</div>
+									<div class="center">
+										<h4>Aula virtual</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end section -->
+		</div>
+	</div>
+
+	<div th:replace="landing/layout :: endPage"></div>
+</body>
+
+</html>
