@@ -36,53 +36,51 @@ import lombok.NoArgsConstructor;
 public class Permiso implements Serializable {
 
 	private static final long serialVersionUID = 8400576721684543337L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "fecha_inicio")
 	private LocalDate fechaInicio;
-	
+
 	@Column(name = "fecha_final")
 	private LocalDate fechaFinal;
-	
+
 	@Column(name = "hora_inicio")
 	private LocalTime horaInicio;
-	
+
 	@Column(name = "hora_final")
 	private LocalTime horaFinal;
-	
+
 	private String observacion;
-	
+
 	@Column(name = "valor_descontar")
 	private Double valorDescontar;
-	
+
 	@Column(name = "fecha_generacion")
 	private LocalDate fechaGeneracion;
-	
+
 	@Column(name = "fecha_recepcion")
 	private LocalDate fechaRecepcion;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"permisos"})
+	@JsonIgnoreProperties({ "permisos" })
 	private Inasistencia inasistencia;
-	
+
 	@Column(name = "fecha_creacion", updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaCreacion;
-	
+
 	@Column(name = "fecha_actualizacion")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaActualizacion;
-	
+
 	@ManyToMany
-    @JoinTable(name = "motivo_permiso", 
-    joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), 
-    inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id")) 
+	@JoinTable(name = "motivo_permiso", joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
 	private Collection<Motivo> motivos;
-	
+
 	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"permiso"})
+	@JsonIgnoreProperties({ "permiso" })
 	private Collection<Adjunto> adjuntos;
 }

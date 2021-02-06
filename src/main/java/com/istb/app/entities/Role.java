@@ -36,7 +36,7 @@ public class Role implements Serializable {
 	@NotEmpty(message = "El nombre del rol es requerido.")
 	private String nombre;
 	
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"roles"})
 	private Collection<Usuario> usuarios;
 
