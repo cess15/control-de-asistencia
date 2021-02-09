@@ -60,4 +60,19 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	}
 
+	@Override
+	public void save(Profesor profesor) {
+		profesorRepository.save(profesor);
+
+	}
+
+	@Override
+	public Profesor findByCorreo(String correo) {
+		Profesor profesor = profesorRepository.findByCedula(correo);
+		if (profesor != null) {
+			return profesor;
+		}
+		return null;
+	}
+
 }

@@ -195,8 +195,9 @@
 										<h5 class="name">
 											<a href="#" sec:authentication="name"></a>
 										</h5>
-										
-											<span class="email">johndoe@example.com</span>
+										<div sec:authorize="hasAuthority('Secretaria')">
+											<span class="email">johndoe@example.com</span>										
+										</div>
 									</div>
 								</div>
 								<div class="account-dropdown__body">

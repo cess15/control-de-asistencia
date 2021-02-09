@@ -31,6 +31,11 @@
 		<div class="main-content">
 			<div class="section__content section__content--p30">
 				<div class="container-fluid">
+					<div
+						th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+						th:if="${mensaje != null}" th:text="${mensaje}"
+						class="alert">
+					</div>
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="card">
@@ -38,26 +43,52 @@
 									<strong>Nuevo</strong> Profesor
 								</div>
 								<div class="card-body card-block">
-									<form action="" method="post" class="form-horizontal">
+									<form th:action="@{/agregar-usuario}" method="post"
+										class="form-horizontal">
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="nombres" class="form-control-label">Nombres</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" id="nombres" name="nombres"
+													placeholder="Ingrese nombres..." class="form-control">
+												<span class="help-block">Por favor, escriba los
+													nombres completos</span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="apellidos" class="form-control-label">Apellidos</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" id="apellidos" name="apellidos"
+													placeholder="Ingrese apellidos..." class="form-control">
+												<span class="help-block">Por favor, escriba los
+													apellidos completos</span>
+											</div>
+										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
 												<label for="username" class="form-control-label">Nombre
 													de usuario</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" id="username" name="username"
-													placeholder="Ingrese nombre de usuario..." class="form-control">
-												<span class="help-block">Por favor, escriba un nombre de usuario</span>
+												<input type="text" id="username" name="nombreUsuario"
+													placeholder="Ingrese nombre de usuario..."
+													class="form-control"> <span class="help-block">Por
+													favor, escriba un nombre de usuario</span>
 											</div>
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="email" class=" form-control-label">Correo electrónico</label>
+												<label for="correo" class=" form-control-label">Correo
+													electrónico</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="email" id="email" name="email"
-													placeholder="Ingrese correo electrónico..." class="form-control">
-												<span class="help-block">Por favor, escriba un correo electrónico</span>
+												<input type="email" id="correo" name="correo"
+													placeholder="Ingrese correo electrónico..."
+													class="form-control"> <span class="help-block">Por
+													favor, escriba un correo electrónico</span>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -65,20 +96,21 @@
 												<label for="password" class=" form-control-label">Contraseña</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="password" id="password" name="password"
+												<input type="password" id="password" name="contrasena"
 													placeholder="Ingrese contraseña..." class="form-control">
-												<span class="help-block">Por favor, escriba una contraseña</span>
+												<span class="help-block">Por favor, escriba una
+													contraseña</span>
 											</div>
 										</div>
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary btn-sm">
+												<i class="fa fa-dot-circle-o"></i> Registrar
+											</button>
+											<button type="reset" class="btn btn-danger btn-sm">
+												<i class="fa fa-ban"></i> Resetear
+											</button>
+										</div>
 									</form>
-								</div>
-								<div class="card-footer">
-									<button type="submit" class="btn btn-primary btn-sm">
-										<i class="fa fa-dot-circle-o"></i> Registrar
-									</button>
-									<button type="reset" class="btn btn-danger btn-sm">
-										<i class="fa fa-ban"></i> Resetear
-									</button>
 								</div>
 							</div>
 						</div>

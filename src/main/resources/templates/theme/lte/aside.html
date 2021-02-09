@@ -1,20 +1,23 @@
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar d-none d-lg-block" th:fragment="aside">
 	<div class="logo">
-		<a th:href="@{/inicio}"> <img th:src="@{images/logo.png}" width="140px" alt="ISTB" />
+		<a th:href="@{/inicio}"> <img th:src="@{images/logo.png}"
+			width="140px" alt="ISTB" />
 		</a>
 	</div>
 	<div class="menu-sidebar__content js-scrollbar1">
 		<nav class="navbar-sidebar">
 			<ul class="list-unstyled navbar__list">
-				<li class="active has-sub"><a class="js-arrow" href="#"> <i
+				<li class="has-sub"><a class="js-arrow" href="#"> <i
 						class="fas fa-tachometer-alt"></i>Dashboard
 				</a>
 					<ul class="list-unstyled navbar__sub-list js-sub-list">
 						<li><a href="#">Dashboard 1</a></li>
 						<li><a href="#">Dashboard 2</a></li>
 					</ul></li>
-				<li><a href="#"> <i class="fas fa-chart-bar"></i>Charts
+				
+				<li th:classappend="${#request.requestURI.startsWith('/asistencias') ? 'active' : ''}"><a th:href="@{/asistencias}"> <i
+						class="fas fa-chart-bar"></i>Asistencias
 				</a></li>
 				<li><a href="#"> <i class="fas fa-table"></i>Tables
 				</a></li>

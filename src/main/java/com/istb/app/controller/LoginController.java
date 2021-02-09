@@ -11,7 +11,7 @@ public class LoginController {
 
 	@GetMapping(value = "/login")
 	public String login(Model model, Principal principal) {
-		if(principal!=null) {
+		if (principal != null) {
 			return "redirect:/inicio";
 		}
 		model.addAttribute("title", "ISTB | Login");

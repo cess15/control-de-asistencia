@@ -15,6 +15,10 @@ public interface ProfesorService {
 	Profesor findById(int id);
 
 	Profesor findByCedula(String cedula);
+	
+	Profesor findByCorreo(String correo);
+
+	void save(Profesor profesor);
 
 	void update(Profesor profesor);
 

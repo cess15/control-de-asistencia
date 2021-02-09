@@ -15,9 +15,10 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityService loadAccessControllList(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/index", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
-		.antMatchers("/inicio","/user/create").hasAuthority("Secretaria").anyRequest().authenticated();
-
+		http.authorizeRequests()
+		.antMatchers("/", "/index", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
+		.antMatchers("/inicio","/agregar-usuario","/asistencias","/api/user").hasAuthority("Secretaria").anyRequest().authenticated();
+		
 		return this;
 	}
 

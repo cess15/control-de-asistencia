@@ -1,9 +1,5 @@
 package com.istb.app.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +26,13 @@ public class HomeController {
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
 		return "inicio";
+	}
+	
+	@GetMapping(value="/asistencias")
+	public String asistencias(Model model) {
+		model.addAttribute("title", "Panel ISTB");
+		model.addAttribute("user", userCredentials.getUserAuth());
+		return "dashboard/asistencias";
 	}
 
 	@PostMapping("/uploadfile")

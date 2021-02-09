@@ -8,4 +8,5 @@ import com.istb.app.entities.Profesor;
 @Repository
 public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
 	Profesor findByCedula(String cedula);
+	Profesor findByCorreo(String correo);
 }
