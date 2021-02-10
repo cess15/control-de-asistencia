@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,5 +37,12 @@ public class Role implements Serializable {
 	private String nombre;
 	
 	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"roles"})
 	private Collection<Usuario> usuarios;
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", nombre=" + nombre + "]";
+	}
+	
 }

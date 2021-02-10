@@ -1,0 +1,48 @@
+<!-- MENU SIDEBAR-->
+<aside class="menu-sidebar d-none d-lg-block" th:fragment="aside">
+	<div class="logo">
+		<a th:href="@{/inicio}"> <img th:src="@{images/logo.png}"
+			width="140px" alt="ISTB" />
+		</a>
+	</div>
+	<div class="menu-sidebar__content js-scrollbar1">
+		<nav class="navbar-sidebar">
+			<ul class="list-unstyled navbar__list">
+				<li class="has-sub"><a class="js-arrow" href="#"> <i
+						class="fas fa-tachometer-alt"></i>Dashboard
+				</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="#">Dashboard 1</a></li>
+						<li><a href="#">Dashboard 2</a></li>
+					</ul></li>
+				
+				<li th:classappend="${#request.requestURI.startsWith('/asistencias') ? 'active' : ''}"><a th:href="@{/asistencias}"> <i
+						class="fas fa-chart-bar"></i>Asistencias
+				</a></li>
+				<li><a href="#"> <i class="fas fa-table"></i>Tables
+				</a></li>
+				<li><a href="#"> <i class="far fa-check-square"></i>Forms
+				</a></li>
+				<li><a href="#"> <i class="fas fa-calendar-alt"></i>Calendar
+				</a></li>
+				<li><a href="#"> <i class="fas fa-map-marker-alt"></i>Maps
+				</a></li>
+				<li class="has-sub"><a class="js-arrow" href="#"> <i
+						class="fas fa-copy"></i>Pages
+				</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="#">Login</a></li>
+						<li><a href="#">Register</a></li>
+					</ul></li>
+				<li class="has-sub"><a class="js-arrow" href="#"> <i
+						class="fas fa-desktop"></i>UI Elements
+				</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="#">Button</a></li>
+						<li><a href="#">Badges</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+<!-- END MENU SIDEBAR-->

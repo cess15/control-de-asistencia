@@ -7,7 +7,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,37 +30,37 @@ import lombok.NoArgsConstructor;
 public class Profesor implements Serializable {
 
 	private static final long serialVersionUID = -3873128797329352879L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String cedula;
-	
+
 	@NotEmpty(message = "Los nombres son requeridos.")
 	private String nombres;
-	
+
 	@NotEmpty(message = "Los apellidos son requeridos.")
 	private String apellidos;
-	
+
 	@Column(name = "telefono", length = 10)
 	private String telefono;
-	
+
 	@NotEmpty(message = "El correo es requerido.")
 	private String correo;
-	
+
 	@Column(name = "fecha_vacacion_inicio")
 	private LocalDate fechaVacacionInicio;
-	
+
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
-	
+
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
-	@JsonIgnoreProperties({"profesor"})
+	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"profesor"})
+
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "profesor" })
 	private Collection<PeriodoProfesor> profesorPeriodos;
 }

@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "firebase.storage.projectId",
+  "type": "java.lang.String",
+  "description": "A description for 'firebase.storage.projectId'"
+}]}
