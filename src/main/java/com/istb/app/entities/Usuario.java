@@ -2,6 +2,7 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+@Transactional
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
@@ -36,8 +40,10 @@ public class Usuario implements Serializable {
 	private int id;
 
 	@Column(name = "nombre_usuario")
+	@NotEmpty(message = "El nombre de usuario es requerido")
 	private String nombreUsuario;
 
+	@NotEmpty(message = "La contraseña es requerida")
 	private String contrasena;
 
 	@Column(name = "imagen_perfil")
@@ -58,7 +64,7 @@ public class Usuario implements Serializable {
 
 	@ManyToMany
 	@JoinTable(name = "role_usuario", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	@JsonIgnoreProperties({"usuarios"})
+	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
 	@OneToOne(mappedBy = "usuario")
@@ -74,6 +80,20 @@ public class Usuario implements Serializable {
 	@PreUpdate
 	public void preUpdated() {
 		this.fechaActualizacion = LocalDateTime.now();
+	}
+
+	public void addRol(Role rol) {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		this.roles.add(rol);
+	}
+
+	public void removeRol(Role rol) {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		this.roles.remove(rol);
 	}
 
 	public Usuario(int id, String nombreUsuario, String contrasena, String imagenPerfil, String url_imagen_perfil,

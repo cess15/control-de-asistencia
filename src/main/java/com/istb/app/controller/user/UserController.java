@@ -1,14 +1,12 @@
 package com.istb.app.controller.user;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +33,7 @@ public class UserController {
 	@GetMapping("/agregar-usuario")
 	public String loadForm(Model model) {
 		model.addAttribute("title", "Panel ISTB");
+		model.addAttribute("usuario", new Usuario());
 		return "user/create";
 	}
 
@@ -44,40 +43,53 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/agregar-usuario")
-	public String save(@ModelAttribute Usuario usuario, Profesor profesor, RedirectAttributes redirectAttrs)
-			throws Exception {
-		Usuario newUser = userService.findByNombreUsuario(usuario.getNombreUsuario());
-		Usuario nuevoProfesor = userService.findByProfesorCorreo(profesor.getCorreo());
+	public String save(@Valid @ModelAttribute Usuario usuario, BindingResult result, RedirectAttributes redirectAttrs,
+			Model model) throws Exception {
+		if (result.hasErrors()) {
+			model.addAttribute("title", "Panel ISTB");
+			return "user/create";
+
+		}
+		Usuario existeNombreUsuario = userService.findByNombreUsuario(usuario.getNombreUsuario());
+		Usuario existeProfesor = userService.findByProfesorCorreo(usuario.getProfesor().getCorreo());
+		String password = userService.encodePassword(usuario.getContrasena());
+
+		if (existeNombreUsuario != null && existeProfesor != null) {
+			redirectAttrs.addFlashAttribute("nombreUsuario",
+					"Usuario ".concat(usuario.getNombreUsuario()).concat(" ya existe"));
+			redirectAttrs.addFlashAttribute("clase", "text-danger");
+			redirectAttrs
+					.addFlashAttribute("correo",
+							"Usuario con este correo: ".concat(usuario.getProfesor().getCorreo()).concat(" ya existe"))
+					.addFlashAttribute("clase", "text-danger");
+			return "redirect:/agregar-usuario";
+
+		} else if (existeProfesor != null) {
+			redirectAttrs
+					.addFlashAttribute("correo",
+							"Usuario con este correo: ".concat(usuario.getProfesor().getCorreo()).concat(" ya existe"))
+					.addFlashAttribute("clase", "text-danger");
+			return "redirect:/agregar-usuario";
+
+		} else if (existeNombreUsuario != null) {
+			redirectAttrs.addFlashAttribute("nombreUsuario",
+					"Usuario ".concat(usuario.getNombreUsuario()).concat(" ya existe"));
+			redirectAttrs.addFlashAttribute("clase", "text-danger");
+			return "redirect:/agregar-usuario";
+
+		}
+		Profesor profesor = usuario.getProfesor();
+		Usuario user = new Usuario();
 		Role rol = rolService.findByNombre("Docente");
-		Collection<Role> roles = new ArrayList<>();
-		Collection<Usuario> usuarios = new ArrayList<>();
-
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y, 12);
-		String password = passwordEncoder.encode(usuario.getContrasena());
-
-		if (newUser != null) {
-			redirectAttrs
-					.addFlashAttribute("mensaje", "Usuario ".concat(usuario.getNombreUsuario()).concat(" ya existe"))
-					.addFlashAttribute("clase", "danger");
-			return "redirect:/agregar-usuario";
-		}
-		if (nuevoProfesor != null) {
-			redirectAttrs
-					.addFlashAttribute("mensaje",
-							"Usuario con este correo: ".concat(profesor.getCorreo()).concat(" ya existe"))
-					.addFlashAttribute("clase", "danger");
-			return "redirect:/agregar-usuario";
-		}
-		roles.add(rol);
-		usuarios.add(usuario);
-
-		usuario.setRoles(roles);
-		usuario.setEstado(false);
-		usuario.setContrasena(password);
-		rol.setUsuarios(usuarios);
-		userService.save(usuario);
-
-		profesor.setUsuario(usuario);
+		user.setId(usuario.getId());
+		user.setEstado(false);
+		user.setNombreUsuario(usuario.getNombreUsuario());
+		user.setContrasena(password);
+		rol.addUsuario(user);
+		user.addRol(rol);
+		profesor.setId(usuario.getProfesor().getId());
+		profesor.setUsuario(user);
+		userService.save(user);
 		profesorService.save(profesor);
 
 		redirectAttrs.addFlashAttribute("mensaje", "Usuario registrado correctamente").addFlashAttribute("clase",

@@ -50,18 +50,37 @@
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="card-header">
-									<strong>Nuevo</strong> Profesor
+									<strong>Editar</strong> Profesor
 								</div>
 								<div class="card-body card-block">
-									<form th:action="@{/agregar-usuario}" th:object="${usuario}"
-										method="post" class="form-horizontal">
+									<form th:action="@{/editar-profesor/{id}(id=${profesor.id})}"
+										th:object="${profesor}" method="post" class="form-horizontal">
+										<div class="row form-group">
+											<input th:field="*{usuario.id}"> <input
+												th:field="*{usuario.nombreUsuario}"> <input
+												th:field="*{usuario.contrasena}">
+
+											<div class="col col-md-3">
+												<label for="cedula" class="form-control-label">Cédula</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" th:field="*{cedula}"
+													placeholder="Ingrese cédula..." class="form-control">
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('cedula')}"
+													th:errors="*{cedula}"></span>
+											</div>
+										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
 												<label for="nombres" class="form-control-label">Nombres</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" th:field="*{profesor.nombres}"
+												<input type="text" th:field="*{nombres}"
 													placeholder="Ingrese nombres..." class="form-control">
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('nombres')}"
+													th:errors="*{nombres}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -69,25 +88,11 @@
 												<label for="apellidos" class="form-control-label">Apellidos</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" id="apellidos"
-													th:field="*{profesor.apellidos}"
+												<input type="text" id="apellidos" th:field="*{apellidos}"
 													placeholder="Ingrese apellidos..." class="form-control">
-											</div>
-										</div>
-										<div class="row form-group">
-											<div class="col col-md-3">
-												<label for="username" class="form-control-label">Nombre
-													de usuario</label>
-											</div>
-											<div class="col-12 col-md-9">
-												<input type="text" id="username" th:field="*{nombreUsuario}"
-													placeholder="Ingrese nombre de usuario..."
-													class="form-control"> <span
-													class="error text-danger"
-													th:if="${#fields.hasErrors('nombreUsuario')}"
-													th:errors="*{nombreUsuario}"></span><br> <span
-													th:classappend="(${clase != null} ? ${clase} : '')"
-													th:if="${correo != null}" th:text="${correo}" class=""></span>
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('apellidos')}"
+													th:errors="*{apellidos}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -96,26 +101,24 @@
 													electrónico</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="email" id="correo"
-													th:field="*{profesor.correo}"
+												<input type="email" th:field="*{correo}"
 													placeholder="Ingrese correo electrónico..."
 													class="form-control"> <span
-													th:classappend="(${clase != null} ? ${clase} : '')"
-													th:if="${correo != null}" th:text="${correo}" class=""></span>
-
+													class="error text-danger"
+													th:if="${#fields.hasErrors('correo')}"
+													th:errors="*{correo}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="password" class=" form-control-label">Contraseña</label>
+												<label for="correo" class=" form-control-label">Télefono</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="password" id="password"
-													th:field="*{contrasena}"
-													placeholder="Ingrese contraseña..." class="form-control">
+												<input type="email" id="correo" th:field="*{telefono}"
+													placeholder="Ingrese télefono..." class="form-control">
 												<span class="error text-danger"
-													th:if="${#fields.hasErrors('contrasena')}"
-													th:errors="*{contrasena}"></span>
+													th:if="${#fields.hasErrors('telefono')}"
+													th:errors="*{telefono}"></span>
 											</div>
 										</div>
 										<div class="card-footer">
@@ -132,14 +135,15 @@
 						</div>
 					</div>
 					<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+
 				</div>
 			</div>
 		</div>
 		<!-- END MAIN CONTENT-->
 	</div>
 	<!-- END PAGE CONTAINER-->
-
 	<div th:replace="layout/app :: endPage"></div>
+
 </body>
 </html>
 <!-- end document-->

@@ -28,7 +28,7 @@
 		<!-- MAIN CONTENT-->
 
 		<div class="main-content">
-			<div class="section__content section__content--p30">
+			<div style="position: relative; margin: 0 auto; padding: 0 30px;">
 				<div class="container-fluid">
 					<!-- 						<form th:action="@{/uploadfile}" method="POST" enctype="multipart/form-data"> -->
 					<!-- 							<input type="file" name="file"> -->
@@ -70,14 +70,12 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="row">
-
-
 						<div class="table-responsive table-responsive-data2">
 							<table class="table table-data2 text-center">
 								<thead>
 									<tr>
+										<th>nombre de usuario</th>
 										<th>cédula</th>
 										<th>apellidos</th>
 										<th>nombres</th>
@@ -87,26 +85,55 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="tr-shadow">
-										<td>1205268595</td>
-										<td>Jordan Cordones</td>
-										<td>Freddy Maximiliano</td>
-										<td><span class="block-email">lori@example.com</span></td>
-										<td class="desc">0985698521</td>
+									<tr class="tr-shadow" th:each="profesor : ${profesores}">
+										<td th:text="${profesor.usuario.nombreUsuario}"></td>
+										<td th:text="${profesor.cedula}"></td>
+										<td th:text="${profesor.apellidos}"></td>
+										<td th:text="${profesor.nombres}"></td>
+										<td><span class="block-email"
+											th:text="${profesor.correo}"></span></td>
+										<td class="desc" th:text="${profesor.telefono}"></td>
 										<td>
 											<div class="table-data-feature">
-												<button class="item" data-toggle="tooltip"
-													data-placement="top" title="Editar">
-													<i class="zmdi zmdi-edit"></i>
-												</button>
-												<button class="item" type="button" data-toggle="modal"
-													data-target="#eliminarDocente" title="Eliminar">
-													<i class="zmdi zmdi-delete"></i>
-												</button>
-												<button class="item" data-toggle="tooltip"
-													data-placement="top" title="Más">
-													<i class="zmdi zmdi-more"></i>
-												</button>
+												<a th:href="@{/editar-profesor/{id}(id=${profesor.id})}"><button
+														class="item mr-1" data-toggle="tooltip"
+														data-placement="top" title="Editar">
+														<i class="zmdi zmdi-edit"></i>
+													</button> </a> <a href="#" class="item" data-toggle="modal"
+													th:attr="data-target='#staticModal_'+${profesor.id}"> <i
+													class="zmdi zmdi-delete"></i>
+												</a>
+												<!-- MODAL-->
+												<div class="modal fade"
+													th:attr="id='staticModal_'+${profesor.id}" tabindex="-1"
+													role="dialog" aria-labelledby="staticModalLabel"
+													aria-hidden="true" data-backdrop="static">
+													<div class="modal-dialog modal-sm" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="staticModalLabel">Eliminar
+																	Médico</h5>
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<p>¿Esta seguro que desea eliminar?</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Cancelar</button>
+																<a
+																	th:href="@{/eliminar-profesor/{id}(id=${profesor.id})}">
+																	<button type="button" class="btn btn-primary">Confirmar</button>
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- END MODAL-->
+
 											</div>
 										</td>
 									</tr>
@@ -120,36 +147,14 @@
 				</div>
 				<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
 			</div>
-			<div class="modal fade" id="eliminarDocente" tabindex="-1"
-				role="dialog" aria-labelledby="staticModalLabel"
-				data-backdrop="static" style="display: none;" aria-hidden="true">
-				<div class="modal-dialog modal-sm" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="staticModalLabel">Eliminar
-								docente</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<p>¿Esta seguro que desea eliminar a este docente?</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancelar</button>
-							<button type="button" class="btn btn-primary">Confirmar</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		<!-- END MAIN CONTENT-->
+
 	</div>
 	<!-- END PAGE CONTAINER-->
 
 	<div th:replace="layout/app :: endPage"></div>
+
 </body>
 
 </html>

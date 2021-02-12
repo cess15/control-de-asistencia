@@ -1,8 +1,11 @@
 package com.istb.app.services.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.istb.app.entities.Usuario;
@@ -56,6 +59,22 @@ public class UserServiceImpl implements UserService {
 		}
 		return null;
 
+	}
+
+	@Override
+	public String encodePassword(String contrasena) {
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y, 12);
+		return passwordEncoder.encode(contrasena);
+
+	}
+
+	@Override
+	public Usuario findById(int id) {
+		Optional<Usuario> usuario = userRepository.findById(id);
+		if (usuario.isPresent()) {
+			return usuario.get();
+		}
+		return null;
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Transactional
 @Table(name = "profesores")
 public class Profesor implements Serializable {
 
@@ -63,4 +65,28 @@ public class Profesor implements Serializable {
 	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "profesor" })
 	private Collection<PeriodoProfesor> profesorPeriodos;
+
+	public Profesor(int id, String cedula, @NotEmpty(message = "Los nombres son requeridos.") String nombres,
+			@NotEmpty(message = "Los apellidos son requeridos.") String apellidos, String telefono,
+			@NotEmpty(message = "El correo es requerido.") String correo, LocalDate fechaVacacionInicio,
+			LocalDate fechaVacacionFinal, Usuario usuario) {
+		super();
+		this.id = id;
+		this.cedula = cedula;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.fechaVacacionInicio = fechaVacacionInicio;
+		this.fechaVacacionFinal = fechaVacacionFinal;
+		this.usuario = usuario;
+	}
+
+	@Override
+	public String toString() {
+		return "Profesor [id=" + id + ", cedula=" + cedula + ", nombres=" + nombres + ", apellidos=" + apellidos
+				+ ", telefono=" + telefono + ", correo=" + correo + ", fechaVacacionInicio=" + fechaVacacionInicio
+				+ ", fechaVacacionFinal=" + fechaVacacionFinal + ", usuario=" + usuario + "]";
+	}
+
 }

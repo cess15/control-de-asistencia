@@ -19,7 +19,6 @@ public class RolServiceImpl implements RolService {
 			return rol;
 		}
 		return null;
-		
-	}
 
+	}
 }

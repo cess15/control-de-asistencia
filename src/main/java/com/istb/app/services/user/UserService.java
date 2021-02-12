@@ -11,9 +11,13 @@ public interface UserService {
 
 	void update(Usuario usuario);
 
+	Usuario findById(int id);
+
 	Usuario findByNombreUsuario(String nombreUsuario);
 
 	Usuario findByProfesorCorreo(String correo);
+
+	String encodePassword(String contrasena);
 
 	void delete(int id);
 }

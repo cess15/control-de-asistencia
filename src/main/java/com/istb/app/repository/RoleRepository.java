@@ -8,4 +8,5 @@ import com.istb.app.entities.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 	Role findByNombre(String nombre);
+	
 }
