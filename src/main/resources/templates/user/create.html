@@ -57,11 +57,27 @@
 										method="post" class="form-horizontal">
 										<div class="row form-group">
 											<div class="col col-md-3">
+												<label for="cedula" class="form-control-label">Cédula</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" th:field="*{profesor.cedula}"
+													placeholder="Ingrese cédula..." class="form-control">
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('profesor.cedula')}"
+													th:errors="*{profesor.cedula}"></span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
 												<label for="nombres" class="form-control-label">Nombres</label>
 											</div>
 											<div class="col-12 col-md-9">
 												<input type="text" th:field="*{profesor.nombres}"
 													placeholder="Ingrese nombres..." class="form-control">
+												<span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('profesor.nombres')}"
+													th:errors="*{profesor.nombres}"></span><br>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -72,12 +88,15 @@
 												<input type="text" id="apellidos"
 													th:field="*{profesor.apellidos}"
 													placeholder="Ingrese apellidos..." class="form-control">
+												<span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('profesor.apellidos')}"
+													th:errors="*{profesor.apellidos}"></span><br>
 											</div>
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="username" class="form-control-label">Nombre
-													de usuario</label>
+												<label for="username" class="form-control-label">Nombre de usuario</label>
 											</div>
 											<div class="col-12 col-md-9">
 												<input type="text" id="username" th:field="*{nombreUsuario}"
@@ -87,7 +106,7 @@
 													th:if="${#fields.hasErrors('nombreUsuario')}"
 													th:errors="*{nombreUsuario}"></span><br> <span
 													th:classappend="(${clase != null} ? ${clase} : '')"
-													th:if="${correo != null}" th:text="${correo}" class=""></span>
+													th:if="${correo != null}" th:text="${correo}" class=""></span><br>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -102,7 +121,10 @@
 													class="form-control"> <span
 													th:classappend="(${clase != null} ? ${clase} : '')"
 													th:if="${correo != null}" th:text="${correo}" class=""></span>
-
+													<span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('profesor.correo')}"
+													th:errors="*{profesor.correo}"></span><br>
 											</div>
 										</div>
 										<div class="row form-group">

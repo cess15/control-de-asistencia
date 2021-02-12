@@ -56,10 +56,6 @@
 									<form th:action="@{/editar-profesor/{id}(id=${profesor.id})}"
 										th:object="${profesor}" method="post" class="form-horizontal">
 										<div class="row form-group">
-											<input th:field="*{usuario.id}"> <input
-												th:field="*{usuario.nombreUsuario}"> <input
-												th:field="*{usuario.contrasena}">
-
 											<div class="col col-md-3">
 												<label for="cedula" class="form-control-label">Cédula</label>
 											</div>
@@ -114,7 +110,7 @@
 												<label for="correo" class=" form-control-label">Télefono</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="email" id="correo" th:field="*{telefono}"
+												<input type="text" id="correo" th:field="*{telefono}"
 													placeholder="Ingrese télefono..." class="form-control">
 												<span class="error text-danger"
 													th:if="${#fields.hasErrors('telefono')}"

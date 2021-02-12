@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,7 +30,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Transactional
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
@@ -67,7 +67,8 @@ public class Usuario implements Serializable {
 	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@Valid
 	@JsonIgnoreProperties({ "usuario" })
 	private Profesor profesor;
 

@@ -14,8 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,7 +28,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Transactional
 @Table(name = "profesores")
 public class Profesor implements Serializable {
 
@@ -37,6 +37,9 @@ public class Profesor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotEmpty(message = "La cédula es requerida.")
+	@Column(name = "cedula", length = 10)
+	@Size(max = 10, min = 10, message = "La cédula debe tener 10 dígitos.")
 	private String cedula;
 
 	@NotEmpty(message = "Los nombres son requeridos.")
@@ -49,6 +52,7 @@ public class Profesor implements Serializable {
 	private String telefono;
 
 	@NotEmpty(message = "El correo es requerido.")
+	@Email(message = "El correo tiene un formato inválido")
 	private String correo;
 
 	@Column(name = "fecha_vacacion_inicio")
@@ -57,7 +61,7 @@ public class Profesor implements Serializable {
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;

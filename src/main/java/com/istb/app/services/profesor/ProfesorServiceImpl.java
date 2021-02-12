@@ -3,6 +3,8 @@ package com.istb.app.services.profesor;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,16 +50,41 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	}
 
+	@Transactional
 	@Override
-	public void update(Profesor profesor) {
-		profesorRepository.save(profesor);
-
+	public void update(Profesor profesor, int id) {
+		Profesor _profesor = profesorRepository
+				.findById(id).orElse(null);
+		
+		if (!profesor.getCedula().isEmpty() && !profesor.getCedula().equals(_profesor.getCedula())) {
+			_profesor.setCedula(profesor.getCedula());
+		}
+		
+		if (!profesor.getNombres().isEmpty() && !profesor.getNombres().equals(_profesor.getNombres())) {
+			_profesor.setNombres(profesor.getNombres());
+		}
+		
+		if (!profesor.getApellidos().isEmpty() && !profesor.getApellidos().equals(_profesor.getApellidos())) {
+			_profesor.setApellidos(profesor.getApellidos());
+		}
+		
+		if (!profesor.getCorreo().isEmpty() && !profesor.getCorreo().equals(_profesor.getCorreo())) {
+			_profesor.setCorreo(profesor.getCorreo());
+		}
+		
+		if (!profesor.getTelefono().isEmpty() && !profesor.getTelefono().equals(_profesor.getTelefono())) {
+			_profesor.setTelefono(profesor.getTelefono());
+		}
+		
+		profesorRepository.save(_profesor);
 	}
 
 	@Override
 	public void delete(int id) {
+		// Elimina primero la asignación del rol del profesor
+		// Luego el profesor
+		// y Finalmente el usuario
 		profesorRepository.deleteById(id);
-
 	}
 
 	@Override
@@ -65,7 +92,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 		profesorRepository.save(profesor);
 
 	}
-
+	
 	@Override
 	public Profesor findByCorreo(String correo) {
 		Profesor profesor = profesorRepository.findByCedula(correo);

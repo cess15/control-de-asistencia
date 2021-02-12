@@ -20,7 +20,7 @@ public interface ProfesorService {
 
 	void save(Profesor profesor);
 
-	void update(Profesor profesor);
+	void update(Profesor profesor, int id);
 
 	void delete(int id);
 
