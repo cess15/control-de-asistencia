@@ -38,18 +38,16 @@ public class ProfesorController {
 		@PathVariable("id") int id, 
 		@ModelAttribute("profesor") Profesor profesor, Model model) {
 		
-		// model.addAttribute("profesor", profesorService.findById(id));
+		model.addAttribute("profesor", profesorService.findById(id));
 	
 		return "user/edit";
 	
 	}
 
 	@PostMapping(value = "/editar-profesor/{id}")
-	public String save(@PathVariable("id") int id, @Valid @ModelAttribute("profesor") Profesor profesor,
+	public String actualizarProfesor(@PathVariable("id") int id, @Valid @ModelAttribute("profesor") Profesor profesor,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs) throws Exception {
-		
-		log.info(profesor.toString());
-		
+			
 		if (result.hasErrors()) {
 			model.addAttribute("profesor", profesor);
 			return "user/edit";
@@ -63,20 +61,10 @@ public class ProfesorController {
 	public String delete(@PathVariable("id") int id, Model model) throws Exception {
 		model.addAttribute("profesor", profesorService.findById(id));
 
-		// Role rol = rolService.findByNombre("Docente");
-		// rol.removeUsuario(user);
-		// user.removeRol(rol);
-		// userService.delete(user.getId());
-		// profesorService.delete(profesor.getId());
-
-		// System.out.println(user);
-		// System.out.println(p);
-		// System.out.println(rol);
-		/*
-		 * rol.removeUsuario(user); user.removeRol(rol);
-		 * userService.delete(user.getId()); profesorService.delete(profesor.getId());
-		 */
+		profesorService.delete(id);
+		
 		return "redirect:/inicio";
+
 	}
 
 	@ModelAttribute

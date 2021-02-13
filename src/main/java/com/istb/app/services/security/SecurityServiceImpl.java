@@ -1,6 +1,7 @@
 package com.istb.app.services.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,8 +16,8 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityService loadAccessControllList(HttpSecurity http) throws Exception {
+		
 		http.authorizeRequests()
-			
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
 				"/dist/**","/images/**").permitAll()
 			
@@ -40,6 +41,7 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityService loadLogout(HttpSecurity http) throws Exception {
+		
 		http.logout().deleteCookies("JSESSIONID");
 
 		return this;

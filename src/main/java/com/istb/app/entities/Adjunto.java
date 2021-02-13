@@ -40,4 +40,5 @@ public class Adjunto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"adjuntos"})
 	private Permiso permiso;
+	
 }

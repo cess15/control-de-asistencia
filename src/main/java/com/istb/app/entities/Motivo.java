@@ -49,4 +49,5 @@ public class Motivo implements Serializable {
 	
 	@ManyToMany(mappedBy = "motivos", fetch = FetchType.LAZY)
 	private Collection<Permiso> permisos;
+
 }

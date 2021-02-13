@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "roles")
 public class Role implements Serializable {
 
-	private static final long serialVersionUID = 219984316499223589L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Role implements Serializable {
 	@NotEmpty(message = "El nombre del rol es requerido.")
 	private String nombre;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({ "roles" })
 	private Collection<Usuario> usuarios;
 

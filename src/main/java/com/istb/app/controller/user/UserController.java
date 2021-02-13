@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.istb.app.entities.Profesor;
-import com.istb.app.entities.Usuario;
 import com.istb.app.services.profesor.ProfesorServiceImpl;
 import com.istb.app.services.rol.RolServiceImpl;
 import com.istb.app.services.user.UserServiceImpl;
@@ -53,21 +52,18 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/agregar-usuario")
-	public String addProfesor(@Valid @ModelAttribute Profesor usuario, BindingResult result, 
+	public String addProfesor(@Valid @ModelAttribute Profesor profesor, BindingResult result, 
 		RedirectAttributes redirectAttrs, Model model) {
 		
 		if (result.hasErrors()) {
-			for (FieldError error : result.getFieldErrors()) {
-				log.info(error.getField());
-			}
 			
 			model.addAttribute("title", "Panel ISTB");
+
 			return "user/create";
+
 		}
 		
-		log.info(usuario.toString());
-		
-		Map<String, String> errors = profesorService.save(usuario);
+		Map<String, String> errors = profesorService.save(profesor);
 		
 		if( errors.isEmpty() ) {
 
@@ -75,9 +71,13 @@ public class UserController {
 			errors.put("mensaje", "Profesor registrado correctamente");
 		
 		} else {
-			errors.put("mensaje", "El profesor no pudo ser registrado!"); }
-
-		redirectAttrs.addFlashAttribute("errors", errors);
+		
+			errors.put("mensaje", "El profesor no pudo ser registrado!");
+			redirectAttrs.addFlashAttribute("errors", errors);
+		
+		}
+		
+		redirectAttrs.addFlashAttribute("oldValues", profesor);
 		
 		return "redirect:/agregar-usuario";
 

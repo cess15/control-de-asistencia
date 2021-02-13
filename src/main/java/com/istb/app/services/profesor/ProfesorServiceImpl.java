@@ -62,7 +62,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	@Transactional
 	@Override
-	public void update(Profesor profesor, int id) {
+	public Map<String, String> update(Profesor profesor, int id) {
 		Profesor _profesor = profesorRepository
 				.findById(id).orElse(null);
 		
@@ -87,14 +87,17 @@ public class ProfesorServiceImpl implements ProfesorService {
 		}
 		
 		profesorRepository.save(_profesor);
+
+		return null;
+
 	}
 
 	@Override
 	public void delete(int id) {
-		// Elimina primero la asignación del rol del profesor
-		// Luego el profesor
-		// y Finalmente el usuario
-		profesorRepository.deleteById(id);
+	
+		Optional<Profesor> profesor = profesorRepository.findById(id);
+		profesor.ifPresent( p -> profesorRepository.deleteById(p.getId()) );
+
 	}
 
 	@Override
@@ -128,13 +131,4 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	}
 	
-	@Override
-	public Profesor findByCorreo(String correo) {
-		Profesor profesor = profesorRepository.findByCedula(correo);
-		if (profesor != null) {
-			return profesor;
-		}
-		return null;
-	}
-
 }

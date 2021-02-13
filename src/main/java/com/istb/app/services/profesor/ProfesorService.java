@@ -16,12 +16,10 @@ public interface ProfesorService {
 	Profesor findById(int id);
 
 	Profesor findByCedula(String cedula);
-	
-	Profesor findByCorreo(String correo);
 
 	Map<String, String> save(Profesor profesor);
 
-	void update(Profesor profesor, int id);
+	Map<String, String> update(Profesor profesor, int id);
 
 	void delete(int id);
 

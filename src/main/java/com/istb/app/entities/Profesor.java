@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "profesores")
 public class Profesor implements Serializable {
 
-	private static final long serialVersionUID = -3873128797329352879L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,13 +62,13 @@ public class Profesor implements Serializable {
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
 
-	@Valid
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
+	@Valid
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "profesor")
 	@JsonIgnoreProperties({ "profesor" })
 	private Collection<PeriodoProfesor> profesorPeriodos;
 

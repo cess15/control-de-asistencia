@@ -10,7 +10,7 @@ public interface UserService {
 
 	Map<String, String> save(Usuario usuario);
 
-	void update(Usuario usuario);
+	Map<String, String> update(Usuario usuario);
 
 	Usuario findById(int id);
 

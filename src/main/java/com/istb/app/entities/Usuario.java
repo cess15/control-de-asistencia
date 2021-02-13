@@ -8,7 +8,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +33,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = -4218185440632011273L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +62,7 @@ public class Usuario implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaActualizacion;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable( name = "role_usuario", 
 		joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -71,8 +70,8 @@ public class Usuario implements Serializable {
 	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
+	@OneToOne(mappedBy = "usuario")
 	@Valid
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "usuario" })
 	private Profesor profesor;
 

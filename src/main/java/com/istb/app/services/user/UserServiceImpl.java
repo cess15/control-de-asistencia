@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(int id) {
+		
 		userRepository.deleteById(id);
 
 	}
@@ -63,9 +64,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(Usuario usuario) {
+	public Map<String, String> update(Usuario usuario) {
+		
 		userRepository.save(usuario);
 
+		return null;
 	}
 
 	@Override
@@ -80,6 +83,7 @@ public class UserServiceImpl implements UserService {
 		if (usuario != null) {
 			return usuario;
 		}
+		
 		return null;
 
 	}

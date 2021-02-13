@@ -49,4 +49,5 @@ public class Inasistencia implements Serializable {
 	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"inasistencia"})
 	private Collection<Permiso> permisos;
+	
 }
