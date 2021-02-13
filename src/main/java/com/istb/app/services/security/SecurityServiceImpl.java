@@ -15,16 +15,25 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityService loadAccessControllList(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", "/dist/**","/images/**").permitAll()
-				.antMatchers("/inicio", "/agregar-usuario", "/editar-profesor/{id}","/eliminar-profesor/{id}","/asistencias", "/api/user").hasAuthority("Secretaria")
-				.anyRequest().authenticated();
+		http.authorizeRequests()
+			
+			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
+				"/dist/**","/images/**").permitAll()
+			
+			.antMatchers("/inicio", "/agregar-usuario", "/editar-profesor/**",
+				"/eliminar-profesor/**","/asistencias", "/api/user")
+				.hasAuthority("Secretaria")
+			
+			.anyRequest().authenticated();
 
 		return this;
 	}
 
 	@Override
 	public SecurityService loadFormLogin(HttpSecurity http) throws Exception {
-		http.formLogin().loginPage("/login").defaultSuccessUrl("/inicio", true).permitAll();
+		
+		http.formLogin()
+			.loginPage("/login").defaultSuccessUrl("/inicio", true).permitAll();
 
 		return this;
 	}

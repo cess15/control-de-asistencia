@@ -1,20 +1,30 @@
 package com.istb.app.services.profesor;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.istb.app.entities.Profesor;
+import com.istb.app.entities.Role;
 import com.istb.app.repository.ProfesorRepository;
+import com.istb.app.services.rol.RolService;
+import com.istb.app.services.user.UserService;
 
 @Service
 public class ProfesorServiceImpl implements ProfesorService {
+	
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	RolService rolService;
 
 	@Autowired
 	ProfesorRepository profesorRepository;
@@ -88,8 +98,33 @@ public class ProfesorServiceImpl implements ProfesorService {
 	}
 
 	@Override
-	public void save(Profesor profesor) {
+	public Map<String, String> save(Profesor profesor) {
+
+		Map<String, String> errorAttributes = new HashMap<>();
+		boolean existeCorreo = profesorRepository.findByCorreo(profesor.getCorreo()) != null;
+
+		if(existeCorreo) {
+			
+			errorAttributes.put("correo","Usuario con este correo: ".concat(
+				profesor.getCorreo()).concat(" ya existe"));
+			errorAttributes.put("clase", "text-danger");
+
+			return errorAttributes;
+
+		}
+
+		Role rol = rolService.findByNombre("Docente");		
+		profesor.getUsuario().addRol(rol);
+
+		userService.save(profesor.getUsuario())
+			.forEach( (k, v) -> errorAttributes.put(k, v) );
+
+		if(!errorAttributes.isEmpty()) {
+			return errorAttributes; }
+		
 		profesorRepository.save(profesor);
+
+		return errorAttributes;
 
 	}
 	

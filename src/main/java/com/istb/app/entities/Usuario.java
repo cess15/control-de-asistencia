@@ -8,6 +8,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,13 +63,16 @@ public class Usuario implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaActualizacion;
 
-	@ManyToMany
-	@JoinTable(name = "role_usuario", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable( name = "role_usuario", 
+		joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), 
+		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+	)
 	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@Valid
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "usuario" })
 	private Profesor profesor;
 

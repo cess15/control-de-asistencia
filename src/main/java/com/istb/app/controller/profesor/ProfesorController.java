@@ -34,10 +34,14 @@ public class ProfesorController {
 	RolServiceImpl rolService;
 
 	@GetMapping(value = "/editar-profesor/{id}")
-	public String loadForm(@PathVariable("id") int id, @ModelAttribute("profesor") Profesor profesor, Model model) {
-		model.addAttribute("title", "Panel ISTB");
-		model.addAttribute("profesor", profesorService.findById(id));
+	public String loadForm(
+		@PathVariable("id") int id, 
+		@ModelAttribute("profesor") Profesor profesor, Model model) {
+		
+		// model.addAttribute("profesor", profesorService.findById(id));
+	
 		return "user/edit";
+	
 	}
 
 	@PostMapping(value = "/editar-profesor/{id}")
@@ -47,7 +51,6 @@ public class ProfesorController {
 		log.info(profesor.toString());
 		
 		if (result.hasErrors()) {
-			model.addAttribute("title", "Panel ISTB");
 			model.addAttribute("profesor", profesor);
 			return "user/edit";
 		}
@@ -74,6 +77,13 @@ public class ProfesorController {
 		 * userService.delete(user.getId()); profesorService.delete(profesor.getId());
 		 */
 		return "redirect:/inicio";
+	}
+
+	@ModelAttribute
+	public void controllerGloabalAttributes(Model attributes) {
+
+		attributes.addAttribute("title", "Panel ISTB");
+
 	}
 
 }

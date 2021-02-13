@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -61,7 +62,8 @@ public class Profesor implements Serializable {
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@Valid
+	@OneToOne
 	@JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;

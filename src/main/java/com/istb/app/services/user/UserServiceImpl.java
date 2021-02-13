@@ -1,6 +1,8 @@
 package com.istb.app.services.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import com.istb.app.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public Usuario findByNombreUsuario(String nombreUsuario) {
@@ -34,9 +36,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(Usuario usuario) {
+	public Map<String, String> save(Usuario usuario) {
+
+		Map<String, String> errorAttributes = new HashMap<>();
+		boolean existeNombreUsuario = findByNombreUsuario(usuario.getNombreUsuario()) != null;
+		
+		String password = encodePassword(usuario.getContrasena());
+		
+		if (existeNombreUsuario) {
+			
+			errorAttributes.put("nombreUsuario", "Usuario ".concat(
+				usuario.getNombreUsuario()).concat(" ya existe"));
+			errorAttributes.put("clase", "text-danger");
+		
+			return errorAttributes;
+
+		} 
+		
+		usuario.setEstado(true);
+		usuario.setContrasena(password);
+		
 		userRepository.save(usuario);
 
+		return errorAttributes;
+		
 	}
 
 	@Override

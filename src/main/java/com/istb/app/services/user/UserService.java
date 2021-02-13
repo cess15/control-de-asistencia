@@ -1,13 +1,14 @@
 package com.istb.app.services.user;
 
 import java.util.List;
+import java.util.Map;
 
 import com.istb.app.entities.Usuario;
 
 public interface UserService {
 	List<Usuario> findAll();
 
-	void save(Usuario usuario);
+	Map<String, String> save(Usuario usuario);
 
 	void update(Usuario usuario);
 

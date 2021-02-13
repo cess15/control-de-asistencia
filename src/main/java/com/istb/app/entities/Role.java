@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Role implements Serializable {
 	@NotEmpty(message = "El nombre del rol es requerido.")
 	private String nombre;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "roles" })
 	private Collection<Usuario> usuarios;
 
