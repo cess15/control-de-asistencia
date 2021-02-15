@@ -4,29 +4,26 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.istb.app.entities.Periodo;
 import com.istb.app.entities.Profesor;
+import com.istb.app.repository.PeriodoRepository;
+import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.profesor.ProfesorServiceImpl;
 import com.istb.app.services.rol.RolServiceImpl;
 import com.istb.app.services.user.UserServiceImpl;
 
 @Controller
 public class UserController {
-	
-	private final Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	UserServiceImpl userService;
 
@@ -36,50 +33,62 @@ public class UserController {
 	@Autowired
 	RolServiceImpl rolService;
 
+	@Autowired
+	PeriodoRepository periodoRepository;
+	
+	@Autowired
+	UserCredentials userCredentials;
+	
 	@GetMapping("/agregar-usuario")
 	public String loadForm(Model model) {
-		
+		Periodo periodo = periodoRepository.findByVigente(true);
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("profesor", new Profesor());
-
+		model.addAttribute("periodo", periodo);
+		model.addAttribute("fechaInicio",
+				userCredentials.convertDate(periodo.getFechaInicio()));
+		model.addAttribute("fechaFinal", userCredentials.convertDate(periodo.getFechaFinal()));
 		return "user/create";
-	
-	}
 
-	@GetMapping(value = "/user")
-	public ResponseEntity<?> findAll() throws Exception {
-		return ResponseEntity.ok().body(userService.findAll());
 	}
 
 	@PostMapping(value = "/agregar-usuario")
-	public String addProfesor(@Valid @ModelAttribute Profesor profesor, BindingResult result, 
-		RedirectAttributes redirectAttrs, Model model) {
-		
+	public String addProfesor(@Valid @ModelAttribute Profesor profesor, BindingResult result,
+			RedirectAttributes redirectAttrs, Model model) {
+
 		if (result.hasErrors()) {
-			
+
 			model.addAttribute("title", "Panel ISTB");
+			System.out.println(profesor);
 
 			return "user/create";
 
 		}
-		
+
 		Map<String, String> errors = profesorService.save(profesor);
-		
-		if( errors.isEmpty() ) {
+
+		if (errors.isEmpty()) {
 
 			errors.put("clase", "success");
 			errors.put("mensaje", "Profesor registrado correctamente");
-		
+			redirectAttrs.addFlashAttribute("errors", errors);
+
 		} else {
-		
+			errors.put("clase", "danger");
 			errors.put("mensaje", "El profesor no pudo ser registrado!");
 			redirectAttrs.addFlashAttribute("errors", errors);
-		
+
 		}
-		
+
 		redirectAttrs.addFlashAttribute("oldValues", profesor);
-		
 		return "redirect:/agregar-usuario";
+
+	}
+
+	@ModelAttribute
+	public void controllerGloabalAttributes(Model attributes) {
+
+		attributes.addAttribute("title", "Panel ISTB");
 
 	}
 

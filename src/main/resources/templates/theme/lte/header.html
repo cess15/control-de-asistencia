@@ -17,18 +17,26 @@
 	<nav class="navbar-mobile">
 		<div class="container-fluid">
 			<ul class="navbar-mobile__list list-unstyled">
-				<li class="has-sub"><a class="js-arrow" href="#"> <i
-						class="fas fa-tachometer-alt"></i>Dashboard
-				</a>
-					<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-						<li><a href="index.html">Dashboard 1</a></li>
-						<li><a href="#">Dashboard 2</a></li>
-					</ul></li>
-				<li
-					th:classappend="${#request.requestURI.startsWith('/asistencias') ? 'active' : ''}"><a
-					th:href="@{/asistencias}"> <i class="fas fa-chart-bar"></i>Asistencias
-				</a></li>
-				<li><a href="#"> <i class="fas fa-table"></i>Tables
+				<div sec:authorize="hasAuthority('Docente')">
+					<li
+						th:classappend="${#request.requestURI.startsWith('/inicio') ? 'active' : ''}">
+						<a th:href="@{/inicio}"><i
+							class="fas fa-tachometer-alt"></i>Area personal</a>
+					</li>
+				</div>
+				<div sec:authorize="hasAuthority('Secretaria')">
+					<li
+						th:classappend="${#request.requestURI.startsWith('/asistencias') ? 'active' : ''}"><a
+						th:href="@{/asistencias}"> <i class="fas fa-list-alt"></i>Asistencias
+					</a></li>
+				</div>
+				<div sec:authorize="hasAuthority('Secretaria')">
+					<li
+					  th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}"
+					>
+					  <a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos </a>
+					</li>
+				  </div>
 				</a></li>
 				<li><a href="#"> <i class="far fa-check-square"></i>Forms
 				</a></li>
@@ -60,13 +68,8 @@
 	<div class="section__content section__content--p30">
 		<div class="container-fluid">
 			<div class="header-wrap">
-				<form class="form-header" action="#" method="GET">
-					<input class="au-input au-input--xl" type="text" name="search"
-						placeholder="Search for datas &amp; reports..." />
-					<button class="au-btn--submit" type="submit">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-				</form>
+
+				<div class="form-header"></div>
 				<div class="header-button">
 					<div class="noti-wrap">
 						<div class="noti__item js-item-menu">
@@ -109,7 +112,8 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<img src="/dist/images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+										<img src="/dist/images/icon/avatar-06.jpg"
+											alt="Cynthia Harvey" />
 									</div>
 									<div class="content">
 										<p>Meeting about new dashboard...</p>
@@ -118,7 +122,8 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<img src="/dist/images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+										<img src="/dist/images/icon/avatar-05.jpg"
+											alt="Cynthia Harvey" />
 									</div>
 									<div class="content">
 										<p>Meeting about new dashboard...</p>
@@ -127,7 +132,8 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<img src="/dist/images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+										<img src="/dist/images/icon/avatar-04.jpg"
+											alt="Cynthia Harvey" />
 									</div>
 									<div class="content">
 										<p>Meeting about new dashboard...</p>
@@ -197,33 +203,27 @@
 										<h5 class="name">
 											<a href="#" sec:authentication="name"></a>
 										</h5>
-										<div sec:authorize="hasAuthority('Secretaria')">
-											<span class="email">johndoe@example.com</span>
+										<div sec:authorize="hasAuthority('Docente')">
+											<span class="email" th:text="${user.profesor.correo}"></span>
 										</div>
 									</div>
 								</div>
 								<div class="account-dropdown__body">
 									<div class="account-dropdown__item">
-										<a href="#"> <i class="zmdi zmdi-account"></i>Account
-										</a>
+										<div class="account-dropdown__item">
+											<a href="#"> <i class="zmdi zmdi-settings"></i>Configuración
+											</a>
+										</div>
 									</div>
-									<div class="account-dropdown__item">
-										<a href="#"> <i class="zmdi zmdi-settings"></i>Setting
-										</a>
-									</div>
-									<div class="account-dropdown__item">
-										<a href="#"> <i class="zmdi zmdi-money-box"></i>Billing
-										</a>
-									</div>
-								</div>
 
-								<div class="account-dropdown__footer">
-									<a th:href="@{/logout}"
-										onclick="event.preventDefault(); document.getElementById('form-logout').submit();">
-										<i class="zmdi zmdi-power"></i>Logout
-									</a>
-									<form id="form-logout" th:action="@{/logout}" method="POST"
-										style="display: none;"></form>
+									<div class="account-dropdown__footer">
+										<a th:href="@{/logout}"
+											onclick="event.preventDefault(); document.getElementById('form-logout').submit();">
+											<i class="zmdi zmdi-power"></i>Cerrar sesión
+										</a>
+										<form id="form-logout" th:action="@{/logout}" method="POST"
+											style="display: none;"></form>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -231,7 +231,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </header>
 <!-- HEADER DESKTOP-->
 

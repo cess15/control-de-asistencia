@@ -35,35 +35,29 @@
       <div class="main-content">
         <div class="section__content section__content--p30">
           <div class="container-fluid">
-            <div
-              th:classappend="'alert-' + (${errors != null} ? ${errors.clase} : info)"
-              th:if="${errors != null}"
-              th:text="${errors.mensaje}"
-              class="alert"
-            ></div>
-            <div class="col-lg-6">
-              <div class="table-data__tool">
-                <div class="table-data__tool-right">
-                  <a th:href="@{/inicio}">
-                    <button
-                      class="au-btn au-btn-icon au-btn--green au-btn--small"
-                    >
-                      <i class="fa fa-arrow-circle-left"></i>regresar
-                    </button>
-                  </a>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="table-data__tool">
+                  <div class="table-data__tool-right">
+                    <a th:href="@{/inicio}">
+                      <button
+                        class="au-btn au-btn-icon au-btn--green au-btn--small"
+                      >
+                        <i class="fa fa-arrow-circle-left"></i>regresar
+                      </button>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="card">
-                  <div class="card-header">
-                    <strong>Editar</strong> Profesor
-                  </div>
+                  <div class="card-header"><strong>Nuevo</strong> Profesor</div>
                   <div class="card-body card-block">
                     <form
-                      th:action="@{/editar-profesor/{id}(id=${profesor.id})}"
-                      th:object="${profesor}"
+                      th:action="@{'/editar/perfil'}"
+                      th:object="${user.profesor}"
                       method="post"
                       class="form-horizontal"
                     >
@@ -79,6 +73,7 @@
                             th:field="*{cedula}"
                             placeholder="Ingrese cédula..."
                             class="form-control"
+                            id="cedula"
                           />
                           <span
                             class="error text-danger"
@@ -89,7 +84,7 @@
                       </div>
                       <div class="row form-group">
                         <div class="col col-md-3">
-                          <label for="nombres" class="form-control-label"
+                          <label for="cedula" class="form-control-label"
                             >Nombres</label
                           >
                         </div>
@@ -97,8 +92,9 @@
                           <input
                             type="text"
                             th:field="*{nombres}"
-                            placeholder="Ingrese nombres..."
+                            placeholder="Ingrese nombre..."
                             class="form-control"
+                            id="cedula"
                           />
                           <span
                             class="error text-danger"
@@ -137,6 +133,7 @@
                         <div class="col-12 col-md-9">
                           <input
                             type="email"
+                            id="correo"
                             th:field="*{correo}"
                             placeholder="Ingrese correo electrónico..."
                             class="form-control"
@@ -151,15 +148,15 @@
                       <div class="row form-group">
                         <div class="col col-md-3">
                           <label for="correo" class="form-control-label"
-                            >Télefono</label
+                            >Teléfono</label
                           >
                         </div>
                         <div class="col-12 col-md-9">
                           <input
                             type="text"
-                            id="correo"
+                            id="telefono"
                             th:field="*{telefono}"
-                            placeholder="Ingrese télefono..."
+                            placeholder="Ingrese correo electrónico..."
                             class="form-control"
                           />
                           <span
@@ -171,7 +168,7 @@
                       </div>
                       <div class="card-footer">
                         <button type="submit" class="btn btn-primary btn-sm">
-                          <i class="fa fa-dot-circle-o"></i> Registrar
+                          <i class="fa fa-dot-circle-o"></i> Guardar
                         </button>
                         <button type="reset" class="btn btn-danger btn-sm">
                           <i class="fa fa-ban"></i> Resetear
@@ -182,13 +179,11 @@
                 </div>
               </div>
             </div>
-            <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
           </div>
         </div>
+        <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
       </div>
-      <!-- END MAIN CONTENT-->
     </div>
-    <!-- END PAGE CONTAINER-->
     <div th:replace="layout/app :: endPage"></div>
   </body>
 </html>

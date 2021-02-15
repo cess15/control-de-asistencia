@@ -12,9 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -43,8 +42,16 @@ public class Periodo implements Serializable {
 	
 	private Boolean vigente;
 	
-	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"periodo"})
+	@Valid
 	private Collection<PeriodoProfesor> periodoProfesores;
+
+	@Override
+	public String toString() {
+		return "Periodo [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + ", vigente="
+				+ vigente + "]";
+	}
+	
 
 }

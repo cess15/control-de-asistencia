@@ -1,7 +1,6 @@
 package com.istb.app.services.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,9 +20,15 @@ public class SecurityServiceImpl implements SecurityService {
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
 				"/dist/**","/images/**").permitAll()
 			
-			.antMatchers("/inicio", "/agregar-usuario", "/editar-profesor/**",
-				"/eliminar-profesor/**","/asistencias", "/api/user")
-				.hasAuthority("Secretaria")
+			
+			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**")
+			.hasAuthority("Secretaria")
+
+			.antMatchers("/inicio")
+			.hasAnyAuthority("Secretaria","Docente")
+			
+			.antMatchers("/editar/**")
+			.hasAuthority("Docente")
 			
 			.anyRequest().authenticated();
 
@@ -35,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService {
 		
 		http.formLogin()
 			.loginPage("/login").defaultSuccessUrl("/inicio", true).permitAll();
-
+			
 		return this;
 	}
 

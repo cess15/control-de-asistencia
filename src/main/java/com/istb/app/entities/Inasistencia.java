@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,12 +43,19 @@ public class Inasistencia implements Serializable {
 	@Column(name = "justificacion_fisica")
 	private Boolean justificacionFisica;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JsonIgnoreProperties({"inasistencias"})
-	private PeriodoProfesor periodoProfesor;
+	private PeriodoProfesor periodo_profesor;
 	
-	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"inasistencia"})
 	private Collection<Permiso> permisos;
+
+	@Override
+	public String toString() {
+		return "Inasistencia [id=" + id + ", fecha=" + fecha + ", justificacionDigital=" + justificacionDigital
+				+ ", justificacionFisica=" + justificacionFisica + ", periodo_profesor=" + periodo_profesor + "]";
+	}
+	
 	
 }

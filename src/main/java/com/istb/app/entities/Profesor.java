@@ -2,6 +2,7 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -38,8 +39,8 @@ public class Profesor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotEmpty(message = "La cédula es requerida.")
 	@Column(name = "cedula", length = 10)
+	@NotEmpty(message = "La cédula es requerida.")
 	@Size(max = 10, min = 10, message = "La cédula debe tener 10 dígitos.")
 	private String cedula;
 
@@ -70,23 +71,8 @@ public class Profesor implements Serializable {
 
 	@OneToMany(mappedBy = "profesor")
 	@JsonIgnoreProperties({ "profesor" })
+	@Valid
 	private Collection<PeriodoProfesor> profesorPeriodos;
-
-	public Profesor(int id, String cedula, @NotEmpty(message = "Los nombres son requeridos.") String nombres,
-			@NotEmpty(message = "Los apellidos son requeridos.") String apellidos, String telefono,
-			@NotEmpty(message = "El correo es requerido.") String correo, LocalDate fechaVacacionInicio,
-			LocalDate fechaVacacionFinal, Usuario usuario) {
-		super();
-		this.id = id;
-		this.cedula = cedula;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.telefono = telefono;
-		this.correo = correo;
-		this.fechaVacacionInicio = fechaVacacionInicio;
-		this.fechaVacacionFinal = fechaVacacionFinal;
-		this.usuario = usuario;
-	}
 
 	@Override
 	public String toString() {

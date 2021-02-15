@@ -1,22 +1,34 @@
 <nav class="navbar header-nav navbar-expand-lg" th:fragment="nav">
-	<div class="container-fluid">
-		<a class="navbar-brand" th:href="@{/}"><img
-			th:src="@{images/logo.png}" alt="image" width="160px"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbar-wd" aria-controls="navbar-wd"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span></span> <span></span> <span></span>
-		</button>
-		<div class="collapse navbar-collapse justify-content-end"
-			id="navbar-wd">
-			<ul class="navbar-nav">
-				<li><a class="nav-link" th:href="@{/}">Inicio</a></li>
-				<li><a class="nav-link" href="#caracteristicas">Características</a></li>
-				<li><a class="nav-link" href="#about">Acerca de nosotros</a></li>
-				<li><a class="nav-link" href="#contact">Contacto</a></li>
-				<li><a class="nav-link active"
-					style="background: #fff; color: #000;" th:href="@{login}">Iniciar sesión</a></li>
-			</ul>
-		</div>
-	</div>
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}"
+      ><img th:src="@{images/logo.png}" alt="image" width="160px"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbar-wd"
+      aria-controls="navbar-wd"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span></span> <span></span> <span></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+      <ul class="navbar-nav">
+        <li><a class="nav-link" th:href="@{/}">Inicio</a></li>
+        <li><a class="nav-link" href="#caracteristicas">Características</a></li>
+        <li><a class="nav-link" href="#about">Acerca de nosotros</a></li>
+        <li><a class="nav-link" href="#contact">Contacto</a></li>
+        <li>
+          <a
+            class="nav-link active"
+            style="background: #fff; color: #000"
+            th:href="@{login}"
+            >Iniciar sesión</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
