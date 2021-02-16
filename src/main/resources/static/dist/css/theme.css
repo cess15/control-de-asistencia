@@ -1080,7 +1080,7 @@ section {
     font-size: 14px;
 }
 
-.au-checkbox {
+/* .au-checkbox {
     display: block;
     position: relative;
     cursor: pointer;
@@ -1089,15 +1089,15 @@ section {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
+} */
 
-.au-checkbox input {
+/* .au-checkbox input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
-}
+} */
 
-.au-checkmark {
+/* .au-checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -1108,9 +1108,9 @@ section {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-}
+} */
 
-.au-checkbox:hover input ~ .au-checkmark {
+/* .au-checkbox:hover input ~ .au-checkmark {
     background-color: transparent;
 }
 
@@ -1143,7 +1143,7 @@ section {
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     transform: rotate(45deg);
-}
+} */
 
 .form-control {
     -webkit-border-radius: 2px;
@@ -4516,7 +4516,7 @@ section {
     vertical-align: top;
 }
 
-.table-data2.table tbody tr td:first-child .au-checkbox {
+.table-data2.table tbody tr td:first-child /*.au-checkbox */{
     margin-top: 5px;
 }
 
@@ -4525,7 +4525,7 @@ section {
         vertical-align: middle;
     }
 
-    .table-data2.table tbody tr td:first-child .au-checkbox {
+    .table-data2.table tbody tr td:first-child /*.au-checkbox*/ {
         margin-top: 0;
     }
 }

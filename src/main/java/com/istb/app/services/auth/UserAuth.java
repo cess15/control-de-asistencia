@@ -37,17 +37,17 @@ public class UserAuth implements UserDetailsService {
 		Usuario usuario = userRepository.findByNombreUsuario(username);
 		if(usuario==null) {
 			return new User(" "," ",true, true, true, true,getAuthorities(Arrays.asList(roleRepository.findByNombre("Secretaria"))));
+		
 		}
 		return new User(usuario.getNombreUsuario(),usuario.getContrasena(),usuario.getEstado(), true, true, true,getAuthorities(usuario.getRoles()));
 	}
 	
 	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
-		List<GrantedAuthority> grantedAuthority = new ArrayList<GrantedAuthority>();
+		List<GrantedAuthority> grantedAuthority = new ArrayList<>();
 		for (Role role : roles) {
 			grantedAuthority.add(new SimpleGrantedAuthority(role.getNombre()));
 		}
 		return grantedAuthority;
-	}
-	
+	}	
 
 }

@@ -1,6 +1,7 @@
 package com.istb.app.services.profesor;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +16,10 @@ public interface ProfesorService {
 	Profesor findById(int id);
 
 	Profesor findByCedula(String cedula);
-	
-	Profesor findByCorreo(String correo);
 
-	void save(Profesor profesor);
+	Map<String, String> save(Profesor profesor);
 
-	void update(Profesor profesor);
+	Map<String, String> update(Profesor profesor, int id);
 
 	void delete(int id);
 

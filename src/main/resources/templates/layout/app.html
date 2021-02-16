@@ -1,106 +1,131 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:fragment="head">
-<!-- Required meta tags-->
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="au theme template">
-<meta name="author" content="Hau Nguyen">
-<meta name="keywords" content="au theme template">
-<!-- Site Icons -->
-<link rel="shortcut icon"
-	href="https://istb.edu.ec/wp-content/uploads/2019/09/ISTB-01.png"
-	type="image/x-icon" />
-<link rel="apple-touch-icon" href="#" />
+<html
+  lang="es"
+  xmlns="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:fragment="head">
+    <!-- Required meta tags-->
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="au theme template" />
+    <meta name="author" content="Hau Nguyen" />
+    <meta name="keywords" content="au theme template" />
+    <!-- Site Icons -->
+    <link
+      rel="shortcut icon"
+      href="https://istb.edu.ec/wp-content/uploads/2019/09/ISTB-01.png"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="#" />
 
-<!-- Title Page-->
-<title th:text="${title}"></title>
+    <!-- Title Page-->
+    <title th:text="${title}"></title>
 
-<!-- Fontfaces CSS-->
-<link href="dist/css/font-face.css" rel="stylesheet" media="all">
-<link href="dist/vendor/font-awesome-4.7/css/font-awesome.min.css"
-	rel="stylesheet" media="all">
-<link href="dist/vendor/font-awesome-5/css/fontawesome-all.min.css"
-	rel="stylesheet" media="all">
-<link
-	href="dist/vendor/mdi-font/css/material-design-iconic-font.min.css"
-	rel="stylesheet" media="all">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="all" />
 
-<!-- Bootstrap CSS-->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <!-- Fontfaces CSS-->
+    <link href="/dist/css/font-face.css" rel="stylesheet" media="all" />
+    <link
+      href="/dist/vendor/font-awesome-4.7/css/font-awesome.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/dist/vendor/font-awesome-5/css/fontawesome-all.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/dist/vendor/mdi-font/css/material-design-iconic-font.min.css"
+      rel="stylesheet"
+      media="all"
+    />
 
-<!-- Vendor CSS-->
-<link href="dist/vendor/animsition/animsition.min.css" rel="stylesheet"
-	media="all">
-<link
-	href="dist/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css"
-	rel="stylesheet" media="all">
-<link href="css/animate.css" rel="stylesheet" media="all">
-<link href="dist/vendor/css-hamburgers/hamburgers.min.css"
-	rel="stylesheet" media="all">
-<link href="dist/vendor/slick/slick.css" rel="stylesheet" media="all">
-<link href="dist/vendor/select2/select2.min.css" rel="stylesheet"
-	media="all">
-<link href="dist/vendor/perfect-scrollbar/perfect-scrollbar.css"
-	rel="stylesheet" media="all">
+    <!-- Vendor CSS-->
+    <link
+      href="/dist/vendor/animsition/animsition.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/dist/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link href="/css/animate.css" rel="stylesheet" media="all" />
+    <link
+      href="/dist/vendor/css-hamburgers/hamburgers.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link href="/dist/vendor/slick/slick.css" rel="stylesheet" media="all" />
+    <link
+      href="/dist/vendor/select2/select2.min.css"
+      rel="stylesheet"
+      media="all"
+    />
+    <link
+      href="/dist/vendor/perfect-scrollbar/perfect-scrollbar.css"
+      rel="stylesheet"
+      media="all"
+    />
 
-<!-- Main CSS-->
-<link href="dist/css/theme.css" rel="stylesheet" media="all">
-</head>
-<body class="animsition" style="animation-duration: 900ms; opacity: 1;">
-	<div class="page-wrapper">
-		<div th:insert="theme/lte/header.html :: header-mobile"
-			th:fragment="header-mobile"></div>
-	</div>
-	<!-- PAGE CONTAINER-->
-	<div th:insert="theme/lte/header.html :: header-desktop"
-		th:fragment="header-desktop"></div>
-	<!-- END PAGE CONTAINER-->
-	<!-- MENU SIDEBAR-->
-	<div th:insert="theme/lte/aside.html :: aside" th:fragment="aside"></div>
-	<!-- END MENU SIDEBAR-->
-	<div th:insert="theme/lte/footer.html :: footer"></div>
+    <!-- Main CSS-->
+    <link href="/dist/css/theme.css" rel="stylesheet" media="all" />
+    <!-- Style CSS-->
+    <link href="/css/profilepic.css" rel="stylesheet" media="all" />
+    <link href="/css/style-check.css" rel="stylesheet" />
+  </head>
+  <body class="animsition" style="animation-duration: 900ms; opacity: 1">
+    <div class="page-wrapper">
+      <div
+        th:insert="theme/lte/header.html :: header-mobile"
+        th:fragment="header-mobile"
+      ></div>
+    </div>
+    <!-- PAGE CONTAINER-->
+    <div
+      th:insert="theme/lte/header.html :: header-desktop"
+      th:fragment="header-desktop"
+    ></div>
+    <!-- END PAGE CONTAINER-->
+    <!-- MENU SIDEBAR-->
+    <div th:insert="theme/lte/aside.html :: aside" th:fragment="aside"></div>
+    <!-- END MENU SIDEBAR-->
+    <div th:insert="theme/lte/footer.html :: footer"></div>
 
-	<div th:fragment="endPage">
+    <div th:fragment="endPage">
+      <!-- Jquery JS-->
+      <script src="/dist/vendor/jquery-3.2.1.min.js"></script>
+      <!-- Bootstrap JS-->
+      <script src="/dist/vendor/bootstrap-4.1/popper.min.js"></script>
+      <script src="/dist/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+      <!-- Vendor JS       -->
+      <script src="/dist/vendor/slick/slick.min.js"></script>
+      <script src="/dist/vendor/wow/wow.min.js"></script>
+      <script src="/dist/vendor/animsition/animsition.min.js"></script>
+      <script src="/dist/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+      <script src="/dist/vendor/counter-up/jquery.waypoints.min.js"></script>
+      <script src="/dist/vendor/counter-up/jquery.counterup.min.js"></script>
+      <script src="/dist/vendor/circle-progress/circle-progress.min.js"></script>
+      <script src="/dist/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+      <script src="/dist/vendor/chartjs/Chart.bundle.min.js"></script>
+      <script src="/dist/vendor/select2/select2.min.js"></script>
 
-		<!-- Jquery JS-->
-		<script src="dist/vendor/jquery-3.2.1.min.js"></script>
-		<!-- Bootstrap JS-->
-		<script src="dist/vendor/bootstrap-4.1/popper.min.js"></script>
-		<script src="dist/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-		<!-- Vendor JS       -->
-		<script src="dist/vendor/slick/slick.min.js">
-			
-		</script>
-		<script src="dist/vendor/wow/wow.min.js"></script>
-		<script src="dist/vendor/animsition/animsition.min.js"></script>
-		<script
-			src="dist/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-			
-		</script>
-		<script src="dist/vendor/counter-up/jquery.waypoints.min.js"></script>
-		<script src="dist/vendor/counter-up/jquery.counterup.min.js">
-			
-		</script>
-		<script src="dist/vendor/circle-progress/circle-progress.min.js"></script>
-		<script src="dist/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-		<script src="dist/vendor/chartjs/Chart.bundle.min.js"></script>
-		<script src="dist/vendor/select2/select2.min.js">
-			
-		</script>
-
-		<!-- Main JS-->
-		<script src="dist/js/main.js"></script>
-		<script type="text/javascript">
-			let initialDate=document.getElementById('dateInitial');
-			let finalDate=document.getElementById('dateFinal');
-			let date = new Date();
-			initialDate.innerText=date.getFullYear();
-			finalDate.innerText=date.getFullYear()+1;
-		</script>
-	</div>
-
-</body>
+      <!-- Main JS-->
+      <script src="/dist/js/main.js"></script>
+      <script type="text/javascript">
+        let initialDate = document.getElementById("dateInitial");
+        let finalDate = document.getElementById("dateFinal");
+        let date = new Date();
+        initialDate.innerText = date.getFullYear();
+        finalDate.innerText = date.getFullYear() + 1;
+      </script>
+    </div>
+  </body>
 </html>

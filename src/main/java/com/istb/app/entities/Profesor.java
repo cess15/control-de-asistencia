@@ -2,6 +2,7 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,12 +33,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "profesores")
 public class Profesor implements Serializable {
 
-	private static final long serialVersionUID = -3873128797329352879L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "cedula", length = 10)
+	@NotEmpty(message = "La cédula es requerida.")
+	@Size(max = 10, min = 10, message = "La cédula debe tener 10 dígitos.")
 	private String cedula;
 
 	@NotEmpty(message = "Los nombres son requeridos.")
@@ -47,6 +54,7 @@ public class Profesor implements Serializable {
 	private String telefono;
 
 	@NotEmpty(message = "El correo es requerido.")
+	@Email(message = "El correo tiene un formato inválido")
 	private String correo;
 
 	@Column(name = "fecha_vacacion_inicio")
@@ -55,12 +63,22 @@ public class Profesor implements Serializable {
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
+	@Valid
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "profesor")
 	@JsonIgnoreProperties({ "profesor" })
+	@Valid
 	private Collection<PeriodoProfesor> profesorPeriodos;
+
+	@Override
+	public String toString() {
+		return "Profesor [id=" + id + ", cedula=" + cedula + ", nombres=" + nombres + ", apellidos=" + apellidos
+				+ ", telefono=" + telefono + ", correo=" + correo + ", fechaVacacionInicio=" + fechaVacacionInicio
+				+ ", fechaVacacionFinal=" + fechaVacacionFinal + ", usuario=" + usuario + "]";
+	}
+
 }

@@ -15,22 +15,38 @@ public class SecurityServiceImpl implements SecurityService {
 
 	@Override
 	public SecurityService loadAccessControllList(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/", "/index", "/css/**", "/js/**", "/fonts/**", "/images/**").permitAll()
-		.antMatchers("/inicio","/agregar-usuario","/asistencias","/api/user").hasAuthority("Secretaria").anyRequest().authenticated();
 		
+		http.authorizeRequests()
+			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
+				"/dist/**","/images/**").permitAll()
+			
+			
+			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**")
+			.hasAuthority("Secretaria")
+
+			.antMatchers("/inicio")
+			.hasAnyAuthority("Secretaria","Docente")
+			
+			.antMatchers("/editar/**")
+			.hasAuthority("Docente")
+			
+			.anyRequest().authenticated();
+
 		return this;
 	}
 
 	@Override
 	public SecurityService loadFormLogin(HttpSecurity http) throws Exception {
-		http.formLogin().loginPage("/login").defaultSuccessUrl("/inicio", true).permitAll();
-
+		
+		http.formLogin()
+			.loginPage("/login").defaultSuccessUrl("/inicio", true).permitAll();
+			
 		return this;
 	}
 
 	@Override
 	public SecurityService loadLogout(HttpSecurity http) throws Exception {
+		
 		http.logout().deleteCookies("JSESSIONID");
 
 		return this;

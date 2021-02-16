@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="layout/app :: head"></head>
+  <body class="animsition">
+    <div class="page-wrapper">
+      <!-- Start header -->
+      <header th:replace="layout/app :: header-mobile"></header>
+      <!-- End header -->
+    </div>
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+      <!-- HEADER DESKTOP-->
+
+      <header th:replace="layout/app :: header-desktop"></header>
+
+      <!-- HEADER DESKTOP-->
+      <!-- MENU SIDEBAR-->
+      <aside
+        class="menu-sidebar d-none d-lg-block"
+        th:replace="layout/app :: aside"
+      ></aside>
+      <!-- END MENU SIDEBAR-->
+
+      <!-- MAIN CONTENT-->
+
+      <div class="main-content">
+        <div style="position: relative; margin: 0 auto; padding: 0 30px">
+          <div class="container-fluid">
+            <div sec:authorize="hasAuthority('Secretaria')"></div>
+          </div>
+          <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="layout/app :: endPage"></div>
+  </body>
+</html>

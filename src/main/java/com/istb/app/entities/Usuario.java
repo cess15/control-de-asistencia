@@ -2,6 +2,7 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -16,10 +17,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,15 +35,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = -4218185440632011273L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "nombre_usuario")
+	@NotEmpty(message = "El nombre de usuario es requerido")
 	private String nombreUsuario;
 
+	@NotEmpty(message = "La contraseña es requerida")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String contrasena;
 
 	@Column(name = "imagen_perfil")
@@ -57,11 +66,15 @@ public class Usuario implements Serializable {
 	private LocalDateTime fechaActualizacion;
 
 	@ManyToMany
-	@JoinTable(name = "role_usuario", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	@JsonIgnoreProperties({"usuarios"})
+	@JoinTable( name = "role_usuario", 
+		joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), 
+		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+	)
+	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
 	@OneToOne(mappedBy = "usuario")
+	@Valid
 	@JsonIgnoreProperties({ "usuario" })
 	private Profesor profesor;
 
@@ -74,6 +87,20 @@ public class Usuario implements Serializable {
 	@PreUpdate
 	public void preUpdated() {
 		this.fechaActualizacion = LocalDateTime.now();
+	}
+
+	public void addRol(Role rol) {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		this.roles.add(rol);
+	}
+
+	public void removeRol(Role rol) {
+		if (this.roles == null) {
+			this.roles = new ArrayList<>();
+		}
+		this.roles.remove(rol);
 	}
 
 	public Usuario(int id, String nombreUsuario, String contrasena, String imagenPerfil, String url_imagen_perfil,

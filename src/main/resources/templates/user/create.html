@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.thymeleaf.org"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head th:replace="layout/app :: head"></head>
 
 <body class="animsition">
 	<div class="page-wrapper">
 		<!-- Start header -->
-		<header th:replace="layout/app :: header-mobile"> </header>
+		<header th:replace="layout/app :: header-mobile"></header>
 		<!-- End header -->
 	</div>
 
@@ -15,7 +14,7 @@
 	<div class="page-container">
 		<!-- HEADER DESKTOP-->
 
-		<header th:replace="layout/app :: header-desktop"> </header>
+		<header th:replace="layout/app :: header-desktop"></header>
 
 		<!-- HEADER DESKTOP-->
 
@@ -32,9 +31,34 @@
 			<div class="section__content section__content--p30">
 				<div class="container-fluid">
 					<div
-						th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
-						th:if="${mensaje != null}" th:text="${mensaje}"
-						class="alert">
+						th:classappend="'alert-' + (${errors != null} ? ${errors.clase} : info)"
+						th:if="${errors != null}" th:text="${errors.mensaje}"
+						class="alert"></div>
+					<div th:if="${fechaInicio!=null}">
+						<div class="row">
+							<div class="col col-lg-12">
+								<section class="card">
+									<div class="card-body text-secondary">
+										<h4>
+											Periodo : <span th:text="${fechaInicio}+' - '+${fechaFinal}"></span>
+										</h4>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="table-data__tool">
+								<div class="table-data__tool-right">
+									<a th:href="@{/inicio}">
+										<button class="au-btn au-btn-icon au-btn--green au-btn--small">
+											<i class="fa fa-arrow-circle-left"></i>regresar
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
@@ -43,17 +67,31 @@
 									<strong>Nuevo</strong> Profesor
 								</div>
 								<div class="card-body card-block">
-									<form th:action="@{/agregar-usuario}" method="post"
-										class="form-horizontal">
+									<form th:action="@{/agregar-usuario}" th:object="${profesor}"
+										method="post" class="form-horizontal">
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="cedula" class="form-control-label">Cédula</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" th:field="*{cedula}"
+													placeholder="Ingrese cédula..." class="form-control"
+													id="cedula" name="cedula" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('cedula')}"
+													th:errors="*{cedula}"></span>
+											</div>
+										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
 												<label for="nombres" class="form-control-label">Nombres</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" id="nombres" name="nombres"
-													placeholder="Ingrese nombres..." class="form-control">
-												<span class="help-block">Por favor, escriba los
-													nombres completos</span>
+												<input type="text" th:field="*{nombres}"
+													placeholder="Ingrese nombres..." class="form-control" />
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('nombres')}"
+													th:errors="*{nombres}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -61,10 +99,11 @@
 												<label for="apellidos" class="form-control-label">Apellidos</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" id="apellidos" name="apellidos"
-													placeholder="Ingrese apellidos..." class="form-control">
-												<span class="help-block">Por favor, escriba los
-													apellidos completos</span>
+												<input type="text" id="apellidos" th:field="*{apellidos}"
+													placeholder="Ingrese apellidos..." class="form-control" />
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('apellidos')}"
+													th:errors="*{apellidos}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
@@ -73,33 +112,40 @@
 													de usuario</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="text" id="username" name="nombreUsuario"
+												<input type="text" id="username"
+													th:field="*{usuario.nombreUsuario}"
 													placeholder="Ingrese nombre de usuario..."
-													class="form-control"> <span class="help-block">Por
-													favor, escriba un nombre de usuario</span>
+													class="form-control" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('usuario.nombreUsuario')}"
+													th:errors="*{usuario.nombreUsuario}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="correo" class=" form-control-label">Correo
+												<label for="correo" class="form-control-label">Correo
 													electrónico</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="email" id="correo" name="correo"
+												<input type="email" id="correo" th:field="*{correo}"
 													placeholder="Ingrese correo electrónico..."
-													class="form-control"> <span class="help-block">Por
-													favor, escriba un correo electrónico</span>
+													class="form-control" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('correo')}"
+													th:errors="*{correo}"></span>
 											</div>
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="password" class=" form-control-label">Contraseña</label>
+												<label for="password" class="form-control-label">Contraseña</label>
 											</div>
 											<div class="col-12 col-md-9">
-												<input type="password" id="password" name="contrasena"
-													placeholder="Ingrese contraseña..." class="form-control">
-												<span class="help-block">Por favor, escriba una
-													contraseña</span>
+												<input type="password" id="password"
+													th:field="*{usuario.contrasena}"
+													placeholder="Ingrese contraseña..." class="form-control" />
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('usuario.contrasena')}"
+													th:errors="*{usuario.contrasena}"></span>
 											</div>
 										</div>
 										<div class="card-footer">

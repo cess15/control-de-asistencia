@@ -1,82 +1,88 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.thymeleaf.org">
-<!-- Basic -->
+  <!-- Basic -->
 
-<head th:fragment="head">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<!-- Mobile Metas -->
-<meta name="viewport"
-	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-<!-- Site Metas -->
-<title th:text="${title}"></title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
+    <!-- Site Metas -->
+    <title th:text="${title}"></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-<!-- Site Icons -->
-<link rel="shortcut icon" href="https://istb.edu.ec/wp-content/uploads/2019/09/ISTB-01.png" type="image/x-icon" />
-<link rel="apple-touch-icon" href="#" />
+    <!-- Site Icons -->
+    <link
+      rel="shortcut icon"
+      href="https://istb.edu.ec/wp-content/uploads/2019/09/ISTB-01.png"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="#" />
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
-<!-- Pogo Slider CSS -->
-<link rel="stylesheet" th:href="@{css/pogo-slider.min.css}">
-<!-- Site CSS -->
-<link rel="stylesheet" th:href="@{css/style.css}">
-<!-- Responsive CSS -->
-<link rel="stylesheet" th:href="@{css/responsive.css}">
-<!-- Custom CSS -->
-<link rel="stylesheet" th:href="@{css/custom.css}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <!-- Pogo Slider CSS -->
+    <link rel="stylesheet" th:href="@{/css/pogo-slider.min.css}" />
+    <!-- Site CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/custom.css}" />
+    <!-- Timeline CSS -->
+    <link rel="stylesheet" th:href="@{/css/timeline.css}" />
 
-<!--[if lt IE 9]>
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  </head>
+  <body data-spy="scroll" data-target="#navbar-wd">
+    <!-- LOADER -->
+    <div id="preloader" th:fragment="preLoader">
+      <div class="loader">
+        <img th:src="@{/images/loader.gif}" alt="#" />
+      </div>
+    </div>
+    <!-- end loader -->
+    <!-- END LOADER -->
 
-</head>
-<body data-spy="scroll" data-target="#navbar-wd">
-	<!-- LOADER -->
-	<div id="preloader" th:fragment="preLoader">
-		<div class="loader">
-			<img th:src="@{images/loader.gif}" alt="#" />
-		</div>
-	</div>
-	<!-- end loader -->
-	<!-- END LOADER -->
+    <!-- Start header -->
+    <header th:fragment="header" class="top-header">
+      <div th:insert="partials/nav.html :: nav"></div>
+    </header>
+    <!-- End header -->
+    <div class="content-body"></div>
+    <div th:fragment="endPage">
+      <div th:insert="partials/footer.html :: footer"></div>
 
-	<!-- Start header -->
-	<header th:fragment="header" class="top-header">
-		<div th:insert="partials/nav.html :: nav"></div>
-	</header>
-	<!-- End header -->
-	<div class="content-body"></div>
-	<div th:fragment="endPage">
+      <div th:insert="partials/footer.html :: footer_bottom"></div>
 
-		<div th:insert="partials/footer.html :: footer"></div>
+      <a href="#" id="scroll-to-top" class="hvr-radial-out"
+        ><i class="fa fa-angle-up"></i
+      ></a>
 
-		<div th:insert="partials/footer.html :: footer_bottom"></div>
-
-		<a href="#" id="scroll-to-top" class="hvr-radial-out"><i
-		class="fa fa-angle-up"></i></a>
-		
-		<!-- ALL JS FILES -->
-		<script th:src="@{js/jquery.min.js}"></script>
-		<script th:src="@{js/popper.min.js}"></script>
-		<script th:src="@{js/bootstrap.min.js}"></script>
-		<!-- ALL PLUGINS -->
-		<script th:src="@{js/jquery.magnific-popup.min.js}"></script>
-		<script th:src="@{js/jquery.pogo-slider.min.js}"></script>
-		<script th:src="@{js/slider-index.js}"></script>
-		<script th:src="@{js/smoothscroll.js}"></script>
-		<script th:src="@{js/form-validator.min.js}"></script>
-		<script th:src="@{js/contact-form-script.js}"></script>
-		<script th:src="@{js/isotope.min.js}"></script>
-		<script th:src="@{js/images-loded.min.js}"></script>
-		<script th:src="@{js/custom.js}"></script>
-	</div>
-
-</body>
+      <!-- ALL JS FILES -->
+      <script th:src="@{/js/jquery.min.js}"></script>
+      <script th:src="@{/js/popper.min.js}"></script>
+      <script th:src="@{/js/bootstrap.min.js}"></script>
+      <!-- ALL PLUGINS -->
+      <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+      <script th:src="@{/js/jquery.pogo-slider.min.js}"></script>
+      <script th:src="@{/js/slider-index.js}"></script>
+      <script th:src="@{/js/smoothscroll.js}"></script>
+      <script th:src="@{/js/form-validator.min.js}"></script>
+      <script th:src="@{/js/contact-form-script.js}"></script>
+      <script th:src="@{/js/isotope.min.js}"></script>
+      <script th:src="@{/js/images-loded.min.js}"></script>
+      <script th:src="@{/js/custom.js}"></script>
+    </div>
+  </body>
 </html>
