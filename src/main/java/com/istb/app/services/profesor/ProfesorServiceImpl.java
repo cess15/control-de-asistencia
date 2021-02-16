@@ -149,6 +149,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 		profesor.getUsuario().addRol(rol);
 		
 		
+		
 
 		userService.save(profesor.getUsuario()).forEach((k, v) -> errorAttributes.put(k, v));
 
@@ -158,10 +159,15 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		profesorRepository.save(profesor);
 		
-		periodoProfesor.setPeriodo(periodo);
+		System.out.println(periodo);
+		if(periodo!=null) {
+			
+			periodoProfesor.setPeriodo(periodo);
+		}
+		
 		periodoProfesor.setProfesor(profesor);
 		periodoProfesor.setDiasFaltados(0);
-		periodoProfesorRepository.save(periodoProfesor);
+		periodoProfesorRepository.save(periodoProfesor);			
 
 		return errorAttributes;
 

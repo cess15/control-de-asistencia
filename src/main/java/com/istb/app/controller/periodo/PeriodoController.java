@@ -15,6 +15,7 @@ public class PeriodoController {
 	
 	@GetMapping(value = "/periodos")
 	public String loadView(Model model) {
+		model.addAttribute("title","Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
 		return "dashboard/periodos";
 	}

@@ -41,13 +41,15 @@ public class UserController {
 	
 	@GetMapping("/agregar-usuario")
 	public String loadForm(Model model) {
-		Periodo periodo = periodoRepository.findByVigente(true);
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("profesor", new Profesor());
-		model.addAttribute("periodo", periodo);
-		model.addAttribute("fechaInicio",
-				userCredentials.convertDate(periodo.getFechaInicio()));
-		model.addAttribute("fechaFinal", userCredentials.convertDate(periodo.getFechaFinal()));
+		Periodo periodo = periodoRepository.findByVigente(true);
+		if(periodo!=null) {
+			model.addAttribute("periodo", periodo);
+			model.addAttribute("fechaInicio",
+					userCredentials.convertDate(periodo.getFechaInicio()));
+			model.addAttribute("fechaFinal", userCredentials.convertDate(periodo.getFechaFinal()));			
+		}
 		return "user/create";
 
 	}
