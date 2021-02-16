@@ -56,14 +56,14 @@
 
     <!-- Start header -->
     <header th:fragment="header" class="top-header">
-      <div th:insert="/partials/nav.html :: nav"></div>
+      <div th:insert="partials/nav.html :: nav"></div>
     </header>
     <!-- End header -->
     <div class="content-body"></div>
     <div th:fragment="endPage">
-      <div th:insert="/partials/footer.html :: footer"></div>
+      <div th:insert="partials/footer.html :: footer"></div>
 
-      <div th:insert="/partials/footer.html :: footer_bottom"></div>
+      <div th:insert="partials/footer.html :: footer_bottom"></div>
 
       <a href="#" id="scroll-to-top" class="hvr-radial-out"
         ><i class="fa fa-angle-up"></i
