@@ -12,10 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.istb.app.entities.Periodo;
-import com.istb.app.entities.PeriodoProfesor;
 import com.istb.app.entities.Profesor;
 import com.istb.app.entities.Role;
-import com.istb.app.repository.PeriodoProfesorRepository;
 import com.istb.app.repository.PeriodoRepository;
 import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.rol.RolService;
@@ -38,9 +36,6 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	@Autowired
 	PeriodoRepository periodoRepository;
-
-	@Autowired
-	PeriodoProfesorRepository periodoProfesorRepository;
 
 	@Override
 	public List<Profesor> findAll() {
@@ -143,9 +138,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		}
 
-		PeriodoProfesor periodoProfesor = new PeriodoProfesor();
 		Role rol = rolService.findByNombre("Docente");
-		Periodo periodo = periodoRepository.findByVigente(true);
 		profesor.getUsuario().addRol(rol);
 		
 		
@@ -159,16 +152,6 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		profesorRepository.save(profesor);
 		
-		System.out.println(periodo);
-		if(periodo!=null) {
-			
-			periodoProfesor.setPeriodo(periodo);
-		}
-		
-		periodoProfesor.setProfesor(profesor);
-		periodoProfesor.setDiasFaltados(0);
-		periodoProfesorRepository.save(periodoProfesor);			
-
 		return errorAttributes;
 
 	}

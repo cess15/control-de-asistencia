@@ -11,6 +11,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +42,7 @@ public class Adjunto implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"adjuntos"})
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Permiso permiso;
 	
 }

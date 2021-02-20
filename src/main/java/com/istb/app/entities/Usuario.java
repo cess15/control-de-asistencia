@@ -96,13 +96,6 @@ public class Usuario implements Serializable {
 		this.roles.add(rol);
 	}
 
-	public void removeRol(Role rol) {
-		if (this.roles == null) {
-			this.roles = new ArrayList<>();
-		}
-		this.roles.remove(rol);
-	}
-
 	public Usuario(int id, String nombreUsuario, String contrasena, String imagenPerfil, String url_imagen_perfil,
 			Boolean estado, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion, Profesor profesor) {
 		super();

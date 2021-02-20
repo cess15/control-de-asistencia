@@ -50,13 +50,6 @@ public class Role implements Serializable {
 		this.usuarios.add(usuario);
 	}
 
-	public void removeUsuario(Usuario usuario) {
-		if (this.usuarios == null) {
-			this.usuarios = new ArrayList<>();
-		}
-		this.usuarios.remove(usuario);
-	}
-
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", nombre=" + nombre + "]";
