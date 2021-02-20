@@ -80,11 +80,23 @@ public class Permiso implements Serializable {
 	private LocalDateTime fechaActualizacion;
 
 	@ManyToMany
-	@JoinTable(name = "motivo_permiso", joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
+	@JoinTable(name = "motivo_permiso",
+	joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), 
+	inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
 	private Collection<Motivo> motivos;
 
 	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({ "permiso" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Adjunto> adjuntos;
+
+	@Override
+	public String toString() {
+		return "Permiso [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFinal=" + fechaFinal + ", horaInicio="
+				+ horaInicio + ", horaFinal=" + horaFinal + ", observacion=" + observacion + ", valorDescontar="
+				+ valorDescontar + ", fechaGeneracion=" + fechaGeneracion + ", fechaRecepcion=" + fechaRecepcion
+				+ ", inasistencia=" + inasistencia + ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
+				+ fechaActualizacion + "]";
+	}
+	
 }

@@ -1,6 +1,8 @@
 package com.istb.app.entities;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +42,7 @@ public class Adjunto implements Serializable {
 	@Column(name = "nombre_adjunto")
 	private String nombreAdjunto;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"adjuntos"})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Permiso permiso;

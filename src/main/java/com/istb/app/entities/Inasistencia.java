@@ -64,10 +64,6 @@ public class Inasistencia implements Serializable {
 		return "Inasistencia [id=" + id + ", fecha=" + fecha + ", justificacionDigital=" + justificacionDigital
 				+ ", justificacionFisica=" + justificacionFisica + ", profesor=" + profesor + ", periodo=" + periodo
 				+ "]";
-	}
-	
-	
-
-	
+	}	
 	
 }

@@ -2,7 +2,6 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;

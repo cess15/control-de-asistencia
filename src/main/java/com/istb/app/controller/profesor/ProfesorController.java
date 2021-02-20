@@ -54,7 +54,7 @@ public class ProfesorController {
 		}
 
 		Map<String, String> errors = profesorService.update(profesor, id);
-
+		
 		if (errors.isEmpty()) {
 
 			errors.put("clase", "success");
@@ -83,19 +83,19 @@ public class ProfesorController {
 	@GetMapping(value = "/editar")
 	public String loadFormUpdateProfile(Model model) {
 		model.addAttribute("title", "Panel ISTB");
-		model.addAttribute("user", userCredentials.getUserAuth());
+		model.addAttribute("user", userCredentials.getUserAuth().getProfesor());
 		return "profile/editarperfil";
 	}
 
 	@PostMapping(value = "/editar/perfil")
 	public String actualizarPerfil(@Valid @ModelAttribute("user") Profesor profesor,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs) throws Exception {
-		
+				
 		if (result.hasErrors()) {
 			return "profile/editarperfil";
 		}
 		
-		Map<String, String> errors = profesorService.update(profesor, userCredentials.getUserAuth().getId());
+		Map<String, String> errors = profesorService.update(profesor, userCredentials.getUserAuth().getProfesor().getId());
 
 		if (errors.isEmpty()) {
 

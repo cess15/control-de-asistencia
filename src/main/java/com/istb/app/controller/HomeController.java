@@ -40,9 +40,6 @@ public class HomeController {
 	
 	@PostMapping("/uploadfile")
 	public ResponseEntity<?> uploadImage(MultipartFile[] file) throws Exception {
-
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(fbmanager.uploadFile(file[0]));
-
 	}
-
 }

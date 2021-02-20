@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +46,12 @@ public class Motivo implements Serializable {
 	@Lob
 	private String descripcion;
 	
-	@ManyToMany(mappedBy = "motivos", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "motivos")
 	private Collection<Permiso> permisos;
 
+	@Override
+	public String toString() {
+		return "Motivo [id=" + id + ", nombre=" + nombre + ", tiempoRecuperar=" + tiempoRecuperar + ", tipo=" + tipo
+				+ ", descripcion=" + descripcion + "]";
+	}
 }
