@@ -5,17 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.istb.app.entities.Periodo;
-import com.istb.app.entities.PeriodoProfesor;
 import com.istb.app.entities.Profesor;
 import com.istb.app.entities.Role;
-import com.istb.app.repository.PeriodoProfesorRepository;
 import com.istb.app.repository.PeriodoRepository;
 import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.rol.RolService;
@@ -38,9 +34,6 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	@Autowired
 	PeriodoRepository periodoRepository;
-
-	@Autowired
-	PeriodoProfesorRepository periodoProfesorRepository;
 
 	@Override
 	public List<Profesor> findAll() {
@@ -73,12 +66,22 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	}
 
-	@Transactional
 	@Override
 	public Map<String, String> update(Profesor profesor, int id) {
-		Profesor _profesor = profesorRepository.findById(id).orElse(null);
 		Map<String, String> errorAttributes = new HashMap<>();
+		
+		Profesor _profesor = profesorRepository.findById(id).orElse(null);
+		
+		Profesor existeCorreo = profesorRepository.findByCorreoAndIdIsNot(profesor.getCorreo(), id);
+		
+		if (existeCorreo != null) {
+			errorAttributes.put("correo",
+					"Usuario con este correo: ".concat(profesor.getCorreo()).concat(" ya existe"));
+			errorAttributes.put("clase", "text-danger");
 
+			return errorAttributes;
+		}
+		
 		if (!profesor.getCedula().isEmpty() && !profesor.getCedula().equals(_profesor.getCedula())) {
 			_profesor.setCedula(profesor.getCedula());
 		}
@@ -91,19 +94,8 @@ public class ProfesorServiceImpl implements ProfesorService {
 			_profesor.setApellidos(profesor.getApellidos());
 		}
 
-		if (!profesor.getCorreo().isEmpty() && !profesor.getCorreo().equals(_profesor.getCorreo())) {
-			boolean existeCorreo = profesorRepository.findByCorreo(profesor.getCorreo()) != null;
-			if (existeCorreo) {
-
-				errorAttributes.put("correo",
-						"Usuario con este correo: ".concat(profesor.getCorreo()).concat(" ya existe"));
-				errorAttributes.put("clase", "text-danger");
-
-				return errorAttributes;
-
-			} else {
-				_profesor.setCorreo(profesor.getCorreo());
-			}
+		if (!profesor.getCorreo().isEmpty() && !profesor.getCorreo().equals(_profesor.getCorreo())) {	
+			_profesor.setCorreo(profesor.getCorreo());
 		}
 
 		if (!profesor.getTelefono().isEmpty() && !profesor.getTelefono().equals(_profesor.getTelefono())) {
@@ -113,8 +105,8 @@ public class ProfesorServiceImpl implements ProfesorService {
 		if (!errorAttributes.isEmpty()) {
 			return errorAttributes;
 		}
-
-		profesorService.save(profesor).forEach((k, v) -> errorAttributes.put(k, v));
+				
+		profesorService.save(_profesor);
 		return errorAttributes;
 
 	}
@@ -143,9 +135,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		}
 
-		PeriodoProfesor periodoProfesor = new PeriodoProfesor();
 		Role rol = rolService.findByNombre("Docente");
-		Periodo periodo = periodoRepository.findByVigente(true);
 		profesor.getUsuario().addRol(rol);
 		
 		
@@ -159,16 +149,6 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		profesorRepository.save(profesor);
 		
-		System.out.println(periodo);
-		if(periodo!=null) {
-			
-			periodoProfesor.setPeriodo(periodo);
-		}
-		
-		periodoProfesor.setProfesor(profesor);
-		periodoProfesor.setDiasFaltados(0);
-		periodoProfesorRepository.save(periodoProfesor);			
-
 		return errorAttributes;
 
 	}

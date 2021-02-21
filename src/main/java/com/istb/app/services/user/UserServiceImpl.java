@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.istb.app.entities.Usuario;
 import com.istb.app.repository.UserRepository;
@@ -28,12 +29,11 @@ public class UserServiceImpl implements UserService {
 		return null;
 
 	}
-
+	
+	@Transactional
 	@Override
 	public void delete(int id) {
-		
 		userRepository.deleteById(id);
-
 	}
 
 	@Override

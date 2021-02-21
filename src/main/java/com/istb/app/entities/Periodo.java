@@ -7,13 +7,14 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -42,10 +43,10 @@ public class Periodo implements Serializable {
 	
 	private Boolean vigente;
 	
-	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties({"periodo"})
-	@Valid
-	private Collection<PeriodoProfesor> periodoProfesores;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Collection<Inasistencia> inasistencias;
 
 	@Override
 	public String toString() {
@@ -53,5 +54,4 @@ public class Periodo implements Serializable {
 				+ vigente + "]";
 	}
 	
-
 }

@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,11 +28,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -65,7 +69,7 @@ public class Usuario implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaActualizacion;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable( name = "role_usuario", 
 		joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -73,7 +77,7 @@ public class Usuario implements Serializable {
 	@JsonIgnoreProperties({ "usuarios" })
 	private Collection<Role> roles;
 
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@Valid
 	@JsonIgnoreProperties({ "usuario" })
 	private Profesor profesor;
@@ -95,14 +99,7 @@ public class Usuario implements Serializable {
 		}
 		this.roles.add(rol);
 	}
-
-	public void removeRol(Role rol) {
-		if (this.roles == null) {
-			this.roles = new ArrayList<>();
-		}
-		this.roles.remove(rol);
-	}
-
+			
 	public Usuario(int id, String nombreUsuario, String contrasena, String imagenPerfil, String url_imagen_perfil,
 			Boolean estado, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion, Profesor profesor) {
 		super();
@@ -121,8 +118,7 @@ public class Usuario implements Serializable {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombreUsuario=" + nombreUsuario + ", contrasena=" + contrasena
 				+ ", imagenPerfil=" + imagenPerfil + ", url_imagen_perfil=" + url_imagen_perfil + ", estado=" + estado
-				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion=" + fechaActualizacion + ", profesor="
-				+ profesor + "]";
+				+ ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion=" + fechaActualizacion + "]";
 	}
 
 }

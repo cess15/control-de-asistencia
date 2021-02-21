@@ -7,7 +7,7 @@ let arrayCheck = [];
 let tomarAsistencia = document.getElementById("tomarAsistencia");
 
 async function obtenerProfesoresPorPeriodoVigente() {
-  const data = await fetch("/periodo-profesores");
+  const data = await fetch("/api/profesores");
   return data.json();
 }
 

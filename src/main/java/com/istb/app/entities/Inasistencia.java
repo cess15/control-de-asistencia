@@ -7,14 +7,15 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -45,17 +46,24 @@ public class Inasistencia implements Serializable {
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"inasistencias"})
-	private PeriodoProfesor periodo_profesor;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Profesor profesor;
 	
-	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL)
+	@ManyToOne
+	@JsonIgnoreProperties({"inasistencias"})
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Periodo periodo;
+	
+	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties({"inasistencia"})
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Permiso> permisos;
 
 	@Override
 	public String toString() {
 		return "Inasistencia [id=" + id + ", fecha=" + fecha + ", justificacionDigital=" + justificacionDigital
-				+ ", justificacionFisica=" + justificacionFisica + ", periodo_profesor=" + periodo_profesor + "]";
-	}
-	
+				+ ", justificacionFisica=" + justificacionFisica + ", profesor=" + profesor + ", periodo=" + periodo
+				+ "]";
+	}	
 	
 }

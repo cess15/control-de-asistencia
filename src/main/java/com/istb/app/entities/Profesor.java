@@ -2,7 +2,6 @@ package com.istb.app.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -19,6 +18,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -65,14 +67,15 @@ public class Profesor implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@Valid
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "profesor")
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties({ "profesor" })
-	@Valid
-	private Collection<PeriodoProfesor> profesorPeriodos;
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Collection<Inasistencia> inasistencias;
 
 	@Override
 	public String toString() {

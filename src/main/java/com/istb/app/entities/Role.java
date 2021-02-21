@@ -39,10 +39,10 @@ public class Role implements Serializable {
 	@NotEmpty(message = "El nombre del rol es requerido.")
 	private String nombre;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	@JsonIgnoreProperties({ "roles" })
 	private Collection<Usuario> usuarios;
-
+		
 	public void addUsuario(Usuario usuario) {
 		if (this.usuarios == null) {
 			this.usuarios = new ArrayList<>();
@@ -50,16 +50,9 @@ public class Role implements Serializable {
 		this.usuarios.add(usuario);
 	}
 
-	public void removeUsuario(Usuario usuario) {
-		if (this.usuarios == null) {
-			this.usuarios = new ArrayList<>();
-		}
-		this.usuarios.remove(usuario);
-	}
-
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", nombre=" + nombre + "]";
 	}
-
+	
 }

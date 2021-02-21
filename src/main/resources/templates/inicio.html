@@ -234,9 +234,7 @@
                               />
                             </div>
                           </div>
-                          <span
-                            th:text="${user.profesor.nombres}+' '+${user.profesor.apellidos}"
-                          ></span>
+                          <span>Nombres y apellidos</span>
                         </div>
                       </div>
                     </section>
@@ -276,33 +274,25 @@
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Dirección de correo</h5>
-                                    <span
-                                      th:text="${user.profesor.correo}"
-                                    ></span>
+                                    <span th:text="${user.profesor.correo}"></span>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Nombres</h5>
-                                    <span
-                                      th:text="${user.profesor.nombres}"
-                                    ></span>
+                                    <span th:text="${user.profesor.nombres}"></span>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Apellidos</h5>
-                                    <span
-                                      th:text="${user.profesor.apellidos}"
-                                    ></span>
+                                    <span th:text="${user.profesor.apellidos}"></span>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Teléfono</h5>
-                                    <span
-                                      th:text="${user.profesor.telefono}"
-                                    ></span>
+                                    <span th:text="${user.profesor.telefono}"></span>
                                   </div>
                                 </div>
                               </div>
@@ -318,18 +308,14 @@
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Periodo</h5>
-                                    <span
-                                      th:text="${fechaInicio}+' - '+${fechaFinal}"
-                                    ></span>
+                                    <span>Fecha Inicio - Fecha Final</span>
                                   </div>
                                 </div>
-                                <div th:if="${periodoProfesor.diasFaltados>0}">
+                                <div>
                                   <div class="row mb-3">
                                     <div class="col">
                                       <h5>Días faltados</h5>
-                                      <span
-                                        th:text="${periodoProfesor.diasFaltados}"
-                                      ></span>
+                                      <span></span>
                                     </div>
                                   </div>
                                 </div>
