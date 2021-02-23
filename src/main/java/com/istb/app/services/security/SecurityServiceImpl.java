@@ -1,6 +1,7 @@
 package com.istb.app.services.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,9 +18,9 @@ public class SecurityServiceImpl implements SecurityService {
 	public SecurityService loadAccessControllList(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
 				"/dist/**","/images/**").permitAll()
-			
 			
 			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**")
 			.hasAuthority("Secretaria")
@@ -30,8 +31,9 @@ public class SecurityServiceImpl implements SecurityService {
 			.antMatchers("/editar/**")
 			.hasAuthority("Docente")
 			
-			.anyRequest().authenticated();
-
+			.anyRequest().authenticated()
+			.and().csrf().disable();
+			
 		return this;
 	}
 

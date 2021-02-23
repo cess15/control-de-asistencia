@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="layout/app :: head"></head>
+  
+  <body class="animsition">
+    <div class="page-wrapper">
+      <!-- Start header -->
+      <header th:replace="layout/app :: header-mobile"></header>
+      <!-- End header -->
+    </div>
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+      <!-- HEADER DESKTOP-->
+
+      <header th:replace="layout/app :: header-desktop"></header>
+
+      <!-- HEADER DESKTOP-->
+      <!-- MENU SIDEBAR-->
+      <aside
+        class="menu-sidebar d-none d-lg-block"
+        th:replace="layout/app :: aside"
+      ></aside>
+      <!-- END MENU SIDEBAR-->
+
+      <!-- MAIN CONTENT-->
+
+      <div class="main-content">
+        <div style="position: relative; margin: 0 auto; padding: 0 30px">
+          <div class="container-fluid">
+            <div sec:authorize="hasAuthority('Secretaria')">
+            	<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+            	
+            	<div class="row">
+            		<div class="col-md-12">
+            			<div class="card">
+            				<div class="card-header">
+								<strong>Nuevo</strong> Periodo
+							</div>
+							<div class="card-body card-block">
+								<form th:action="@{/periodos/save}" th:object="${periodo}" method="POST">
+		            				<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Fecha de inicio</label>
+										<div class="col-sm-8">
+											<input type="date" th:field="*{fechaInicio}" class="form-control" th:errorclass="'form-control alert-danger'" />
+											<small class="form-text text-danger" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></small>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-2 col-form-label">Fecha final</label>
+										<div class="col-sm-8">
+											<input type="date" th:field="*{fechaFinal}" class="form-control" th:errorclass="'form-control alert-danger'" />
+											<small class="form-text text-danger" th:if="${#fields.hasErrors('fechaFinal')}" th:errors="*{fechaFinal}"></small>
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<div class="col-sm-8">
+											<input type="submit" th:value="Guardar" class="btn btn-secondary" />	
+										</div>
+									</div>
+		            			</form>
+							</div>
+						</div>
+            		</div>
+            	</div>
+            	<hr>
+            </div>
+          </div>
+          <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="layout/app :: endPage"></div>
+    <script src="/datatables/datatables.min.js"></script>
+    <script src="/js/periodo/periodos.js"></script>
+  </body>
+</html>

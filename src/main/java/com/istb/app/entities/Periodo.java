@@ -12,9 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -35,15 +37,19 @@ public class Periodo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_inicio")
+	@NotNull(message = "La fecha de inicio es requerida.")
 	private LocalDate fechaInicio;
 	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
 	@Column(name = "fecha_final")
+	@NotNull(message = "La fecha de fin de periodo es requerida.")
 	private LocalDate fechaFinal;
 	
 	private Boolean vigente;
 	
-	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "periodo", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"periodo"})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Inasistencia> inasistencias;

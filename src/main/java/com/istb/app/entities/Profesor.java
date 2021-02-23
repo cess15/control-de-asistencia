@@ -72,7 +72,7 @@ public class Profesor implements Serializable {
 	@JsonIgnoreProperties({ "profesor" })
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "profesor" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Inasistencia> inasistencias;

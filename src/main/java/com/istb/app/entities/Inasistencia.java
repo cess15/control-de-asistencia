@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -57,8 +58,9 @@ public class Inasistencia implements Serializable {
 	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnoreProperties({"inasistencia"})
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OrderBy("id desc")
 	private Collection<Permiso> permisos;
-
+	
 	@Override
 	public String toString() {
 		return "Inasistencia [id=" + id + ", fecha=" + fecha + ", justificacionDigital=" + justificacionDigital
