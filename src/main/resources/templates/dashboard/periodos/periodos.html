@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="layout/app :: head"></head>
+  
+  <body class="animsition">
+    <div class="page-wrapper">
+      <!-- Start header -->
+      <header th:replace="layout/app :: header-mobile"></header>
+      <!-- End header -->
+    </div>
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+      <!-- HEADER DESKTOP-->
+
+      <header th:replace="layout/app :: header-desktop"></header>
+
+      <!-- HEADER DESKTOP-->
+      <!-- MENU SIDEBAR-->
+      <aside
+        class="menu-sidebar d-none d-lg-block"
+        th:replace="layout/app :: aside"
+      ></aside>
+      <!-- END MENU SIDEBAR-->
+
+      <!-- MAIN CONTENT-->
+
+      <div class="main-content">
+        <div style="position: relative; margin: 0 auto; padding: 0 30px">
+          <div class="container-fluid">
+            <div sec:authorize="hasAuthority('Secretaria')">
+            	<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+            
+            	<div class="row">
+            		<div class="col-md-12">
+            			<a href="/periodos/create" class="btn btn-primary">Agregar periodo</a>
+            		</div>
+            	</div>
+            	<hr>
+            	<div class="row">
+            		<div class="col-md-12">
+            			<table id="periodos-table" class="table table-striped">
+			              <thead>
+			                <tr>
+			                  <th scope="col">#</th>
+			                  <th scope="col">Fecha de inicio</th>
+			                  <th scope="col">Fecha fin</th>
+			                  <th scope="col">Vigente</th>
+			                  <th scope="col">Editar</th>
+			                  <th scope="col">Borrar</th>
+			                </tr>
+			              </thead>
+			            </table>
+            		</div>
+            	</div>
+            </div>
+          </div>
+          <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="layout/app :: endPage"></div>
+    <script src="/datatables/datatables.min.js"></script>
+    <script src="/js/periodo/periodos.js"></script>
+  </body>
+</html>

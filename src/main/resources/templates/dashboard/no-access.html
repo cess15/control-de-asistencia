@@ -5,6 +5,7 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head th:replace="layout/app :: head"></head>
+  
   <body class="animsition">
     <div class="page-wrapper">
       <!-- Start header -->
@@ -31,12 +32,27 @@
       <div class="main-content">
         <div style="position: relative; margin: 0 auto; padding: 0 30px">
           <div class="container-fluid">
-            <div sec:authorize="hasAuthority('Secretaria')"></div>
+            <div sec:authorize="hasAuthority('Secretaria')">
+            	<div class="row">
+					<div class="col col-lg-12">
+						<section class="card">
+							<div class="card-body text-secondary">
+								<h4>
+									<p>La hora de inicio para la toma de asistencias es: <span th:text="${start}"></span></p>
+									<p>La hora final para la toma de asistencias es: <span th:text="${end}"></span></p>
+								</h4>
+							</div>
+						</section>
+					</div>
+				</div>
+            </div>
           </div>
           <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
         </div>
       </div>
     </div>
     <div th:replace="layout/app :: endPage"></div>
+    <script src="/datatables/datatables.min.js"></script>
+    <script src="/js/periodo/periodos.js"></script>
   </body>
 </html>

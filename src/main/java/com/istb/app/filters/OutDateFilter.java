@@ -12,9 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class OutDateFilter extends OncePerRequestFilter {
 	
-	private static final int horaInicio = 0;
+	private static final int horaInicio = 7;
 	
-	private static final int horaCierre = 3;
+	private static final int horaCierre = 18;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -23,7 +23,7 @@ public class OutDateFilter extends OncePerRequestFilter {
 		if (hour >= horaInicio && hour < horaCierre) {
 			filterChain.doFilter(request, response);
 		} else {
-			response.sendRedirect("/inicio");
+			response.sendRedirect("/no-access?start=" + horaInicio + "&end="+ horaCierre);
 		}
 	}
 }
