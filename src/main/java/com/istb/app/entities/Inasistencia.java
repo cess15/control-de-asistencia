@@ -55,7 +55,7 @@ public class Inasistencia implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Periodo periodo;
 	
-	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "inasistencia", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"inasistencia"})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@OrderBy("id desc")

@@ -1,6 +1,7 @@
 package com.istb.app.api.controller.inasistencia;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Periodo;
+import com.istb.app.entities.Profesor;
 import com.istb.app.models.ErrorResponse;
+import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.inasistencia.InasistenciaService;
 import com.istb.app.services.periodo.PeriodoService;
 
@@ -29,14 +32,28 @@ public class InasistenciaApiController {
 	@Autowired
 	PeriodoService servicePeriodo;
 	
+	@Autowired
+	UserCredentials serviceCredentials;
+	
 	@GetMapping(value = "/inasistencias", headers = "Accept=Application/json")
 	public Collection<Inasistencia> index () {
 		return serviceInasistencia.findByFechaActual();
 	}
 	
+	@GetMapping(value = "/inasistencias/unjustified", headers = "Accept=Application/json")
+	public List<Inasistencia> getInasistenciasNoJustificada () {
+		return this.serviceInasistencia.findByInjustificado();
+	}
+	
 	@GetMapping(value = "/inasistencias/{id}/profesor", headers = "Accept=Application/json")
 	public Collection<Inasistencia> getInasistenciasByProfesor (@PathVariable(name = "id") int profesor_id) {
 		return serviceInasistencia.findByFechaActual(profesor_id);
+	}
+	
+	@GetMapping(value = "/inasistencias/last", headers = "Accept=Application/json")
+	public Inasistencia getLastInasistencias () {
+		Profesor profesor = this.serviceCredentials.getUserAuth().getProfesor();
+		return serviceInasistencia.findByProfesor(profesor.getId());
 	}
 	
 	@PostMapping(value = "/inasistencias", headers = "Accept=Application/json")

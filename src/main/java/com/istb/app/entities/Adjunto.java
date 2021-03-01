@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +41,7 @@ public class Adjunto implements Serializable {
 	@Column(name = "nombre_adjunto")
 	private String nombreAdjunto;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"adjuntos"})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Permiso permiso;

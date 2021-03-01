@@ -9,7 +9,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -66,7 +65,7 @@ public class Permiso implements Serializable {
 	@Column(name = "fecha_recepcion")
 	private LocalDate fechaRecepcion;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "permisos" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Inasistencia inasistencia;
@@ -85,7 +84,7 @@ public class Permiso implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
 	private Collection<Motivo> motivos;
 
-	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "permiso" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Adjunto> adjuntos;
