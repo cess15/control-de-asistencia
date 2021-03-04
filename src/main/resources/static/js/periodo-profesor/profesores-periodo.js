@@ -6,6 +6,8 @@ let check = Object;
 let arrayBody = [];
 let tomarAsistencia = document.getElementById("tomarAsistencia");
 
+var stompClient = null;
+
 async function obtenerProfesoresPorPeriodoVigente() {
   const data = await fetch("/api/profesores");
   return data.json();
@@ -31,7 +33,8 @@ window.addEventListener(
     let response = await obtenerProfesoresPorPeriodoVigente();
     await drawTeacher(response)
     check = document.querySelectorAll(".check-mark");
-    checkGeneral.addEventListener("change", checkAll);
+    checkGeneral.addEventListener("change", checkAll);   
+    connect()
     tomarAsistencia.addEventListener("click", enviarAsistencia);
   },
   false
@@ -67,13 +70,13 @@ const enviarAsistencia = async () => {
   if (data.status == 400) {
     alert(response.message)
   } else {
-	  alert('Se ha tomado asistencia')	 
-	  obtenerProfesoresPorPeriodoVigente()
-      .then(resp => {
-        drawTeacher(resp).then(response => response)
-      })
+	  alert('Se ha tomado asistencia')
+	  const resp = await obtenerProfesoresPorPeriodoVigente()
+      await drawTeacher(resp)
+      stompClient.send('/app/send', {}, JSON.stringify(arrayBody));
   }
-
+  
+  disconnect ()
 };
 
 const checkAll = (event) => {
@@ -86,3 +89,17 @@ const checkAll = (event) => {
     }
   }
 };
+
+function connect() {
+   var socket = new SockJS('/ws');
+   stompClient = Stomp.over(socket);
+   stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+   });
+}
+
+function disconnect () {
+   if (stompClient !== null) {
+      stompClient.disconnect();
+   }
+}

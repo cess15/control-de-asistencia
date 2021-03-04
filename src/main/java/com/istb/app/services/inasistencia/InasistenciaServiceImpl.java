@@ -12,14 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Periodo;
+import com.istb.app.entities.Profesor;
 import com.istb.app.repository.InasistenciaRepository;
+import com.istb.app.services.auth.UserCredentials;
+import com.istb.app.services.periodo.PeriodoService;
 
 @Service
 public class InasistenciaServiceImpl implements InasistenciaService {
 	
 	@Autowired
 	InasistenciaRepository inasistenciaRepository;
-		
+	
+	@Autowired
+	PeriodoService servicePeriodo;
+	
+	@Autowired
+	UserCredentials userCredentials;
+	
 	@Transactional
 	@Override
 	public List<Inasistencia> save(Set<Inasistencia> inasistencias, Periodo periodo) {		
@@ -47,5 +56,27 @@ public class InasistenciaServiceImpl implements InasistenciaService {
 	@Override
 	public Collection<Inasistencia> findByFechaActual() {
 		return inasistenciaRepository.findByFecha(LocalDate.now());
+	}
+
+	@Override
+	public List<Inasistencia> findByInjustificado() {
+		Profesor profesor = userCredentials.getUserAuth().getProfesor();
+		return this.inasistenciaRepository
+			.findByJustificacionDigitalAndJustificacionFisicaAndProfesor_IdAndPeriodo_VigenteIsTrue(false, false, profesor.getId());
+	}
+
+	@Override
+	public Inasistencia findByUltimoInjustificado() {
+		Profesor profesor = userCredentials.getUserAuth().getProfesor();
+		Periodo periodo = servicePeriodo.findPeriodoVigente();
+		return this.inasistenciaRepository
+			.findByJustificacionDigitalAndJustificacionFisicaAndProfesor_IdAndPeriodo_VigenteIsTrueLast(false, false, profesor.getId(), periodo.getId(), LocalDate.now());
+	}
+
+	@Override
+	public Inasistencia findByProfesor(int profesor_id) {
+		Periodo periodo = servicePeriodo.findPeriodoVigente();
+		return this.inasistenciaRepository
+			.findByJustificacionDigitalAndJustificacionFisicaAndProfesor_IdAndPeriodo_VigenteIsTrueLast(false, false, profesor_id, periodo.getId(), LocalDate.now());
 	}
 }

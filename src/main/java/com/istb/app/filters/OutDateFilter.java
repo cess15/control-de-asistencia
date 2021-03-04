@@ -12,7 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class OutDateFilter extends OncePerRequestFilter {
 	
-	private static final int horaInicio = 7;
+	private static final int horaInicio = 6;
 	
 	private static final int horaCierre = 18;
 	

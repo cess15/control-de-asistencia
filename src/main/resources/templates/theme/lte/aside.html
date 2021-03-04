@@ -12,8 +12,8 @@
           <li
             th:classappend="${#request.requestURI.startsWith('/inicio') ? 'active' : ''}"
           >
-            <a th:href="@{/inicio}"
-              ><i class="fas fa-tachometer-alt"></i>Area personal</a
+            <a th:href="@{/inicio}" title="Justificaciones Pendientes"
+              ><i class="fas fa-tachometer-alt"></i><abbr title="Justificaciones Pendientes">Justificaciones P.</abbr></a
             >
           </li>
         </div>
@@ -31,6 +31,15 @@
             th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}"
           >
             <a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos </a>
+          </li>
+        </div>
+        <div sec:authorize="hasAuthority('Docente')">
+          <li
+            th:classappend="${#request.requestURI.startsWith('/perfil') ? 'active' : ''}"
+          >
+            <a th:href="@{/perfil}">
+              <i class="fas fa-user"></i>Mi Perfil
+            </a>
           </li>
         </div>
         <li>

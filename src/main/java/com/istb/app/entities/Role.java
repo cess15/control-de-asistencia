@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +38,7 @@ public class Role implements Serializable {
 	@NotEmpty(message = "El nombre del rol es requerido.")
 	private String nombre;
 
-	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "roles")
 	@JsonIgnoreProperties({ "roles" })
 	private Collection<Usuario> usuarios;
 		
