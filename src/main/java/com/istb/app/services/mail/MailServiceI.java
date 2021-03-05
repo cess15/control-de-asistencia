@@ -38,6 +38,6 @@ public interface MailServiceI {
 	 * @param subject asunto del correo
 	 */
 	void sendEmailTemplate(String template, 
-    Map<String, String> data, String email, String subject);
+    Map<String, Object> data, String email, String subject);
     
 } 

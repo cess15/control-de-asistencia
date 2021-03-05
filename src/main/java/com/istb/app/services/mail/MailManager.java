@@ -44,7 +44,7 @@ public class MailManager implements MailServiceI {
     }
 
     @Override
-    public void sendEmailTemplate(String template, Map<String, String> data, 
+    public void sendEmailTemplate(String template, Map<String, Object> data, 
         String email, String subject) {
 
             Context context;
@@ -52,7 +52,7 @@ public class MailManager implements MailServiceI {
     
             context = new Context();
             if( data != null ) {
-                for(Map.Entry<String, String> entry : data.entrySet() ) {
+                for(Map.Entry<String, Object> entry : data.entrySet() ) {
                     context.setVariable(entry.getKey(), entry.getValue()); } }
             
             messageBody = renderEngine.process(

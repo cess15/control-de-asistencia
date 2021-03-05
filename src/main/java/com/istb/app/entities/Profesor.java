@@ -65,6 +65,9 @@ public class Profesor implements Serializable {
 	@Column(name = "fecha_vacacion_final")
 	private LocalDate fechaVacacionFinal;
 
+	@Column(name = "token_verification")
+	private String tokenVerification;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)

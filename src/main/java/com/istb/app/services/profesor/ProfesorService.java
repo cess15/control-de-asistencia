@@ -22,5 +22,7 @@ public interface ProfesorService {
 	Map<String, String> update(Profesor profesor, int id);
 
 	void delete(int id);
+	
+	String generateToken();
 
 }

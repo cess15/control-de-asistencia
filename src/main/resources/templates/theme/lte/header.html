@@ -20,8 +20,8 @@
 				<div sec:authorize="hasAuthority('Docente')">
 					<li
 						th:classappend="${#request.requestURI.startsWith('/inicio') ? 'active' : ''}">
-						<a th:href="@{/inicio}"><i
-							class="fas fa-tachometer-alt"></i>Area personal</a>
+						<a th:href="@{/inicio}"><i class="fas fa-tachometer-alt"></i>Area
+							personal</a>
 					</li>
 				</div>
 				<div sec:authorize="hasAuthority('Secretaria')">
@@ -32,12 +32,13 @@
 				</div>
 				<div sec:authorize="hasAuthority('Secretaria')">
 					<li
-					  th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}"
-					>
-					  <a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos </a>
+						th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}">
+						<a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos
+					</a>
 					</li>
-				  </div>
-				</a></li>
+				</div>
+				</a>
+				</li>
 				<li><a href="#"> <i class="far fa-check-square"></i>Forms
 				</a></li>
 				<li><a href="#"> <i class="fas fa-calendar-alt"></i>Calendar
@@ -187,7 +188,8 @@
 					<div class="account-wrap">
 						<div class="account-item clearfix js-item-menu">
 							<div class="image">
-								<img src="/dist/images/icon/avatar-01.jpg" alt="John Doe" />
+								<img th:src="${user.url_imagen_perfil}" class="img_profile"
+									alt="user-profile" />
 							</div>
 							<div class="content">
 								<a class="js-acc-btn" href="#" sec:authentication="name"></a>
@@ -195,8 +197,8 @@
 							<div class="account-dropdown js-dropdown">
 								<div class="info clearfix">
 									<div class="image">
-										<a href="#"> <img src="/dist/images/icon/avatar-01.jpg"
-											alt="John Doe" />
+										<a href="#"> <img th:src="${user.url_imagen_perfil}"
+											class="img_profile" alt="user-profile" />
 										</a>
 									</div>
 									<div class="content">
@@ -204,7 +206,7 @@
 											<a href="#" sec:authentication="name"></a>
 										</h5>
 										<div sec:authorize="hasAuthority('Docente')">
-											<span class="email">Mostrar correo</span>
+											<span class="email" th:text="${user.profesor.correo}"></span>
 										</div>
 									</div>
 								</div>

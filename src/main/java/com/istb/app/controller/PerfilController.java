@@ -10,19 +10,19 @@ import com.istb.app.services.profesor.ProfesorService;
 
 @Controller
 public class PerfilController {
-	
+
 	@Autowired
 	UserCredentials userCredentials;
 
 	@Autowired
 	ProfesorService profesorService;
-	
+
 	@GetMapping(value = "/perfil")
 	public String inicio(Model model) {
 		model.addAttribute("profesores", profesorService.findAll());
 		model.addAttribute("title", "Panel ISTB - Perfil");
 		model.addAttribute("user", userCredentials.getUserAuth());
-		
+
 		return "dashboard/perfil";
 	}
 }

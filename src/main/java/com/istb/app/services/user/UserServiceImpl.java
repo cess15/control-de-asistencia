@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 
 		} 
 		
-		usuario.setEstado(true);
+		usuario.setEstado(false);
 		usuario.setContrasena(password);
 		
 		userRepository.save(usuario);
