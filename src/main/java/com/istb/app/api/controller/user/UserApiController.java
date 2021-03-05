@@ -49,6 +49,7 @@ public class UserApiController {
 		Usuario usuario = serviceCredentials.getUserAuth();
 		FileUpload fileUpload = fbmanager.uploadFile(file[0]);
 		usuario.setUrl_imagen_perfil(fileUpload.getUrl());
+		fbmanager.deleteFile(usuario.getImagenPerfil());
 		usuario.setImagenPerfil(fileUpload.getName());
 		userService.update(usuario);
 		File upload = new File(file[0].getOriginalFilename());

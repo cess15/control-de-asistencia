@@ -18,12 +18,12 @@ public class VerificationController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping("/verify/{id}/{token}")
 	public String verify(@PathVariable int id, @PathVariable String token) {
 		Profesor profesor = profesorService.findById(id);
 		if (profesor.getTokenVerification().equals(token)) {
-			Usuario usuario = userService.findById(profesor.getUsuario().getId());
+			Usuario usuario = profesor.getUsuario();
 			usuario.setEstado(true);
 			userService.update(usuario);
 			return "redirect:/login";

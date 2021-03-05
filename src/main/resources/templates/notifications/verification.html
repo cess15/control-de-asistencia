@@ -6,20 +6,19 @@
 	style="width:100%;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
 <head>
 <meta charset="UTF-8">
-<meta content="width=device-width, initial-scale=1" name="viewport">
-<meta name="x-apple-disable-message-reformatting">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="telephone=no" name="format-detection">
-<title>Verificación de cuenta</title>
-<!--[if (mso 16)]><style type="text/css">     a {text-decoration: none;}     </style><![endif]-->
-<!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
-<!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]-->
-<!--[if !mso]><!-- -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i"
-	rel="stylesheet">
-<!--<![endif]-->
-<style type="text/css">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+		<meta name="x-apple-disable-message-reformatting">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<meta content="telephone=no" name="format-detection">
+					<title>Verificación de cuenta</title> <!--[if (mso 16)]><style type="text/css">     a {text-decoration: none;}     </style><![endif]-->
+					<!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
+					<!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]-->
+					<!--[if !mso]><!-- -->
+					<link
+						href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i"
+						rel="stylesheet">
+						<!--<![endif]-->
+						<style type="text/css">
 .rollover:hover .rollover-first {
 	max-height: 0px !important;
 	display: none !important;
@@ -442,13 +441,23 @@ td .es-button-border-2:hover {
 																		cuenta ha sido creada correctamente. Haga clic en el
 																		siguiente botón para confirmar tu dirección de correo
 																		electrónico</p>
+																	<p
+																		style="Margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: roboto, 'helvetica neue', helvetica, arial, sans-serif; line-height: 32px; color: #131313; font-size: 16px">
+																		<span><strong>Nombre de usuario: <span
+																				th:text="${username}"></span></strong></span>
+																	</p>
+																	<p
+																		style="Margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: roboto, 'helvetica neue', helvetica, arial, sans-serif; line-height: 32px; color: #131313; font-size: 16px">
+																		<span><strong>Contraseña: <span
+																				th:text="${password}"></span></strong></span>
+																	</p>
 																</td>
 															</tr>
 															<tr style="border-collapse: collapse">
 																<td align="center" style="padding: 0; Margin: 0"><span
 																	class="es-button-border es-button-border-2"
 																	style="border-style: solid; border-color: #2CB543; background: #161922 none repeat scroll 0% 0%; border-width: 0px; display: inline-block; border-radius: 5px; width: auto">
-																		<a th:href="${url+'/verify/'+profesor+'/'+token}"
+																		<a th:href="${url+'/verify/'+profesorId+'/'+token}"
 																		class="es-button es-button-1" target="_blank"
 																		style="mso-style-priority: 100 !important; text-decoration: none; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; color: #FFFFFF; font-size: 16px; border-style: solid; border-color: #161922; border-width: 10px 20px 10px 20px; display: inline-block; background: #161922 none repeat scroll 0% 0%; border-radius: 5px; font-family: roboto, 'helvetica neue', helvetica, arial, sans-serif; font-weight: normal; font-style: normal; line-height: 19px; width: auto; text-align: center">Confirmar
 																			correo electrónico</a>
@@ -484,9 +493,9 @@ td .es-button-border-2:hover {
 																		Si tiene problemas para hacer clic en el botón
 																		"Confirmar correo electrónico", copie y pegue la URL
 																		que se muestra a continuación en su navegador web: <a
-																			th:href="${url+'/verify/'+profesor+'/'+token}"
+																			th:href="${url+'/verify/'+profesorId+'/'+token}"
 																			style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #2CB543; font-size: 16px"><span
-																			th:text="${url+'/verify/'+profesor+'/'+token}"></span></a>
+																			th:text="${url+'/verify/'+profesorId+'/'+token}"></span></a>
 																	</p>
 																</td>
 															</tr>
@@ -550,7 +559,7 @@ td .es-button-border-2:hover {
 																					<img title="Facebook"
 																					src="https://storage.googleapis.com/istb-storage.appspot.com/asistencia/recursos/1614907610542-facebook.png"
 																					alt="Fb" width="20" height="20"
-																					style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; margin-top:6px">
+																					style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; margin-top: 6px">
 																			</a></td>
 																			<td valign="top" align="center"
 																				style="padding: 0; Margin: 0; padding-right: 35px"><a

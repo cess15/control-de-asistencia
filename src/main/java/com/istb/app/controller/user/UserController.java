@@ -35,13 +35,14 @@ public class UserController {
 
 	@Autowired
 	PeriodoRepository periodoRepository;
-	
+
 	@Autowired
 	UserCredentials userCredentials;
-	
+
 	@GetMapping("/agregar-usuario")
 	public String loadForm(Model model) {
 		model.addAttribute("title", "Panel ISTB");
+		model.addAttribute("user", userCredentials.getUserAuth());
 		model.addAttribute("profesor", new Profesor());
 		Periodo periodo = periodoRepository.findByVigente(true);
 		if(periodo!=null) {

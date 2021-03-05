@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.istb.app.entities.Profesor;
 import com.istb.app.entities.Role;
+import com.istb.app.entities.Usuario;
 import com.istb.app.repository.PeriodoRepository;
 import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.mail.MailServiceI;
@@ -41,7 +42,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 	@Autowired
 	MailServiceI mailService;
-	
+
 	@Value("${app.url}")
 	String appUrl;
 
@@ -82,9 +83,9 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		Profesor _profesor = profesorRepository.findById(id).orElse(null);
 
-		Profesor existeCorreo = profesorRepository.findByCorreoAndIdIsNot(profesor.getCorreo(), id);
+		boolean existeCorreo = profesorRepository.findByCorreoAndIdIsNot(profesor.getCorreo(), id).isPresent();
 
-		if (existeCorreo != null) {
+		if (existeCorreo) {
 			errorAttributes.put("correo",
 					"Usuario con este correo: ".concat(profesor.getCorreo()).concat(" ya existe"));
 			errorAttributes.put("clase", "text-danger");
@@ -116,7 +117,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 			return errorAttributes;
 		}
 
-		profesorService.save(_profesor);
+		profesorRepository.save(_profesor);
 		return errorAttributes;
 
 	}
@@ -146,6 +147,10 @@ public class ProfesorServiceImpl implements ProfesorService {
 		}
 
 		Role rol = rolService.findByNombre("Docente");
+		Usuario usuario = new Usuario();
+		usuario.setNombreUsuario(profesor.getCedula());
+		usuario.setContrasena(profesor.getCedula());
+		profesor.setUsuario(usuario);
 		profesor.getUsuario().addRol(rol);
 		String token = generateToken();
 		profesor.setTokenVerification(token);
@@ -155,13 +160,14 @@ public class ProfesorServiceImpl implements ProfesorService {
 		if (!errorAttributes.isEmpty()) {
 			return errorAttributes;
 		}
-
 		Profesor profesorGuarded = profesorRepository.save(profesor);
 
 		Map<String, Object> data = new HashMap<>();
-		data.put("profesor", profesorGuarded.getId());
+		data.put("profesorId", profesorGuarded.getId());
 		data.put("token", token);
 		data.put("url", appUrl);
+		data.put("username", profesorGuarded.getUsuario().getNombreUsuario());
+		data.put("password", profesorGuarded.getCedula());
 
 		mailService.sendEmailTemplate("verification", data, profesorGuarded.getCorreo(), "Verificación de correo");
 
