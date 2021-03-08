@@ -50,7 +50,7 @@
                         <div class="user_profile">
                           <div class="user-pro-img">
                             <img
-                              src="/dist/images/icon/avatar-01.jpg"
+                              th:src="${user.url_imagen_perfil}"
                               id="img_loader"
                               class="img_profile"
                               width="180px"
@@ -64,11 +64,11 @@
                               <input
                                 type="file"
                                 id="file_picture_user"
-                                name="imagen_perfil"
+                                name="file"
                               />
                             </div>
                           </div>
-                          <span>Nombres y apellidos</span>
+                          <span th:text="${user.profesor.nombres+' '+user.profesor.apellidos}"></span>
                         </div>
                       </div>
                     </section>
@@ -142,7 +142,7 @@
                                 <div class="row mb-3">
                                   <div class="col">
                                     <h5>Periodo</h5>
-                                    <span>Fecha Inicio - Fecha Final</span>
+                                    <span th:text="${fechaInicio+'-'+fechaFinal}"></span>
                                   </div>
                                 </div>
                                 <div>
@@ -192,6 +192,7 @@
     <!-- END PAGE CONTAINER-->
 
     <div th:replace="layout/app :: endPage"></div>
+    <script src="/js/perfil/upload-image.js"></script>
   </body>
 </html>
 <!-- end document-->

@@ -20,12 +20,12 @@ public class SecurityServiceImpl implements SecurityService {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
-				"/dist/**","/images/**").permitAll()
+				"/dist/**","/images/**","/verify/**").permitAll()
 			
 			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**")
 			.hasAuthority("Secretaria")
 
-			.antMatchers("/inicio")
+			.antMatchers("/inicio","/api/profile/avatar")
 			.hasAnyAuthority("Secretaria","Docente")
 			
 			.antMatchers("/editar/**", "/perfil", "/api/inasistencias/unjustified")

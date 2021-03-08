@@ -108,21 +108,6 @@
 										</div>
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="username" class="form-control-label">Nombre
-													de usuario</label>
-											</div>
-											<div class="col-12 col-md-9">
-												<input type="text" id="username"
-													th:field="*{usuario.nombreUsuario}"
-													placeholder="Ingrese nombre de usuario..."
-													class="form-control" /> <span
-													class="error text-danger"
-													th:if="${#fields.hasErrors('usuario.nombreUsuario')}"
-													th:errors="*{usuario.nombreUsuario}"></span>
-											</div>
-										</div>
-										<div class="row form-group">
-											<div class="col col-md-3">
 												<label for="correo" class="form-control-label">Correo
 													electrónico</label>
 											</div>
@@ -133,19 +118,6 @@
 													class="error text-danger"
 													th:if="${#fields.hasErrors('correo')}"
 													th:errors="*{correo}"></span>
-											</div>
-										</div>
-										<div class="row form-group">
-											<div class="col col-md-3">
-												<label for="password" class="form-control-label">Contraseña</label>
-											</div>
-											<div class="col-12 col-md-9">
-												<input type="password" id="password"
-													th:field="*{usuario.contrasena}"
-													placeholder="Ingrese contraseña..." class="form-control" />
-												<span class="error text-danger"
-													th:if="${#fields.hasErrors('usuario.contrasena')}"
-													th:errors="*{usuario.contrasena}"></span>
 											</div>
 										</div>
 										<div class="card-footer">

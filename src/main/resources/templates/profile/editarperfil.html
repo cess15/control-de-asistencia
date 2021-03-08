@@ -1,190 +1,144 @@
 <!DOCTYPE html>
-<html
-  lang="es"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="layout/app :: head"></head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/app :: head"></head>
 
-  <body class="animsition">
-    <div class="page-wrapper">
-      <!-- Start header -->
-      <header th:replace="layout/app :: header-mobile"></header>
-      <!-- End header -->
-    </div>
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"></header>
+		<!-- End header -->
+	</div>
 
-    <!-- PAGE CONTAINER-->
-    <div class="page-container">
-      <!-- HEADER DESKTOP-->
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<!-- HEADER DESKTOP-->
 
-      <header th:replace="layout/app :: header-desktop"></header>
+		<header th:replace="layout/app :: header-desktop"></header>
 
-      <!-- HEADER DESKTOP-->
+		<!-- HEADER DESKTOP-->
 
-      <!-- MENU SIDEBAR-->
+		<!-- MENU SIDEBAR-->
 
-      <aside
-        class="menu-sidebar d-none d-lg-block"
-        th:replace="layout/app :: aside"
-      ></aside>
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
 
-      <!-- END MENU SIDEBAR-->
+		<!-- END MENU SIDEBAR-->
 
-      <!-- MAIN CONTENT-->
+		<!-- MAIN CONTENT-->
 
-      <div class="main-content">
-        <div class="section__content section__content--p30">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="table-data__tool">
-                  <div class="table-data__tool-right">
-                    <a th:href="@{/inicio}">
-                      <button
-                        class="au-btn au-btn-icon au-btn--green au-btn--small"
-                      >
-                        <i class="fa fa-arrow-circle-left"></i>regresar
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-header"><strong>Nuevo</strong> Profesor</div>
-                  <div class="card-body card-block">
-                    <form
-                      th:action="@{'/editar/perfil'}"
-                      th:object="${user}"
-                      method="post"
-                      class="form-horizontal"
-                    >
-                      <div class="row form-group">
-                        <div class="col col-md-3">
-                          <label for="cedula" class="form-control-label"
-                            >Cédula</label
-                          >
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <input
-                            type="text"
-                            th:field="*{cedula}"
-                            placeholder="Ingrese cédula..."
-                            class="form-control"
-                            id="cedula"
-                          />
-                          <span
-                            class="error text-danger"
-                            th:if="${#fields.hasErrors('cedula')}"
-                            th:errors="*{cedula}"
-                          ></span>
-                        </div>
-                      </div>
-                      <div class="row form-group">
-                        <div class="col col-md-3">
-                          <label for="cedula" class="form-control-label"
-                            >Nombres</label
-                          >
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <input
-                            type="text"
-                            th:field="*{nombres}"
-                            placeholder="Ingrese nombre..."
-                            class="form-control"
-                            id="cedula"
-                          />
-                          <span
-                            class="error text-danger"
-                            th:if="${#fields.hasErrors('nombres')}"
-                            th:errors="*{nombres}"
-                          ></span>
-                        </div>
-                      </div>
-                      <div class="row form-group">
-                        <div class="col col-md-3">
-                          <label for="apellidos" class="form-control-label"
-                            >Apellidos</label
-                          >
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <input
-                            type="text"
-                            id="apellidos"
-                            th:field="*{apellidos}"
-                            placeholder="Ingrese apellidos..."
-                            class="form-control"
-                          />
-                          <span
-                            class="error text-danger"
-                            th:if="${#fields.hasErrors('apellidos')}"
-                            th:errors="*{apellidos}"
-                          ></span>
-                        </div>
-                      </div>
-                      <div class="row form-group">
-                        <div class="col col-md-3">
-                          <label for="correo" class="form-control-label"
-                            >Correo electrónico</label
-                          >
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <input
-                            type="email"
-                            id="correo"
-                            th:field="*{correo}"
-                            placeholder="Ingrese correo electrónico..."
-                            class="form-control"
-                          />
-                          <span
-                            class="error text-danger"
-                            th:if="${#fields.hasErrors('correo')}"
-                            th:errors="*{correo}"
-                          ></span>
-                        </div>
-                      </div>
-                      <div class="row form-group">
-                        <div class="col col-md-3">
-                          <label for="correo" class="form-control-label"
-                            >Teléfono</label
-                          >
-                        </div>
-                        <div class="col-12 col-md-9">
-                          <input
-                            type="text"
-                            id="telefono"
-                            th:field="*{telefono}"
-                            placeholder="Ingrese el teléfono..."
-                            class="form-control"
-                          />
-                          <span
-                            class="error text-danger"
-                            th:if="${#fields.hasErrors('telefono')}"
-                            th:errors="*{telefono}"
-                          ></span>
-                        </div>
-                      </div>
-                      <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-sm">
-                          <i class="fa fa-dot-circle-o"></i> Guardar
-                        </button>
-                        <button type="reset" class="btn btn-danger btn-sm">
-                          <i class="fa fa-ban"></i> Resetear
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
-      </div>
-    </div>
-    <div th:replace="layout/app :: endPage"></div>
-  </body>
+		<div class="main-content">
+			<div class="section__content section__content--p30">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="table-data__tool">
+								<div class="table-data__tool-right">
+									<a th:href="@{/perfil}">
+										<button class="au-btn au-btn-icon au-btn--green au-btn--small">
+											<i class="fa fa-arrow-circle-left"></i>regresar
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						th:classappend="'alert-' + (${errors != null} ? ${errors.clase} : info)"
+						th:if="${errors != null}" th:text="${errors.mensaje}"
+						class="alert"></div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<strong>Editar</strong> Perfil
+								</div>
+								<div class="card-body card-block">
+									<form th:action="@{'/editar/perfil'}" th:object="${docente}"
+										method="post" class="form-horizontal">
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="cedula" class="form-control-label">Cédula</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" th:field="*{cedula}"
+													placeholder="Ingrese cédula..." class="form-control"
+													id="cedula" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('cedula')}"
+													th:errors="*{cedula}"></span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="cedula" class="form-control-label">Nombres</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" th:field="*{nombres}"
+													placeholder="Ingrese nombre..." class="form-control"
+													id="cedula" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('nombres')}"
+													th:errors="*{nombres}"></span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="apellidos" class="form-control-label">Apellidos</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" id="apellidos" th:field="*{apellidos}"
+													placeholder="Ingrese apellidos..." class="form-control" />
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('apellidos')}"
+													th:errors="*{apellidos}"></span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="correo" class="form-control-label">Correo
+													electrónico</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="email" id="correo" th:field="*{correo}"
+													placeholder="Ingrese correo electrónico..."
+													class="form-control" /> <span
+													class="error text-danger"
+													th:if="${#fields.hasErrors('correo')}"
+													th:errors="*{correo}"></span>
+											</div>
+										</div>
+										<div class="row form-group">
+											<div class="col col-md-3">
+												<label for="correo" class="form-control-label">Teléfono</label>
+											</div>
+											<div class="col-12 col-md-9">
+												<input type="text" id="telefono" th:field="*{telefono}"
+													placeholder="Ingrese el teléfono..." class="form-control" />
+												<span class="error text-danger"
+													th:if="${#fields.hasErrors('telefono')}"
+													th:errors="*{telefono}"></span>
+											</div>
+										</div>
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary btn-sm">
+												<i class="fa fa-dot-circle-o"></i> Guardar
+											</button>
+											<button type="reset" class="btn btn-danger btn-sm">
+												<i class="fa fa-ban"></i> Resetear
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+		</div>
+	</div>
+	<div th:replace="layout/app :: endPage"></div>
+</body>
 </html>
 <!-- end document-->

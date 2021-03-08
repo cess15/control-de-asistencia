@@ -39,6 +39,7 @@ public class ProfesorController {
 	public String loadForm(@PathVariable("id") int id, @ModelAttribute("profesor") Profesor profesor, Model model) {
 
 		model.addAttribute("profesor", profesorService.findById(id));
+		model.addAttribute("user", userCredentials.getUserAuth());
 
 		return "user/edit";
 
@@ -54,7 +55,7 @@ public class ProfesorController {
 		}
 
 		Map<String, String> errors = profesorService.update(profesor, id);
-		
+
 		if (errors.isEmpty()) {
 
 			errors.put("clase", "success");
@@ -83,33 +84,37 @@ public class ProfesorController {
 	@GetMapping(value = "/editar")
 	public String loadFormUpdateProfile(Model model) {
 		model.addAttribute("title", "Panel ISTB");
-		model.addAttribute("user", userCredentials.getUserAuth().getProfesor());
+		model.addAttribute("user", userCredentials.getUserAuth());
+		model.addAttribute("docente", userCredentials.getUserAuth().getProfesor());
 		return "profile/editarperfil";
 	}
 
 	@PostMapping(value = "/editar/perfil")
-	public String actualizarPerfil(@Valid @ModelAttribute("user") Profesor profesor,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs) throws Exception {
-				
+	public String actualizarPerfil(@Valid @ModelAttribute("docente") Profesor profesor, BindingResult result, Model model,
+			RedirectAttributes redirectAttrs) throws Exception {
 		if (result.hasErrors()) {
+			model.addAttribute("user", userCredentials.getUserAuth());
+			model.addAttribute("docente", userCredentials.getUserAuth().getProfesor());
+			System.out.println(profesor);
 			return "profile/editarperfil";
 		}
-		
-		Map<String, String> errors = profesorService.update(profesor, userCredentials.getUserAuth().getProfesor().getId());
+
+		Map<String, String> errors = profesorService.update(profesor,
+				userCredentials.getUserAuth().getProfesor().getId());
 
 		if (errors.isEmpty()) {
 
 			errors.put("clase", "success");
-			errors.put("mensaje", "Profesor registrado correctamente");
+			errors.put("mensaje", "Perfil actualizado correctamente");
 			redirectAttrs.addFlashAttribute("errors", errors);
 
 		} else {
 			errors.put("clase", "danger");
-			errors.put("mensaje", "El profesor no pudo ser registrado!");
+			errors.put("mensaje", "Ocurrio un problema al actualizar su perfil!");
 			redirectAttrs.addFlashAttribute("errors", errors);
 
 		}
-		return "redirect:/inicio";
+		return "redirect:/editar";
 	}
 
 	@ModelAttribute
