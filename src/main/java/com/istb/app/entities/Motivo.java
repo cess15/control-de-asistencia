@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -28,30 +27,28 @@ import lombok.NoArgsConstructor;
 public class Motivo implements Serializable {
 
 	private static final long serialVersionUID = -6386604383959539060L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String nombre;
-	
-	@Lob
+
 	@Column(name = "tiempo_recuperar")
 	private String tiempoRecuperar;
-	
-	@Enumerated(EnumType.STRING)
+
 	@Column(name = "tipo")
+	@Enumerated(value = EnumType.STRING)
 	private TipoMotivo tipo;
-	
-	@Lob
+
 	private String descripcion;
-	
+
 	@ManyToMany(mappedBy = "motivos")
 	private Collection<Permiso> permisos;
 
 	@Override
 	public String toString() {
-		return "Motivo [id=" + id + ", nombre=" + nombre + ", tiempoRecuperar=" + tiempoRecuperar + ", tipo=" + tipo
-				+ ", descripcion=" + descripcion + "]";
+		return "Motivo [id=" + id + ", nombre=" + nombre + ", tiempoRecuperar=" + tiempoRecuperar + ", descripcion="
+				+ descripcion + "]";
 	}
 }

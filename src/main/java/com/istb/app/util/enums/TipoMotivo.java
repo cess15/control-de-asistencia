@@ -3,7 +3,7 @@ package com.istb.app.util.enums;
 public enum TipoMotivo {
 	
 	/**
-	 * {@enum Enviada}.
+	 * {@enum Licencia}.
 	 * 
 	 */
 	LICENCIA("Licencia"),
@@ -12,7 +12,13 @@ public enum TipoMotivo {
 	 * {@enum Permiso}.
 	 * 
 	 */
-	PERMISO("Permiso");
+	PERMISO("Permiso"),
+	
+	/**
+	 * {@enum Sin categoria}.
+	 * 
+	 */
+	OTROS("Otros");
 	
 	private final String value;
 	

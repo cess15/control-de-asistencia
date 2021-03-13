@@ -25,60 +25,68 @@ import com.istb.app.services.periodo.PeriodoService;
 @RestController
 @RequestMapping(value = "/api")
 public class InasistenciaApiController {
-	
+
 	@Autowired
 	InasistenciaService serviceInasistencia;
-	
+
 	@Autowired
 	PeriodoService servicePeriodo;
-	
+
 	@Autowired
 	UserCredentials serviceCredentials;
-	
+
 	@GetMapping(value = "/inasistencias", headers = "Accept=Application/json")
-	public Collection<Inasistencia> index () {
+	public Collection<Inasistencia> index() {
 		return serviceInasistencia.findByFechaActual();
 	}
-	
+
 	@GetMapping(value = "/inasistencias/unjustified", headers = "Accept=Application/json")
-	public List<Inasistencia> getInasistenciasNoJustificada () {
+	public List<Inasistencia> getInasistenciasNoJustificada() {
 		return this.serviceInasistencia.findByInjustificado();
 	}
-	
+
+	@GetMapping(value = "/inasistencias/justified", headers = "Accept=Application/json")
+	public List<Inasistencia> getInasistenciasJustificada() {
+		return this.serviceInasistencia.findByJustificado();
+	}
+
 	@GetMapping(value = "/inasistencias/{id}/profesor", headers = "Accept=Application/json")
-	public Collection<Inasistencia> getInasistenciasByProfesor (@PathVariable(name = "id") int profesor_id) {
+	public Collection<Inasistencia> getInasistenciasByProfesor(@PathVariable(name = "id") int profesor_id) {
 		return serviceInasistencia.findByFechaActual(profesor_id);
 	}
-	
+
 	@GetMapping(value = "/inasistencias/last", headers = "Accept=Application/json")
-	public Inasistencia getLastInasistencias () {
+	public Inasistencia getLastInasistencias() {
 		Profesor profesor = this.serviceCredentials.getUserAuth().getProfesor();
 		return serviceInasistencia.findByProfesor(profesor.getId());
 	}
-	
-	@PostMapping(value = "/inasistencias", headers = "Accept=Application/json")
-	public ResponseEntity<?> save (@RequestBody Set<Inasistencia> inasistencias) {
-		Collection<Inasistencia> assistWasTaken  = serviceInasistencia.findByFechaActual();
-		
-		if (assistWasTaken.size() > 0) {
-			return new ResponseEntity<>(
-				new ErrorResponse("Ya se tomó asistencia"), HttpStatus.BAD_REQUEST);	
-		}
-		
-		if (inasistencias.size() == 0) {
-			return new ResponseEntity<>(
-				new ErrorResponse("Debe seleccionar por lo menos un docente que haya faltado."), HttpStatus.BAD_REQUEST);	
-		}
-		
-		Periodo periodo = servicePeriodo.findPeriodoVigente();
-		
-		if (periodo == null) {
-			return new ResponseEntity<>(
-				new ErrorResponse("No hay un periodo vigente."), HttpStatus.BAD_REQUEST);
-		}
-		
-		return new ResponseEntity<>(
-				this.serviceInasistencia.save(inasistencias, periodo), HttpStatus.CREATED);	
+
+	@GetMapping(value = "/inasistenciasJustified/last", headers = "Accept=Application/json")
+	public Inasistencia getLastInasistenciasJustified() {
+		Profesor profesor = this.serviceCredentials.getUserAuth().getProfesor();
+		return serviceInasistencia.findByProfesorJutified(profesor.getId());
 	}
-	
+
+	@PostMapping(value = "/inasistencias", headers = "Accept=Application/json")
+	public ResponseEntity<?> save(@RequestBody Set<Inasistencia> inasistencias) {
+		Collection<Inasistencia> assistWasTaken = serviceInasistencia.findByFechaActual();
+
+		if (assistWasTaken.size() > 0) {
+			return new ResponseEntity<>(new ErrorResponse("Ya se tomó asistencia"), HttpStatus.BAD_REQUEST);
+		}
+
+		if (inasistencias.size() == 0) {
+			return new ResponseEntity<>(new ErrorResponse("Debe seleccionar por lo menos un docente que haya faltado."),
+					HttpStatus.BAD_REQUEST);
+		}
+
+		Periodo periodo = servicePeriodo.findPeriodoVigente();
+
+		if (periodo == null) {
+			return new ResponseEntity<>(new ErrorResponse("No hay un periodo vigente."), HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(this.serviceInasistencia.save(inasistencias, periodo), HttpStatus.CREATED);
+	}
+
 }

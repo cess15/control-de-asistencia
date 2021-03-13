@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/app :: head"></head>
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"></header>
+		<!-- End header -->
+	</div>
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<!-- HEADER DESKTOP-->
+
+		<header th:replace="layout/app :: header-desktop"></header>
+		<!-- HEADER DESKTOP-->
+		<!-- MENU SIDEBAR-->
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
+		<!-- END MENU SIDEBAR-->
+		<!-- MAIN CONTENT-->
+
+		<div class="main-content">
+			<div style="position: relative; margin: 0 auto; padding: 0 30px">
+				<div class="container-fluid">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-lg-4">
+									<img th:src="@{/images/secretaria_es.png}">
+								</div>
+								<div class="col-lg-8">
+									<h2 class="text text-center">DIRECCIÓN DE TALENTO HUMANO</h2>
+									<h3 class="text text-center">FORMULARIO DE LICENCIAS Y
+										PERMISO</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-1 text-light text-center bg-secondary">
+									<strong>FECHA</strong>
+								</div>
+								<div class="col-lg-3">
+									<strong id="info-date" th:text="${permiso.fechaCreacion}"></strong>
+								</div>
+								<div class="col-lg-2 text-light text-center bg-secondary">
+									<strong>PROVINCIA</strong>
+								</div>
+								<div class="col-lg-2 text-center">
+									<strong>LOS RIOS</strong>
+								</div>
+								<div class="col-lg-2 text-light text-center bg-secondary">
+									<strong>REGIMEN</strong>
+								</div>
+								<div class="col-lg-2 text-center">
+									<strong>LOSEP</strong>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col text-center text-light bg-secondary">
+									<strong>DATOS DEL SERVIDOR / TRABAJADOR</strong>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-2">
+									<h6 class="mt-2">APELLIDOS Y NOMBRES:</h6>
+								</div>
+								<div class="mt-1 col-lg-4">
+									<span
+										th:text="${user.profesor.nombres+' '+user.profesor.apellidos}"></span>
+								</div>
+								<div class="mt-2 col-lg-4">
+									<h6 class="display-5">CÉDULA DE CIUDADANIA:</h6>
+								</div>
+								<div class="col-lg-2 mt-1">
+									<span th:text="${user.profesor.cedula}"></span>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="row">
+										<div class="col">
+											<div class="typo-headers">
+												<h6 class="pb-4 display-5">COORDINACIÓN / GERENCIA /
+													PROYECTO</h6>
+											</div>
+										</div>
+									</div>
+									<div class="text-center">
+										<span>INSTITUTO TECNOLOGICO SUPERIOR BABAHOYO</span>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="row">
+										<div class="col">
+											<div class="typo-headers">
+												<h6 class="pb-4 display-5">DIRECCIÓN O UNIDAD</h6>
+											</div>
+										</div>
+									</div>
+									<div class="text-center">
+										<span>AVENIDA DR. CAMILO PONCE ENRIQUE</span>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-lg-6">
+									<select disabled
+										class="form-control text-center text-light bg-secondary">
+										<option th:if="${PERMISO}"
+											th:selected="${PERMISO.tipo.toString()=='PERMISO'}"
+											value="PERMISO" disabled>PERMISO</option>
+										<option th:if="${LICENCIA}"
+											th:selected="${LICENCIA.tipo.toString()=='LICENCIA'}"
+											value="LICENCIA" disabled>LICENCIA</option>
+										<option th:if="${OTROS}"
+											th:selected="${OTROS.tipo.toString()=='OTROS'}" value="OTROS"
+											disabled>OTROS</option>
+									</select>
+									<div class="row">
+										<div th:if="${PERMISO}" class="info-column-permiso col">
+											<div class="form-check">
+												<div th:each="motivo : ${tipoMotivoPermisos}">
+													<div class="radio">
+														<label th:for="${motivo.id}" class="form-check-label">
+															<input type="radio" name="permisos" th:id="${motivo.id}"
+															th:checked="${motivo.id==PERMISO.id}" disabled
+															class="form-check-input" /> <span
+															th:text="${motivo.nombre}"></span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div th:if="${LICENCIA}" class="info-column-licencia col">
+											<div class="form-check">
+												<div th:each="licencia : ${tipoMotivoLicencias}">
+													<div class="radio">
+														<label th:for="${licencia.id}" class="form-check-label">
+															<input type="radio"
+															th:checked="${licencia.id==LICENCIA.id}"
+															th:name="licencias" th:id="${licencia.id}" disabled
+															class="form-check-input" /> <span
+															th:text="${licencia.nombre}"></span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div th:if="${OTROS}" class="info-column-otros col">
+											<div class="form-check">
+												<div th:each="otro : ${tipoMotivoOtros}">
+													<div class="radio">
+														<label th:for="${otro.id}" class="form-check-label">
+															<input type="radio" th:checked="${otro.id==OTROS.id}"
+															th:name="otros" th:id="${otro.id}" disabled
+															class="form-check-input" /> <span
+															th:text="${otro.nombre}"></span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 text-center">
+									<strong>FECHA DEL PERMISO</strong>
+									<div class="row mt-2">
+										<div class="col">
+											<label for="fechaInicio" class="text-dark form-control-label">Desde</label>
+											<span class="form-control" th:text="${permiso.fechaInicio}"></span>
+										</div>
+										<div class="col">
+											<label for="fechaFinal" class="text-dark form-control-label">Hasta</label>
+											<span class="form-control" th:text="${permiso.fechaFinal}"></span>
+										</div>
+									</div>
+									<hr>
+									<strong>EN CASO DE HORAS</strong>
+									<div class="row mt-2">
+										<div class="col">
+											<label for="horaInicio" class="text-dark form-control-label">Desde</label>
+											<span class="form-control" th:text="${permiso.horaInicio}"></span>
+										</div>
+										<div class="col">
+											<label for="horaFinal" class="text-dark form-control-label">Hasta</label>
+											<span class="form-control" th:text="${permiso.horaFinal}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-lg-6">
+									<label for="observacion" class=" form-control-label"><strong>OBSERVACIONES
+											O JUSTIFICATIVOS</strong></label>
+									<textarea th:text="${permiso.observacion}" class="form-control"
+										rows="6" disabled></textarea>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-lg-4">
+									<strong>TIPO DE PERMISO</strong>
+									<div>
+										<strong th:if="${PERMISO}" th:text="${PERMISO.nombre}"></strong>
+										<strong th:if="${LICENCIA}" th:text="${LICENCIA.nombre}"></strong>
+										<strong th:if="${OTROS}" th:text="${OTROS.nombre}"></strong>
+									</div>
+								</div>
+								<div th:if="${PERMISO}" class="col-lg-8 text-center">
+									<strong>DESCRIPCIÓN</strong>
+									<div>
+										<textarea class="form-control" rows="6" disabled="disabled"
+											th:text="${PERMISO.descripcion}"></textarea>
+									</div>
+								</div>
+								<div th:if="${LICENCIA}" class="col-lg-8 text-center">
+									<strong>DESCRIPCIÓN</strong>
+									<div>
+										<textarea class="form-control" rows="6" disabled="disabled"
+											th:text="${LICENCIA.descripcion}"></textarea>
+									</div>
+								</div>
+								<div th:if="${OTROS}" class="col-lg-8 text-center">
+									<strong>DESCRIPCIÓN</strong>
+									<div>
+										<textarea class="form-control" rows="6" disabled="disabled"
+											th:text="${OTROS.descripcion}"></textarea>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col">
+									<strong>Todo formulario de permiso / licencia, deberá
+										ser presentado a la Dirección de Talento Humano con su
+										respectiva justificación, máximo en los tres días posteriores
+										a la emisión del mismo, caso contrario el formulario será nulo
+										y se descontará directamente de vacaciones.</strong>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col">
+									<a th:href="@{/generar-permiso/{id}(id=${permiso.id})}" target="_blank"><button type="button" class="btn btn-primary btn-sm">
+										<i class="fa fa-dot-circle-o"></i> Imprimir Justificativo
+									</button></a>
+								</div>
+							</div>
+						</div>
+						<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="layout/app :: endPage"></div>
+		<script src="/js/util/dateWithTimeZone.js" type="text/javascript"></script>
+</body>
+</html>
