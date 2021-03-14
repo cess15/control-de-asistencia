@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<!-- Title Page-->
+<title>Justificativo</title>
+
+<!-- Bootstrap CSS-->
+<link rel="stylesheet" href="/css/bootstrap.min.css" media="all" />
+<link rel="stylesheet" href="/dist/css/theme.css" media="all" />
+</head>
+<body>
+	<div class="main-content" style="padding-top: 0px;">
+		<div class="section__content section__content--p30">
+			<div class="container-fluid">
+				<table>
+					<tbody>
+						<tr>
+							<td align="left"><img src="/images/secretaria_es.png"
+								alt="secretaria" /></td>
+							<td align="center"><strong>DIRECCIÓN DE TALENTO
+									HUMANO</strong></td>
+						</tr>
+						<tr>
+							<td th:each="fechaCreacion : ${attributes.fechaCreacion}"><strong>FECHA:
+							</strong><span th:text="${fechaCreacion}"></span></td>
+						</tr>
+						<tr>
+							<td><strong>PROVINCIA: </strong><span>LOS RIOS</span></td>
+						</tr>
+						<tr>
+							<td><strong>REGIMEN: </strong><span>LOSEP</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col text-center text-light bg-secondary">
+						<strong style="margin-left: -225px">DATOS DEL SERVIDOR /
+							TRABAJADOR</strong>
+					</div>
+				</div>
+				<table>
+					<tbody>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><b>APELLIDOS
+									Y NOMBRES: </b><span
+								th:text="${permiso.inasistencia.profesor.nombres+' '+permiso.inasistencia.profesor.apellidos}"></span></td>
+						</tr>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><b>CÉDULA:
+							</b><span th:text="${permiso.inasistencia.profesor.cedula}"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col">
+						<strong>COORDINACIÓN / GERENCIA / PROYECTO: </strong>
+					</div>
+					<div class="col">INSTITUTO TECNOLOGICO SUPERIOR BABAHOYO</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<strong>DIRECCIÓN O UNIDAD: </strong>AVENIDA DR. CAMILO PONCE
+						ENRIQUE
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center text-light bg-secondary">
+						<strong style="margin-left: -225px">DETALLES DEL PERMISO
+							/ LICENCIA</strong>
+					</div>
+				</div>
+				<table>
+					<tbody>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><b>Fecha
+									de Inicio: </b><span th:text="${permiso.fechaInicio}"></span></td>
+						</tr>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><b>Fecha
+									de Culminación: </b><span th:text="${permiso.fechaFinal}"></span></td>
+						</tr>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><b th:if="${permiso.horaInicio}">Hora
+									de Inicio: </b><span th:text="${permiso.horaInicio}"></span></td>
+							<td th:each="permiso : ${attributes.permiso}"><b th:if="${permiso.horaFinal}">Hora
+									de Culminación: </b><span th:text="${permiso.horaFinal}"></span></td>
+						</tr>
+						<tr>
+							<td th:each="motivo : ${attributes.permiso.motivos}"><b>TIPO:
+							</b><span th:text="${motivo.tipo}"></span></td>
+						</tr>
+						<tr>
+							<td th:each="motivo : ${attributes.permiso.motivos}"><b><span
+									th:text="${motivo.nombre}"></span></b></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col text-center text-light bg-secondary">
+						<strong style="margin-left: -225px">OBSERVACIONES O
+							JUSTIFICATIVOS</strong>
+					</div>
+				</div>
+				<table>
+					<tr>
+						<td th:each="permiso : ${attributes.permiso}"><textarea
+								th:text="${permiso.observacion}"></textarea></td>
+					</tr>
+				</table>
+				<div class="row">
+					<div class="col text-light bg-secondary">
+						<strong style="margin-left: 28%">TIPO DE PERMISO</strong>
+					</div>
+				</div>
+				<table>
+					<tbody>
+						<tr>
+							<td th:each="motivo : ${attributes.permiso.motivos}"><span
+								th:text="${motivo.nombre}"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="row">
+					<div class="col text-light bg-secondary">
+						<strong style="margin-left: 30%">DESCRIPCIÓN</strong>
+					</div>
+				</div>
+				<div th:each="motivo : ${attributes.permiso.motivos}"
+					style="width: 645px; height:329px">
+					<span th:text="${motivo.descripcion}"
+						style="font-size: 12px; text-align: justify"></span>
+				</div>
+
+				<div style="width: 645px;">
+					<p style="text-align: center">
+						<b>SOLICITA</b>
+					</p>
+				</div>
+				<div style="width: 645px;"
+					th:each="permiso : ${attributes.permiso}">
+					<p
+						th:text="${permiso.inasistencia.profesor.nombres+' '+permiso.inasistencia.profesor.apellidos}"
+						style="text-align: center"></p>
+				</div>
+				<div class="row">
+					<div style="width: 680px">
+						<span style="font-size: 10px; text-align: justify"><b>Todo
+								formulario de permiso / licencia, deberá ser presentado a la
+								Dirección de Talento Humano con su respectiva justificación,
+								máximo en los tres días posteriores a la emisión del mismo, caso
+								contrario el formulario será nulo y se descontará directamente
+								de vacaciones.</b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Jquery JS-->
+	<script src="/dist/vendor/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap JS-->
+	<script src="/dist/vendor/bootstrap-4.1/popper.min.js"></script>
+	<script src="/dist/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+	<!-- Theme -->
+	<script src="/dist/js/main.js"></script>
+</body>
+</html>

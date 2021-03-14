@@ -28,7 +28,7 @@ public class SecurityServiceImpl implements SecurityService {
 			.antMatchers("/inicio","/api/profile/avatar")
 			.hasAnyAuthority("Secretaria","Docente")
 			
-			.antMatchers("/editar/**", "/perfil", "/api/inasistencias/unjustified")
+			.antMatchers("/editar/**", "/perfil", "/api/inasistencias/unjustified","/api/inasistencias/justified", "/api/motivo/**", "/generar-justificativo/**","/generar-inasistencia/**","/justificar-inasistencia/**")
 			.hasAuthority("Docente")
 			
 			.anyRequest().authenticated()

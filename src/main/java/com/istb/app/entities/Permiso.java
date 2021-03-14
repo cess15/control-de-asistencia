@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -43,9 +44,11 @@ public class Permiso implements Serializable {
 	private int id;
 
 	@Column(name = "fecha_inicio")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaInicio;
 
 	@Column(name = "fecha_final")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaFinal;
 
 	@Column(name = "hora_inicio")
@@ -82,12 +85,24 @@ public class Permiso implements Serializable {
 	@JoinTable(name = "motivo_permiso",
 	joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), 
 	inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
+	@JsonIgnoreProperties({"permisos"})
 	private Collection<Motivo> motivos;
 
 	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "permiso" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Adjunto> adjuntos;
+	
+	public double addValorDescontar(int dias) {
+		return Math.round(dias * 1.36363636363636 * 100.0) / 100.0;
+	}
+	
+	public void addMotivo(Motivo motivo) {
+		if (this.motivos == null) {
+			this.motivos = new ArrayList<>();
+		}
+		this.motivos.add(motivo);
+	}
 
 	@Override
 	public String toString() {

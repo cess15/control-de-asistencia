@@ -1,230 +1,179 @@
 <!DOCTYPE html>
-<html
-  lang="es"
-  xmlns="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="layout/app :: head"></head>
+<html lang="es" xmlns="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/app :: head"></head>
 
-  <body class="animsition">
-    <div class="page-wrapper">
-      <!-- Start header -->
-      <header th:replace="layout/app :: header-mobile"></header>
-      <!-- End header -->
-    </div>
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"></header>
+		<!-- End header -->
+	</div>
 
-    <!-- PAGE CONTAINER-->
-    <div class="page-container">
-      <!-- HEADER DESKTOP-->
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<!-- HEADER DESKTOP-->
 
-      <header th:replace="layout/app :: header-desktop"></header>
+		<header th:replace="layout/app :: header-desktop"></header>
 
-      <!-- HEADER DESKTOP-->
-      <!-- MENU SIDEBAR-->
-      <aside
-        class="menu-sidebar d-none d-lg-block"
-        th:replace="layout/app :: aside"
-      ></aside>
-      <!-- END MENU SIDEBAR-->
+		<!-- HEADER DESKTOP-->
+		<!-- MENU SIDEBAR-->
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
+		<!-- END MENU SIDEBAR-->
 
-      <!-- MAIN CONTENT-->
-      <div class="main-content" style="padding-top:96px;">
-        <div style="position: relative; margin: 0 auto; padding: 0 30px">
-          <div class="container-fluid">
-            <div sec:authorize="hasAuthority('Secretaria')">
-              <!-- 						<form th:action="@{/uploadfile}" method="POST" enctype="multipart/form-data"> -->
-              <!-- 							<input type="file" name="file"> -->
-              <!-- 							<button type="submit">Envíar</button> -->
-              <!-- 						</form> -->
-              <div class="row">
-                <div class="col-md-12">
-                  <h3 class="title-5 m-b-35">listado de docentes</h3>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <form action="#" method="post" class="form-horizontal">
-                    <div class="row form-group">
-                      <div class="col col-md-12">
-                        <div class="input-group">
-                          <div class="input-group-btn">
-                            <button
-                              class="btn btn-primary"
-                              onclick="event.preventDefault();"
-                            >
-                              <i class="fa fa-search"></i> Buscar
-                            </button>
-                          </div>
-                          <input
-                            type="text"
-                            id="input1-group2"
-                            name="input1-group2"
-                            placeholder="Buscar docente"
-                            class="form-control"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="col-lg-6">
-                  <div class="table-data__tool">
-                    <div class="table-data__tool-right">
-                      <a th:href="@{/agregar-usuario}">
-                        <button
-                          class="au-btn au-btn-icon au-btn--green au-btn--small"
-                        >
-                          <i class="zmdi zmdi-plus"></i>agregar
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="table-responsive table-responsive-data2">
-                  <table class="table table-data2 text-center">
-                    <thead>
-                      <tr>
-                        <th>nombre de usuario</th>
-                        <th>cédula</th>
-                        <th>apellidos</th>
-                        <th>nombres</th>
-                        <th>correo electrónico</th>
-                        <th>telefono</th>
-                        <th>acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="spacer"></tr>
-                      <tr class="tr-shadow" th:each="profesor : ${profesores}">
-                        <td th:text="${profesor.usuario.nombreUsuario}"></td>
-                        <td th:text="${profesor.cedula}"></td>
-                        <td th:text="${profesor.apellidos}"></td>
-                        <td th:text="${profesor.nombres}"></td>
-                        <td>
-                          <span
-                            class="block-email"
-                            th:text="${profesor.correo}"
-                          ></span>
-                        </td>
-                        <td class="desc" th:text="${profesor.telefono}"></td>
-                        <td>
-                          <div class="table-data-feature">
-                            <a
-                              th:href="@{/editar-profesor/{id}(id=${profesor.id})}"
-                              ><button
-                                class="item mr-1"
-                                data-toggle="tooltip"
-                                data-placement="top"
-                                title="Editar"
-                              >
-                                <i class="zmdi zmdi-edit"></i>
-                              </button>
-                            </a>
-                            <a
-                              href="#"
-                              class="item"
-                              data-toggle="modal"
-                              th:attr="data-target='#staticModal_'+${profesor.id}"
-                            >
-                              <i class="zmdi zmdi-delete"></i>
-                            </a>
-                            <!-- MODAL-->
-                            <div
-                              class="modal fade"
-                              th:attr="id='staticModal_'+${profesor.id}"
-                              tabindex="-1"
-                              role="dialog"
-                              aria-labelledby="staticModalLabel"
-                              aria-hidden="true"
-                              data-backdrop="static"
-                            >
-                              <div
-                                class="modal-dialog modal-sm"
-                                role="document"
-                              >
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5
-                                      class="modal-title"
-                                      id="staticModalLabel"
-                                    >
-                                      Eliminar Médico
-                                    </h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <p>¿Esta seguro que desea eliminar?</p>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button
-                                      type="button"
-                                      class="btn btn-secondary"
-                                      data-dismiss="modal"
-                                    >
-                                      Cancelar
-                                    </button>
-                                    <a
-                                      th:href="@{/eliminar-profesor/{id}(id=${profesor.id})}"
-                                    >
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                      >
-                                        Confirmar
-                                      </button>
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- END MODAL-->
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="spacer"></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- END DATA TABLE-->
-              </div>
-            </div>
-            <div sec:authorize="hasAuthority('Docente')">
-              	<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-            	<div class="row">
-	                <div class="col-md-12">
-	                  <h3 class="title-5 m-b-35">Inasistencias</h3>
-	                </div>
-	            </div>
-	            <div class="row">
-	            	<div class="col-md-12" id="absences">
-	            		
-	            	</div>
-	            </div>
-            	
-            </div>
-            <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
-          </div>
-        </div>
-        <!-- END MAIN CONTENT-->
-      </div>
-    </div>
-    <!-- END PAGE CONTAINER-->
+		<!-- MAIN CONTENT-->
+		<div class="main-content" style="padding-top: 96px;">
+			<div style="position: relative; margin: 0 auto; padding: 0 30px">
+				<div class="container-fluid">
+					<div sec:authorize="hasAuthority('Secretaria')">
+						<div class="row">
+							<div class="col-md-12">
+								<h3 class="title-5 m-b-35">listado de docentes</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4">
+								<form action="#" method="post" class="form-horizontal">
+									<div class="row form-group">
+										<div class="col col-md-12">
+											<div class="input-group">
+												<div class="input-group-btn">
+													<button class="btn btn-primary"
+														onclick="event.preventDefault();">
+														<i class="fa fa-search"></i> Buscar
+													</button>
+												</div>
+												<input type="text" id="input1-group2" name="input1-group2"
+													placeholder="Buscar docente" class="form-control" />
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-lg-6">
+								<div class="table-data__tool">
+									<div class="table-data__tool-right">
+										<a th:href="@{/agregar-usuario}">
+											<button
+												class="au-btn au-btn-icon au-btn--green au-btn--small">
+												<i class="zmdi zmdi-plus"></i>agregar
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="table-responsive table-responsive-data2">
+								<table class="table table-data2 text-center">
+									<thead>
+										<tr>
+											<th>nombre de usuario</th>
+											<th>cédula</th>
+											<th>apellidos</th>
+											<th>nombres</th>
+											<th>correo electrónico</th>
+											<th>telefono</th>
+											<th>acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="spacer"></tr>
+										<tr class="tr-shadow" th:each="profesor : ${profesores}">
+											<td th:text="${profesor.usuario.nombreUsuario}"></td>
+											<td th:text="${profesor.cedula}"></td>
+											<td th:text="${profesor.apellidos}"></td>
+											<td th:text="${profesor.nombres}"></td>
+											<td><span class="block-email"
+												th:text="${profesor.correo}"></span></td>
+											<td class="desc" th:text="${profesor.telefono}"></td>
+											<td>
+												<div class="table-data-feature">
+													<a th:href="@{/editar-profesor/{id}(id=${profesor.id})}"><button
+															class="item mr-1" data-toggle="tooltip"
+															data-placement="top" title="Editar">
+															<i class="zmdi zmdi-edit"></i>
+														</button> </a> <a href="#" class="item" data-toggle="modal"
+														th:attr="data-target='#staticModal_'+${profesor.id}">
+														<i class="zmdi zmdi-delete"></i>
+													</a>
+													<!-- MODAL-->
+													<div class="modal fade"
+														th:attr="id='staticModal_'+${profesor.id}" tabindex="-1"
+														role="dialog" aria-labelledby="staticModalLabel"
+														aria-hidden="true" data-backdrop="static">
+														<div class="modal-dialog modal-sm" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="staticModalLabel">
+																		Eliminar Docente</h5>
+																	<button type="button" class="close"
+																		data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<p>¿Esta seguro que desea eliminar?</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Cancelar</button>
+																	<a
+																		th:href="@{/eliminar-profesor/{id}(id=${profesor.id})}">
+																		<button type="button" class="btn btn-primary">
+																			Confirmar</button>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- END MODAL-->
+												</div>
+											</td>
+										</tr>
+										<tr class="spacer"></tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- END DATA TABLE-->
+						</div>
+					</div>
+					<div sec:authorize="hasAuthority('Docente')">
+						<div class="alert alert-success" th:if="${success != null}"
+							th:text="${success}"></div>
+						<div class="row">
+							<div class="col-md-12">
+								<h3 class="title-5 m-b-35">Inasistencias no Justificadas</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" id="absences"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h3 class="title-5 m-b-35">Inasistencias Justificadas</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" id="absencesJustified"></div>
+						</div>
 
-    <div th:replace="layout/app :: endPage"></div>
-     <div sec:authorize="hasAuthority('Docente')">
-     	<script src="/js/sockjs.min.js"></script>
-     	<script src="/js/stomp.min.js"></script>
-     	<script src="/js/inasistencia/inasistencias.js" type="module"></script>
-     </div>
-  </body>
+					</div>
+					<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+				</div>
+			</div>
+			<!-- END MAIN CONTENT-->
+		</div>
+	</div>
+	<!-- END PAGE CONTAINER-->
+
+	<div th:replace="layout/app :: endPage"></div>
+	<div sec:authorize="hasAuthority('Docente')">
+		<script src="/js/sockjs.min.js"></script>
+		<script src="/js/stomp.min.js"></script>
+		<script src="/js/inasistencia/inasistencias.js" type="module"></script>
+	</div>
+</body>
 </html>
 <!-- end document-->

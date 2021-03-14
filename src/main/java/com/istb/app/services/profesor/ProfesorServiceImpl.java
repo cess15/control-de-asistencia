@@ -148,6 +148,8 @@ public class ProfesorServiceImpl implements ProfesorService {
 
 		Role rol = rolService.findByNombre("Docente");
 		Usuario usuario = new Usuario();
+		usuario.setImagenPerfil("user_logo.png");
+		usuario.setUrl_imagen_perfil("/foto/user_logo.png");
 		usuario.setNombreUsuario(profesor.getCedula());
 		usuario.setContrasena(profesor.getCedula());
 		profesor.setUsuario(usuario);

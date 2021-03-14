@@ -13,6 +13,8 @@ public interface InasistenciaService {
 	
 	Inasistencia findByProfesor(int profesor_id);
 	
+	Inasistencia findByProfesorJutified(int profesor_id);
+	
 	void update(Inasistencia inasistencia);
 	
 	Collection<Inasistencia> findByFechaActual (int id);
@@ -21,5 +23,11 @@ public interface InasistenciaService {
 	
 	List<Inasistencia> findByInjustificado();
 	
+	List<Inasistencia> findByJustificado();
+	
 	Inasistencia findByUltimoInjustificado();
+	
+	Inasistencia findByUltimoJustificado();
+
+	Inasistencia findById(int id);
 }
