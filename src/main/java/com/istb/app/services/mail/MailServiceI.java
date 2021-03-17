@@ -39,5 +39,13 @@ public interface MailServiceI {
 	 */
 	void sendEmailTemplate(String template, 
     Map<String, Object> data, String email, String subject);
+	
+	/*
+	 * Obtiene el año de la fecha actual
+	 * a la que se la puede utilizar en cualquier sitio
+	 * por si se desea colocar en el footer del mail
+	 * 
+	 * */
+	int getFullYear();
     
 } 

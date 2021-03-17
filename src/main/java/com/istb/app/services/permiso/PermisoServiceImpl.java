@@ -52,12 +52,11 @@ public class PermisoServiceImpl implements PermisoService {
 	@Value("${app.url}")
 	String appUrl;
 
-	private String ROOT = appUrl;
-
 	@Override
 	public Map<String, String> save(int justificacionId, int motivoId, Permiso permiso) {
 		Inasistencia inasistencia = inasistenciaService.findById(justificacionId);
 		Motivo motivo = motiveService.findById(motivoId);
+		List<Inasistencia> inasistenciasJustified = new ArrayList<>();
 
 		Map<String, String> errorAttributes = new HashMap<>();
 
@@ -81,6 +80,13 @@ public class PermisoServiceImpl implements PermisoService {
 		inasistencia.setJustificacionDigital(true);
 		inasistenciaService.update(inasistencia);
 
+		if (inasistencia.getJustificacionDigital() == true && inasistencia.getJustificacionFisica() == false) {
+			inasistenciasJustified.add(inasistencia);
+		}
+
+		if (inasistenciasJustified.size() > 0) {
+			inasistenciaService.sendEmailByJustified(inasistenciasJustified);
+		}
 		return errorAttributes;
 
 	}
@@ -100,7 +106,7 @@ public class PermisoServiceImpl implements PermisoService {
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("permiso", permiso);
 		attributes.put("fechaCreacion", convertDateTime(permiso.getFechaCreacion()));
-		
+
 		ctx.setVariable("attributes", attributes);
 		String htmlTemplate = templateEngine.process("reporte", ctx);
 

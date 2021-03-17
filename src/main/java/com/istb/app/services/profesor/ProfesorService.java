@@ -12,9 +12,9 @@ public interface ProfesorService {
 	List<Profesor> findAll();
 
 	Page<Profesor> findAll(Pageable pageable);
-
+	
 	Profesor findById(int id);
-
+	
 	Profesor findByCedula(String cedula);
 
 	Map<String, String> save(Profesor profesor);

@@ -15,5 +15,4 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
 	Profesor findByCorreo(String correo);
 
 	Optional<Profesor> findByCorreoAndIdIsNot(String correo, int id);
-
 }
