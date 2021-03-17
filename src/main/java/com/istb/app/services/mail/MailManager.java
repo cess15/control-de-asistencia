@@ -1,6 +1,7 @@
 
 package com.istb.app.services.mail;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
@@ -16,12 +17,12 @@ import org.thymeleaf.context.Context;
 @Service
 public class MailManager implements MailServiceI {
 
-    @Value("${spring.mail.username}")
+	@Value("${spring.mail.username}")
 	private String fromMail;
-	
+
 	@Value("${app.mail.sender.name}")
 	private String senderName;
-	
+
 	@Autowired
 	private TemplateEngine renderEngine;
 
@@ -29,64 +30,71 @@ public class MailManager implements MailServiceI {
 	JavaMailSender mailSender;
 
 	@Override
-    public void sendEmailMessage(String message, String email, String subject) {
+	public void sendEmailMessage(String message, String email, String subject) {
 
-        sendEmail(email, subject, message);
-        
-    }
-
-    @Override
-    public void sendEmailTemplate(String template, String email, 
-        String subject) {
-        
-		sendEmailTemplate(template, null, email, subject);
-        
-    }
-
-    @Override
-    public void sendEmailTemplate(String template, Map<String, Object> data, 
-        String email, String subject) {
-
-            Context context;
-            String messageBody;
-    
-            context = new Context();
-            if( data != null ) {
-                for(Map.Entry<String, Object> entry : data.entrySet() ) {
-                    context.setVariable(entry.getKey(), entry.getValue()); } }
-            
-            messageBody = renderEngine.process(
-                "notifications/" + template, context);
-            
-            sendEmail(email, subject, messageBody);
-        
-    }
-
-    private void sendEmail(String email, String subject, String messageBody) {
-
-        Thread thread = new Thread( () -> { 
-
-            MimeMessageHelper helper = null;
-            MimeMessage message;
-
-            try {
-
-                message = mailSender.createMimeMessage();
-                helper = new MimeMessageHelper(message, true);
-
-                helper.setTo(email);
-                helper.setSubject(subject);
-                helper.setFrom(this.fromMail, this.senderName);
-                helper.setText(messageBody, true);
-                mailSender.send(message);
-
-            } catch (Exception e) { 
-                e.printStackTrace(); /** FailedEmailException */ }
-
-        });
-
-        thread.start();
+		sendEmail(email, subject, message);
 
 	}
-    
+
+	@Override
+	public void sendEmailTemplate(String template, String email, String subject) {
+
+		sendEmailTemplate(template, null, email, subject);
+
+	}
+
+	@Override
+	public void sendEmailTemplate(String template, Map<String, Object> data, String email, String subject) {
+
+		Context context;
+		String messageBody;
+
+		context = new Context();
+		if (data != null) {
+			for (Map.Entry<String, Object> entry : data.entrySet()) {
+				context.setVariable(entry.getKey(), entry.getValue());
+			}
+		}
+
+		messageBody = renderEngine.process("notifications/" + template, context);
+
+		sendEmail(email, subject, messageBody);
+
+	}
+
+	private void sendEmail(String email, String subject, String messageBody) {
+
+		Thread thread = new Thread(() -> {
+
+			MimeMessageHelper helper = null;
+			MimeMessage message;
+
+			try {
+
+				message = mailSender.createMimeMessage();
+				helper = new MimeMessageHelper(message, true);
+
+				helper.setTo(email);
+				helper.setSubject(subject);
+				helper.setFrom(this.fromMail, this.senderName);
+				helper.setText(messageBody, true);
+				mailSender.send(message);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				/** FailedEmailException */
+			}
+
+		});
+
+		thread.start();
+
+	}
+
+	@Override
+	public int getFullYear() {
+		LocalDate date = LocalDate.now();
+		return date.getYear();
+	}
+
 }

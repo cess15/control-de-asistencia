@@ -12,9 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class OutDateFilter extends OncePerRequestFilter {
 	
-	private static final int horaInicio = 6;
+	private static final int horaInicio = 0;
 	
-	private static final int horaCierre = 18;
+	private static final int horaCierre = 23;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

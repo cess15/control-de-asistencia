@@ -17,7 +17,11 @@ public interface InasistenciaService {
 	
 	void update(Inasistencia inasistencia);
 	
-	Collection<Inasistencia> findByFechaActual (int id);
+	List<Inasistencia> findByFechaActual (int id);
+	
+	void sendEmailByInjustified(List<Inasistencia> inasistencias);
+	
+	void sendEmailByJustified(List<Inasistencia> inasistencias);
 	
 	Collection<Inasistencia> findByFechaActual ();
 	

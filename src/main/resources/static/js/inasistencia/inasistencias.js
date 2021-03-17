@@ -73,22 +73,3 @@ function connect() {
 		
 	});
 }
-
-function connectJustified() {
-	let socket = new SockJS('/ws');
-	stompClient = Stomp.over(socket);
-	stompClient.connect({}, function(frame) {
-		stompClient.subscribe('/broker/absenceJustified', async function(data) {
-			console.log(data);
-			var dataInasistenciaJustified = JSON.parse(data.body);
-			if (dataInasistenciaJustified.length > 0) {
-				const lastInasistenciaJustified = await getLastInasistenciaJustified()
-				console.log(lastInasistenciaJustified)
-				if (lastInasistenciaJustified != undefined && lastInasistenciaJustified != null && lastInasistenciaJustified != '') {
-					absencesJustified.insertAdjacentHTML('afterbegin', templateJustified(lastInasistenciaJustified))
-				}
-			}
-		});
-
-	});
-}

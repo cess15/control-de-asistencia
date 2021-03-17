@@ -168,6 +168,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 		data.put("profesorId", profesorGuarded.getId());
 		data.put("token", token);
 		data.put("url", appUrl);
+		data.put("year", mailService.getFullYear());
 		data.put("username", profesorGuarded.getUsuario().getNombreUsuario());
 		data.put("password", profesorGuarded.getCedula());
 
