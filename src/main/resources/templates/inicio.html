@@ -47,6 +47,7 @@
 							</div>
 						</div>
 						<div class="row">
+							<!-- DATA TABLE-->
 							<div class="table-responsive table-responsive-data2">
 								<table id="table-profesores" class="table table-data2 text-center">
 									<thead>
@@ -61,65 +62,6 @@
 											<th>eliminar</th>
 										</tr>
 									</thead>
-									<!-- 
-									<tbody>
-										<tr class="spacer"></tr>
-										<tr class="tr-shadow" th:each="profesor : ${profesores}">
-											<td th:text="${profesor.usuario.nombreUsuario}"></td>
-											<td th:text="${profesor.cedula}"></td>
-											<td th:text="${profesor.apellidos}"></td>
-											<td th:text="${profesor.nombres}"></td>
-											<td><span class="block-email"
-												th:text="${profesor.correo}"></span></td>
-											<td class="desc" th:text="${profesor.telefono}"></td>
-											<td>
-												<div class="table-data-feature">
-													<a th:href="@{/editar-profesor/{id}(id=${profesor.id})}"><button
-															class="item mr-1" data-toggle="tooltip"
-															data-placement="top" title="Editar">
-															<i class="zmdi zmdi-edit"></i>
-														</button> </a> <a href="#" class="item" data-toggle="modal"
-														th:attr="data-target='#staticModal_'+${profesor.id}">
-														<i class="zmdi zmdi-delete"></i>
-													</a>
-														MODAL
-														<div class="modal fade"
-														th:attr="id='staticModal_'+${profesor.id}" tabindex="-1"
-														role="dialog" aria-labelledby="staticModalLabel"
-														aria-hidden="true" data-backdrop="static">
-														<div class="modal-dialog modal-sm" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h5 class="modal-title" id="staticModalLabel">
-																		Eliminar Docente</h5>
-																	<button type="button" class="close"
-																		data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																</div>
-																<div class="modal-body">
-																	<p>¿Esta seguro que desea eliminar?</p>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Cancelar</button>
-																	<a
-																		th:href="@{/eliminar-profesor/{id}(id=${profesor.id})}">
-																		<button type="button" class="btn btn-primary">
-																			Confirmar</button>
-																	</a>
-																</div>
-															</div>
-														</div>
-													</div>
-													END MODAL
-												</div>
-												
-											</td>
-										</tr>
-										<tr class="spacer"></tr>
-									</tbody>
-									-->
 								</table>
 							</div>
 							<!-- END DATA TABLE-->
