@@ -12,12 +12,15 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Periodo;
 import com.istb.app.entities.Profesor;
+import com.istb.app.models.DataTableResponse;
 import com.istb.app.repository.InasistenciaRepository;
 import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.auth.UserCredentials;
@@ -193,4 +196,42 @@ public class InasistenciaServiceImpl implements InasistenciaService {
 		}
 		return null;
 	}
+
+	@Override
+	public DataTableResponse findAll(Integer draw, Integer start, Integer length, String search, Direction sort,
+			String... properties) throws Exception {
+		int page = 0;
+
+		if (start > 0 && length >= start) {
+			page = length / start;
+		} else if (start > 0 && length < start) {
+			page = start / length;
+		}
+
+		long count = 0;
+
+		List<Inasistencia> inasistencias = null;
+		if (!search.isEmpty() && search.length() == 10) {
+			LocalDate date = getSearch(search);
+			count = inasistenciaRepository.countInasistencia(date);
+
+			inasistencias = inasistenciaRepository.findAll(date, PageRequest.of(page, length, sort, properties))
+					.getContent();
+		} else {
+			count = inasistenciaRepository.count();
+
+			inasistencias = inasistenciaRepository.findAll(PageRequest.of(page, length, sort, properties)).getContent();
+		}
+
+		return new DataTableResponse(draw, count, count, inasistencias);
+	}
+
+	private static LocalDate getSearch(String search) {
+		if (search.length() == 10) {
+			return LocalDate.parse(search);
+		}
+		return null;
+
+	}
+
 }

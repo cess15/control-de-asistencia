@@ -2,9 +2,11 @@ package com.istb.app.api.controller.inasistencia;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Periodo;
 import com.istb.app.entities.Profesor;
+import com.istb.app.models.DataTableResponse;
 import com.istb.app.models.ErrorResponse;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.inasistencia.InasistenciaService;
@@ -87,6 +91,18 @@ public class InasistenciaApiController {
 		}
 
 		return new ResponseEntity<>(this.serviceInasistencia.save(inasistencias, periodo), HttpStatus.CREATED);
+	}
+
+	@GetMapping(value = "/inasistenciasJustified")
+	public ResponseEntity<?> index(@RequestParam(required = false, defaultValue = "1") Integer draw,
+			@RequestParam(required = false, defaultValue = "0") Integer start,
+			@RequestParam(required = false, defaultValue = "2") Integer length,
+			@RequestParam(required = false) Map<String, String> search) throws Exception {
+
+		DataTableResponse dataTableResp = serviceInasistencia.findAll(draw, start, length, search.get("search[value]"),
+				Sort.Direction.DESC, "fecha");
+
+		return ResponseEntity.status(HttpStatus.OK).body(dataTableResp);
 	}
 
 }

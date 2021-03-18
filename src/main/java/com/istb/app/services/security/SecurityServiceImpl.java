@@ -22,7 +22,7 @@ public class SecurityServiceImpl implements SecurityService {
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
 				"/dist/**","/images/**","/verify/**").permitAll()
 			
-			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**")
+			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**","/inasistencias/**","/api/inasistenciasJustified","/inasistencias-justificadas/**","/data-profesores")
 			.hasAuthority("Secretaria")
 
 			.antMatchers("/inicio","/api/profile/avatar")

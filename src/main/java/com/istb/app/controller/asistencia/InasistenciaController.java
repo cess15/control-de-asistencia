@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Motivo;
 import com.istb.app.entities.Permiso;
 import com.istb.app.repository.MotivoRepository;
@@ -45,8 +46,15 @@ public class InasistenciaController {
 	@Autowired
 	InasistenciaService inasistenciaService;
 
+	@GetMapping(value = "/inasistencias-justificadas")
+	public String index(Model model) {
+		model.addAttribute("title", "Panel ISTB");
+		model.addAttribute("user", userCredentials.getUserAuth());
+		return "dashboard/inasistencias/inasistencias";
+	}
+
 	@GetMapping(value = "/justificar-inasistencia/{id}", produces = "text/plain")
-	public String index(@PathVariable int id, Model model) {
+	public String showViewJustifiedInasistence(@PathVariable int id, Model model) {
 		Permiso permiso = new Permiso();
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
@@ -59,7 +67,7 @@ public class InasistenciaController {
 	}
 
 	@PostMapping(value = "/generar-justificativo/{justificacionId}", produces = "text/plain")
-	public String showView(@PathVariable int justificacionId, @ModelAttribute("permiso") Permiso permiso,
+	public String redirectView(@PathVariable int justificacionId, @ModelAttribute("permiso") Permiso permiso,
 			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 		redirectAttrs.addFlashAttribute("oldValues", permiso);
 		return "redirect:/justificar-inasistencia/" + justificacionId;
@@ -100,18 +108,16 @@ public class InasistenciaController {
 
 	@GetMapping(value = "generar-inasistencia/{inasistenciaId}", produces = "text/plain")
 	public String getInasistenciaJustified(@PathVariable int inasistenciaId, Model model) {
-		
-		Permiso permiso = permisoService.findbyInasistenciaIdAndProfesorId(inasistenciaId);
-		
+
+		Permiso permiso = permisoService.findbyInasistenciaId(inasistenciaId);
+
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
 		model.addAttribute("permiso", permiso);
 		model.addAttribute("tipoMotivoPermisos", motiveRepository.findByTipo(TipoMotivo.PERMISO));
 		model.addAttribute("tipoMotivoLicencias", motiveRepository.findByTipo(TipoMotivo.LICENCIA));
 		model.addAttribute("tipoMotivoOtros", motiveRepository.findByTipo(TipoMotivo.OTROS));
-		
-		
-		
+
 		for (Motivo motivo : permiso.getMotivos()) {
 			if (motivo.getTipo().toString().equals(TipoMotivo.LICENCIA.toString())) {
 				model.addAttribute("LICENCIA", motivo);
@@ -124,8 +130,6 @@ public class InasistenciaController {
 				break;
 			}
 		}
-
-		
 
 		return "dashboard/inasistencias/generar-inasistencia";
 
@@ -141,5 +145,14 @@ public class InasistenciaController {
 
 		return new ResponseEntity<>(permisoService.generatePDF(permisoId).toByteArray(), headers, HttpStatus.OK);
 
+	}
+
+	@GetMapping(value = "inasistencia/{inasistenciaId}/justificar")
+	public String justifiedInasistence(@PathVariable int inasistenciaId) {
+		Inasistencia inasistencia = inasistenciaService.findById(inasistenciaId);
+		System.out.println(inasistencia);
+		inasistencia.setJustificacionFisica(true);
+		inasistenciaService.update(inasistencia);
+		return "dashboard/inasistencias/inasistencias";
 	}
 }
