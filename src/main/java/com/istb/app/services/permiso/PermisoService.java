@@ -15,7 +15,7 @@ public interface PermisoService {
 
 	Permiso findById(int permisoId);
 
-	Permiso findbyInasistenciaIdAndProfesorId(int inasistenciaId);
+	Permiso findbyInasistenciaId(int inasistenciaId);
 
 	String convertDateTime(LocalDateTime date);
 

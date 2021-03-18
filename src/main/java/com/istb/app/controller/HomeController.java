@@ -31,7 +31,6 @@ public class HomeController {
 
 	@GetMapping(value = "/inicio")
 	public String inicio(Model model) {
-		model.addAttribute("profesores", profesorService.findAll());
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
 		

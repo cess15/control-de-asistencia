@@ -10,12 +10,15 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.istb.app.entities.Profesor;
 import com.istb.app.entities.Role;
 import com.istb.app.entities.Usuario;
+import com.istb.app.models.DataTableResponse;
 import com.istb.app.repository.PeriodoRepository;
 import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.mail.MailServiceI;
@@ -181,6 +184,54 @@ public class ProfesorServiceImpl implements ProfesorService {
 	@Override
 	public String generateToken() {
 		return String.format("%s-%s", UUID.randomUUID(), (new Date()).getTime());
+	}
+
+	@Override
+	public DataTableResponse findAll(Integer draw, Integer start, Integer length, String search, Direction sort,
+			String... properties) throws Exception {
+		int page = 0;
+
+		if (start > 0 && length >= start) {
+			page = length / start;
+		} else if (start > 0 && length < start) {
+			page = start / length;
+		}
+
+		long count = 0;
+		List<Profesor> profesores = null;
+		if (!search.isEmpty() && search.length() == 10) {
+			String cedula = getCedula(search);
+			count = profesorRepository.countProfesor(cedula);
+			profesores = profesorRepository.findAll(cedula, PageRequest.of(page, length, sort, properties))
+					.getContent();
+		} else {
+			count = profesorRepository.count();
+
+			profesores = profesorRepository.findAll(PageRequest.of(page, length, sort, properties)).getContent();
+		}
+		return new DataTableResponse(draw, count, count, profesores);
+	}
+
+	private static String getCedula(String search) {
+		String cedula = "";
+		if (search.length() == 10) {
+			if (validateNumber(search)) {
+				cedula = String.valueOf(search);
+			}
+		}
+
+		return cedula;
+	}
+
+	private static boolean validateNumber(String str) {
+		boolean valid = false;
+		try {
+			Integer.parseInt(str);
+			valid = true;
+		} catch (NumberFormatException e) {
+		}
+
+		return valid;
 	}
 
 }

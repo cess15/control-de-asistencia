@@ -33,24 +33,6 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-4">
-								<form action="#" method="post" class="form-horizontal">
-									<div class="row form-group">
-										<div class="col col-md-12">
-											<div class="input-group">
-												<div class="input-group-btn">
-													<button class="btn btn-primary"
-														onclick="event.preventDefault();">
-														<i class="fa fa-search"></i> Buscar
-													</button>
-												</div>
-												<input type="text" id="input1-group2" name="input1-group2"
-													placeholder="Buscar docente" class="form-control" />
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
 							<div class="col-lg-6">
 								<div class="table-data__tool">
 									<div class="table-data__tool-right">
@@ -66,7 +48,7 @@
 						</div>
 						<div class="row">
 							<div class="table-responsive table-responsive-data2">
-								<table class="table table-data2 text-center">
+								<table id="table-profesores" class="table table-data2 text-center">
 									<thead>
 										<tr>
 											<th>nombre de usuario</th>
@@ -75,9 +57,11 @@
 											<th>nombres</th>
 											<th>correo electrónico</th>
 											<th>telefono</th>
-											<th>acciones</th>
+											<th>editar</th>
+											<th>eliminar</th>
 										</tr>
 									</thead>
+									<!-- 
 									<tbody>
 										<tr class="spacer"></tr>
 										<tr class="tr-shadow" th:each="profesor : ${profesores}">
@@ -98,8 +82,8 @@
 														th:attr="data-target='#staticModal_'+${profesor.id}">
 														<i class="zmdi zmdi-delete"></i>
 													</a>
-													<!-- MODAL-->
-													<div class="modal fade"
+														MODAL
+														<div class="modal fade"
 														th:attr="id='staticModal_'+${profesor.id}" tabindex="-1"
 														role="dialog" aria-labelledby="staticModalLabel"
 														aria-hidden="true" data-backdrop="static">
@@ -128,12 +112,14 @@
 															</div>
 														</div>
 													</div>
-													<!-- END MODAL-->
+													END MODAL
 												</div>
+												
 											</td>
 										</tr>
 										<tr class="spacer"></tr>
 									</tbody>
+									-->
 								</table>
 							</div>
 							<!-- END DATA TABLE-->
@@ -173,6 +159,10 @@
 		<script src="/js/sockjs.min.js"></script>
 		<script src="/js/stomp.min.js"></script>
 		<script src="/js/inasistencia/inasistencias.js" type="module"></script>
+	</div>
+	<div sec:authorize="hasAuthority('Secretaria')">
+		<script src="/datatables/datatables.min.js"></script>
+		<script src="/js/profesores/profesores.js"></script>
 	</div>
 </body>
 </html>

@@ -4,8 +4,8 @@
 	<div class="header-mobile__bar">
 		<div class="container-fluid">
 			<div class="header-mobile-inner">
-				<a class="logo" th:href="@{/inicio}"> <img
-					th:src="@{/images/logo.png}" width="125px" alt="ISTB" />
+				<a th:href="@{/inicio}"> <img th:src="@{/images/logo.png}"
+					width="110px" alt="ISTB" />
 				</a>
 				<button class="hamburger hamburger--slider" type="button">
 					<span class="hamburger-box"> <span class="hamburger-inner"></span>
@@ -25,39 +25,17 @@
 					</li>
 				</div>
 				<div sec:authorize="hasAuthority('Secretaria')">
-					<li
-						th:classappend="${#request.requestURI.startsWith('/asistencias') ? 'active' : ''}"><a
-						th:href="@{/asistencias}"> <i class="fas fa-list-alt"></i>Asistencias
+					<li><a th:href="@{/inicio}"> <i class="fas fa-users"></i>Profesores
+					</a></li>
+					<li><a th:href="@{/asistencias}"> <i
+							class="fas fa-list-alt"></i>Asistencias
+					</a></li>
+					<li><a th:href="@{/inasistencias-justificadas}"> <i
+							class="fas fa-list-alt"></i>Inasistencias
+					</a></li>
+					<li><a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos
 					</a></li>
 				</div>
-				<div sec:authorize="hasAuthority('Secretaria')">
-					<li
-						th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}">
-						<a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos
-					</a>
-					</li>
-				</div>
-				</a>
-				</li>
-				<li><a href="#"> <i class="far fa-check-square"></i>Forms
-				</a></li>
-				<li><a href="#"> <i class="fas fa-calendar-alt"></i>Calendar
-				</a></li>
-				<li><a href="#"> <i class="fas fa-map-marker-alt"></i>Maps
-				</a></li>
-				<li class="has-sub"><a class="js-arrow" href="#"> <i
-						class="fas fa-copy"></i>Pages
-				</a>
-					<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-						<li><a href="#">Login</a></li>
-					</ul></li>
-				<li class="has-sub"><a class="js-arrow" href="#"> <i
-						class="fas fa-desktop"></i>UI Elements
-				</a>
-					<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-						<li><a href="#">Button</a></li>
-						<li><a href="#">Badges</a></li>
-					</ul></li>
 			</ul>
 		</div>
 	</nav>

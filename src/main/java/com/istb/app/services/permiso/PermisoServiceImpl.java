@@ -154,10 +154,8 @@ public class PermisoServiceImpl implements PermisoService {
 	}
 
 	@Override
-	public Permiso findbyInasistenciaIdAndProfesorId(int inasistenciaId) {
-		Profesor profesor = userCredentials.getUserAuth().getProfesor();
-		return this.permisoRepository.findByInasistencia_IdAndInasistencia_Periodo_VigenteIsTrue(inasistenciaId,
-				profesor.getId());
+	public Permiso findbyInasistenciaId(int inasistenciaId) {
+		return this.permisoRepository.findByInasistencia_IdAndInasistencia_Periodo_VigenteIsTrue(inasistenciaId);
 	}
 
 }
