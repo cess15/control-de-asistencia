@@ -30,4 +30,13 @@ public interface FirebaseService {
 	 * @return true or false
 	 */
 	boolean deleteFile (String name);
+	
+	/*
+	 * 
+	 * @param sourceFilePath
+	 * @param nameFilePath
+	 * @return true or false
+	 */
+	
+	boolean deleteFile(String sourceFilePath, String nameFilePath);
 }

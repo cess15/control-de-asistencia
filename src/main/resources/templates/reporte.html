@@ -81,10 +81,12 @@
 									de Culminación: </b><span th:text="${permiso.fechaFinal}"></span></td>
 						</tr>
 						<tr>
-							<td th:each="permiso : ${attributes.permiso}"><b th:if="${permiso.horaInicio}">Hora
-									de Inicio: </b><span th:text="${permiso.horaInicio}"></span></td>
-							<td th:each="permiso : ${attributes.permiso}"><b th:if="${permiso.horaFinal}">Hora
-									de Culminación: </b><span th:text="${permiso.horaFinal}"></span></td>
+							<td th:each="permiso : ${attributes.permiso}"><b
+								th:if="${permiso.horaInicio}">Hora de Inicio: </b><span
+								th:text="${permiso.horaInicio}"></span></td>
+							<td th:each="permiso : ${attributes.permiso}"><b
+								th:if="${permiso.horaFinal}">Hora de Culminación: </b><span
+								th:text="${permiso.horaFinal}"></span></td>
 						</tr>
 						<tr>
 							<td th:each="motivo : ${attributes.permiso.motivos}"><b>TIPO:
@@ -127,7 +129,7 @@
 					</div>
 				</div>
 				<div th:each="motivo : ${attributes.permiso.motivos}"
-					style="width: 645px; height:329px">
+					style="width: 645px; height: 329px">
 					<span th:text="${motivo.descripcion}"
 						style="font-size: 12px; text-align: justify"></span>
 				</div>
@@ -137,8 +139,7 @@
 						<b>SOLICITA</b>
 					</p>
 				</div>
-				<div style="width: 645px;"
-					th:each="permiso : ${attributes.permiso}">
+				<div style="width: 645px;" th:each="permiso : ${attributes.permiso}">
 					<p
 						th:text="${permiso.inasistencia.profesor.nombres+' '+permiso.inasistencia.profesor.apellidos}"
 						style="text-align: center"></p>
@@ -151,6 +152,20 @@
 								máximo en los tres días posteriores a la emisión del mismo, caso
 								contrario el formulario será nulo y se descontará directamente
 								de vacaciones.</b></span>
+					</div>
+				</div>
+				<div th:if="${attributes.adjuntos!=null}">
+					<div style="margin-top: 5%">
+						<div class="row">
+							<div class="col text-light bg-secondary">
+								<strong style="margin-left: 30%">ANEXOS</strong>
+							</div>
+						</div>
+					</div>
+					<div class="row" th:each="adjunto : ${attributes.adjuntos}">
+						<div style="width: 680px; text-align:center">
+							<img th:src="${adjunto.urlAdjunto}" alt="adjunto" />
+						</div>
 					</div>
 				</div>
 			</div>

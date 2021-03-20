@@ -81,22 +81,23 @@ public class Permiso implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fechaActualizacion;
 
+	@Column(name = "dias_faltantes")
+	private int dayDiference;
+
 	@ManyToMany
-	@JoinTable(name = "motivo_permiso",
-	joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), 
-	inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
-	@JsonIgnoreProperties({"permisos"})
+	@JoinTable(name = "motivo_permiso", joinColumns = @JoinColumn(name = "permisos_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "motivo_id", referencedColumnName = "id"))
+	@JsonIgnoreProperties({ "permisos" })
 	private Collection<Motivo> motivos;
 
 	@OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "permiso" })
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Collection<Adjunto> adjuntos;
-	
+
 	public double addValorDescontar(int dias) {
 		return Math.round(dias * 1.36363636363636 * 100.0) / 100.0;
 	}
-	
+
 	public void addMotivo(Motivo motivo) {
 		if (this.motivos == null) {
 			this.motivos = new ArrayList<>();
@@ -110,7 +111,7 @@ public class Permiso implements Serializable {
 				+ horaInicio + ", horaFinal=" + horaFinal + ", observacion=" + observacion + ", valorDescontar="
 				+ valorDescontar + ", fechaGeneracion=" + fechaGeneracion + ", fechaRecepcion=" + fechaRecepcion
 				+ ", inasistencia=" + inasistencia + ", fechaCreacion=" + fechaCreacion + ", fechaActualizacion="
-				+ fechaActualizacion + "]";
+				+ fechaActualizacion + ", dayDiference=" + dayDiference + "]";
 	}
-	
+
 }

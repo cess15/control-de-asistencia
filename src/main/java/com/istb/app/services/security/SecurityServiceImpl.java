@@ -22,13 +22,31 @@ public class SecurityServiceImpl implements SecurityService {
 			.antMatchers("/", "/inicio", "/css/**", "/js/**", "/fonts/**", 
 				"/dist/**","/images/**","/verify/**").permitAll()
 			
-			.antMatchers("/agregar-usuario","/eliminar-profesor/**","/asistencias","/periodo-profesores/**","/periodos/**","/inasistencias/**","/api/inasistenciasJustified","/inasistencias-justificadas/**","/data-profesores")
+			.antMatchers("/agregar-usuario",
+						"/eliminar-profesor/**",
+						"/asistencias",
+						"/periodo-profesores/**",
+						"/periodos/**",
+						"/inasistencias/**",
+						"/api/inasistenciasJustified",
+						"/inasistencias-justificadas/**",
+						"/data-profesores",
+						"/licencias-permisos",
+						"/ver-permisos/**")
 			.hasAuthority("Secretaria")
 
 			.antMatchers("/inicio","/api/profile/avatar")
 			.hasAnyAuthority("Secretaria","Docente")
 			
-			.antMatchers("/editar/**", "/perfil", "/api/inasistencias/unjustified","/api/inasistencias/justified", "/api/motivo/**", "/generar-justificativo/**","/generar-inasistencia/**","/justificar-inasistencia/**")
+			.antMatchers("/editar/**", 
+						"/perfil", 
+						"/api/inasistencias/unjustified",
+						"/api/inasistencias/justified", 
+						"/api/motivo/**", 
+						"/generar-justificativo/**",
+						"/generar-inasistencia/**",
+						"/justificar-inasistencia/**",
+						"/adjuntar-permiso/**")
 			.hasAuthority("Docente")
 			
 			.anyRequest().authenticated()

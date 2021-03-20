@@ -17,14 +17,17 @@ public interface InasistenciaRepository extends JpaRepository<Inasistencia, Inte
 
 	List<Inasistencia> findByProfesor_IdAndFecha(int profesor_id, LocalDate fecha);
 
-	@Query("SELECT i from Inasistencia i WHERE i.fecha = ?1  AND i.justificacionDigital=true AND i.justificacionFisica=false")
+	@Query("SELECT i from Inasistencia i WHERE i.fecha = ?1  AND i.justificacionDigital=true AND i.justificacionFisica=false AND i.periodo.vigente=true")
 	Page<Inasistencia> findAll(LocalDate date, Pageable pageable);
 	
-	@Query("SELECT i from Inasistencia i WHERE i.justificacionDigital=true AND i.justificacionFisica=false")
+	@Query("SELECT i from Inasistencia i WHERE i.justificacionDigital=true AND i.justificacionFisica=false AND i.periodo.vigente=true")
 	Page<Inasistencia> findAll(Pageable pageable);
 
-	@Query("SELECT COUNT(i) FROM Inasistencia i WHERE i.fecha = ?1 AND i.justificacionDigital=true AND i.justificacionFisica=false")
+	@Query("SELECT COUNT(i) FROM Inasistencia i WHERE i.fecha = ?1 AND i.justificacionDigital=true AND i.justificacionFisica=false AND i.periodo.vigente=true")
 	long countInasistencia(LocalDate date);
+	
+	@Query(value="select count(*) from inasistencias i inner join profesores p on i.profesor_id=p.id where p.id=?", nativeQuery = true)
+	long countInasistenciaByProfesor(int profesorId);
 
 	Collection<Inasistencia> findByFecha(LocalDate fecha);
 

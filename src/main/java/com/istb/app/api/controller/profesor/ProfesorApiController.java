@@ -54,4 +54,15 @@ public class ProfesorApiController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(dataTableResp);
 	}
+	
+	@GetMapping(value = "/data-profesores-inasistencia")
+	public ResponseEntity<?> dataProfesoresInasistence(@RequestParam(required = false, defaultValue = "1") Integer draw,
+			@RequestParam(required = false, defaultValue = "0") Integer start,
+			@RequestParam(required = false, defaultValue = "2") Integer length,
+			@RequestParam(required = false) Map<String, String> search) throws Exception {
+		DataTableResponse dataTableResp = serviceProfesor.findAllByInasistenciaGreaterThan(draw, start, length, search.get("search[value]"),
+				Sort.Direction.DESC, "cedula");
+
+		return ResponseEntity.status(HttpStatus.OK).body(dataTableResp);
+	}
 }

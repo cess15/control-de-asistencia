@@ -22,6 +22,7 @@ async function drawTeacher(data) {
 	profesorPeriodoVigente.html('')
 
 	const inasistencias = await getInasistenciasActuales();
+	
 	data.map((profesor) => {
 		profesorPeriodoVigente.append(templateProfesor(profesor, inasistencias));
 	})

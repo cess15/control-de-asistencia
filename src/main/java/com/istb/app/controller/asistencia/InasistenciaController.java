@@ -1,14 +1,11 @@
 package com.istb.app.controller.asistencia;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.istb.app.entities.Inasistencia;
-import com.istb.app.entities.Motivo;
 import com.istb.app.entities.Permiso;
 import com.istb.app.repository.MotivoRepository;
 import com.istb.app.services.auth.UserCredentials;
@@ -106,51 +102,14 @@ public class InasistenciaController {
 
 	}
 
-	@GetMapping(value = "generar-inasistencia/{inasistenciaId}", produces = "text/plain")
-	public String getInasistenciaJustified(@PathVariable int inasistenciaId, Model model) {
-
-		Permiso permiso = permisoService.findbyInasistenciaId(inasistenciaId);
-
+	@GetMapping(value = "inasistencia/{inasistenciaId}/justificar")
+	public String justifiedInasistence(@PathVariable int inasistenciaId, Model model) {
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
-		model.addAttribute("permiso", permiso);
-		model.addAttribute("tipoMotivoPermisos", motiveRepository.findByTipo(TipoMotivo.PERMISO));
-		model.addAttribute("tipoMotivoLicencias", motiveRepository.findByTipo(TipoMotivo.LICENCIA));
-		model.addAttribute("tipoMotivoOtros", motiveRepository.findByTipo(TipoMotivo.OTROS));
-
-		for (Motivo motivo : permiso.getMotivos()) {
-			if (motivo.getTipo().toString().equals(TipoMotivo.LICENCIA.toString())) {
-				model.addAttribute("LICENCIA", motivo);
-				break;
-			} else if (motivo.getTipo().toString().equals(TipoMotivo.PERMISO.toString())) {
-				model.addAttribute("PERMISO", motivo);
-				break;
-			} else if (motivo.getTipo().toString().equals(TipoMotivo.OTROS.toString())) {
-				model.addAttribute("OTROS", motivo);
-				break;
-			}
-		}
-
-		return "dashboard/inasistencias/generar-inasistencia";
-
-	}
-
-	@GetMapping(value = "/generar-permiso/{permisoId}")
-	public ResponseEntity<byte[]> generatePDF(@PathVariable int permisoId) {
-
-		System.out.println("PDF Generated!");
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_PDF);
-
-		return new ResponseEntity<>(permisoService.generatePDF(permisoId).toByteArray(), headers, HttpStatus.OK);
-
-	}
-
-	@GetMapping(value = "inasistencia/{inasistenciaId}/justificar")
-	public String justifiedInasistence(@PathVariable int inasistenciaId) {
 		Inasistencia inasistencia = inasistenciaService.findById(inasistenciaId);
-		System.out.println(inasistencia);
+		Permiso permiso = permisoService.findbyInasistenciaId(inasistenciaId);
+		permiso.setFechaRecepcion(LocalDate.now());
+		permisoService.update(permiso);
 		inasistencia.setJustificacionFisica(true);
 		inasistenciaService.update(inasistencia);
 		return "dashboard/inasistencias/inasistencias";
