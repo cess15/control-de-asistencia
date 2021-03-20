@@ -22,6 +22,7 @@ import com.istb.app.entities.Periodo;
 import com.istb.app.entities.Profesor;
 import com.istb.app.models.DataTableResponse;
 import com.istb.app.models.ErrorResponse;
+import com.istb.app.repository.InasistenciaRepository;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.inasistencia.InasistenciaService;
 import com.istb.app.services.periodo.PeriodoService;
@@ -38,6 +39,9 @@ public class InasistenciaApiController {
 
 	@Autowired
 	UserCredentials serviceCredentials;
+
+	@Autowired
+	InasistenciaRepository inasistenciaRepository;
 
 	@GetMapping(value = "/inasistencias", headers = "Accept=Application/json")
 	public Collection<Inasistencia> index() {
@@ -91,6 +95,11 @@ public class InasistenciaApiController {
 		}
 
 		return new ResponseEntity<>(this.serviceInasistencia.save(inasistencias, periodo), HttpStatus.CREATED);
+	}
+
+	@GetMapping(value = "/cant-inasistencias/{inasistenciaId}")
+	public long cantInasistencias(@PathVariable int inasistenciaId) {
+		return this.inasistenciaRepository.countInasistenciaByProfesor(inasistenciaId);
 	}
 
 	@GetMapping(value = "/inasistenciasJustified")

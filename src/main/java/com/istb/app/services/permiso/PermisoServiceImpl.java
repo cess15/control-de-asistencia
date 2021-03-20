@@ -13,6 +13,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -21,7 +23,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import com.istb.app.entities.Inasistencia;
 import com.istb.app.entities.Motivo;
 import com.istb.app.entities.Permiso;
-import com.istb.app.entities.Profesor;
+import com.istb.app.models.DataTableResponse;
 import com.istb.app.repository.PermisoRepository;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.inasistencia.InasistenciaService;
@@ -73,6 +75,7 @@ public class PermisoServiceImpl implements PermisoService {
 		permiso.setFechaGeneracion(LocalDate.now());
 		permiso.setValorDescontar(permiso.addValorDescontar(dias));
 		permiso.setInasistencia(inasistencia);
+		permiso.setDayDiference(dias);
 		permiso.addMotivo(motivo);
 
 		permisoRepository.save(permiso);
@@ -106,6 +109,7 @@ public class PermisoServiceImpl implements PermisoService {
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("permiso", permiso);
 		attributes.put("fechaCreacion", convertDateTime(permiso.getFechaCreacion()));
+		attributes.put("adjuntos", permiso.getAdjuntos());
 
 		ctx.setVariable("attributes", attributes);
 		String htmlTemplate = templateEngine.process("reporte", ctx);
@@ -156,6 +160,25 @@ public class PermisoServiceImpl implements PermisoService {
 	@Override
 	public Permiso findbyInasistenciaId(int inasistenciaId) {
 		return this.permisoRepository.findByInasistencia_IdAndInasistencia_Periodo_VigenteIsTrue(inasistenciaId);
+	}
+
+	@Override
+	public DataTableResponse findAllByInasistencia_Profesor_IdAndInasistencia_Periodo_VigenteIsTrue(int profesorId,
+			Integer draw, Integer start, Integer length, Direction sort, String... properties) throws Exception {
+		int page = 0;
+		if (start > 0 && length >= start) {
+			page = length / start;
+		} else if (start > 0 && length < start) {
+			page = start / length;
+		}
+
+		long count = 0;
+		List<Permiso> permisos = permisoRepository
+				.findAllByInasistencia_Profesor_IdAndInasistencia_Periodo_VigenteIsTrue(profesorId,
+						PageRequest.of(page, length, sort, properties))
+				.getContent();
+		count = permisoRepository.count();
+		return new DataTableResponse(draw, count, count, permisos);
 	}
 
 }

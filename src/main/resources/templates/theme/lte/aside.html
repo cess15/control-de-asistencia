@@ -37,6 +37,11 @@
 					</a>
 					</li>
 					<li
+						th:classappend="${#request.requestURI.startsWith('/licencias-permisos') ? 'active' : ''}">
+						<a th:href="@{/licencias-permisos}"> <i class="fas fa-table"></i>Licencias y Permisos
+					</a>
+					</li>
+					<li
 						th:classappend="${#request.requestURI.startsWith('/periodos') ? 'active' : ''}">
 						<a th:href="@{/periodos}"> <i class="fas fa-table"></i>Periodos
 					</a>

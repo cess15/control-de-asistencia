@@ -30,7 +30,6 @@ export default function templateProfesor(profesor, inasistenciasHoy) {
       <td>${profesor.apellidos}</td>
       <td class="desc" >${profesor.telefono != null ? profesor.telefono : ""}</td>
       <td><span class="block-email">${profesor.correo}</span></td>
-      <td>${profesor.inasistencias.length}</td>
     </tr>
     `;
 }

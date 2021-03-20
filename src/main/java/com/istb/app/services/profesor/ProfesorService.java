@@ -17,6 +17,8 @@ public interface ProfesorService {
 	
 	DataTableResponse findAll(Integer draw, Integer start, Integer length, String search, Sort.Direction sort, String... properties) throws Exception;
 	
+	DataTableResponse findAllByInasistenciaGreaterThan(Integer draw, Integer start, Integer length, String search, Sort.Direction sort, String... properties) throws Exception;
+	
 	Profesor findById(int id);
 	
 	Profesor findByCedula(String cedula);

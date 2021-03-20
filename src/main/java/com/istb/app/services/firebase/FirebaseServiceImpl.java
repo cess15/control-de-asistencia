@@ -59,7 +59,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
 	@Value("${firebase.storage.clientEmail}")
 	private String clientEmail;
-	
+
 	private String folder = "asistencia";
 
 	Logger log = LoggerFactory.getLogger(FirebaseServiceImpl.class);
@@ -118,8 +118,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 	}
 
 	private String getURL(String name) {
-		return "https://storage.googleapis.com/".concat(this.bucket).concat("/")
-				.concat(name);
+		return "https://storage.googleapis.com/".concat(this.bucket).concat("/").concat(name);
 	}
 
 	private File convertMultiPartToFile(MultipartFile file) throws IOException {
@@ -146,5 +145,24 @@ public class FirebaseServiceImpl implements FirebaseService {
 		String mapString = mapper.writeValueAsString(credentials);
 
 		return new ByteArrayInputStream(mapString.getBytes(StandardCharsets.UTF_8));
+	}
+
+	@Override
+	public boolean deleteFile(String sourceFilePath, String nameFilePath) {
+		boolean fileStatus = false;
+		File sourceFile = new File(sourceFilePath);
+		File nameFile = new File(nameFilePath);
+		if (sourceFile.canRead() && nameFile.canRead()) {
+			if (nameFile.exists()) {
+				fileStatus = nameFile.delete();
+				if (!fileStatus) {
+					System.out.println("Target deletion failed");
+				}
+			}
+		} else {
+			System.out.println("Cannot read file");
+			return false;
+		}
+		return true;
 	}
 }

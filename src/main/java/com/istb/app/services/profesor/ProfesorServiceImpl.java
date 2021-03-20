@@ -211,6 +211,32 @@ public class ProfesorServiceImpl implements ProfesorService {
 		}
 		return new DataTableResponse(draw, count, count, profesores);
 	}
+	
+	@Override
+	public DataTableResponse findAllByInasistenciaGreaterThan(Integer draw, Integer start, Integer length, String search, Direction sort,
+			String... properties) throws Exception {
+		int page = 0;
+
+		if (start > 0 && length >= start) {
+			page = length / start;
+		} else if (start > 0 && length < start) {
+			page = start / length;
+		}
+
+		long count = 0;
+		List<Profesor> profesores = null;
+		if (!search.isEmpty() && search.length() == 10) {
+			String cedula = getCedula(search);
+			count = profesorRepository.countProfesorByInasistenciaAndCedula(cedula);
+			profesores = profesorRepository.findAllByInasistencias(cedula, PageRequest.of(page, length, sort, properties))
+					.getContent();
+		} else {
+			count = profesorRepository.countProfesorByInasistencia();
+			profesores = profesorRepository.findAllByInasistencias(PageRequest.of(page, length, sort, properties)).getContent();
+		}
+		return new DataTableResponse(draw, count, count, profesores);
+	}
+	
 
 	private static String getCedula(String search) {
 		String cedula = "";

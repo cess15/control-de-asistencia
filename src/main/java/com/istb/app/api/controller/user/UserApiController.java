@@ -1,13 +1,6 @@
 package com.istb.app.api.controller.user;
 
-import java.nio.charset.Charset;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Random;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +16,6 @@ import com.istb.app.entities.Usuario;
 import com.istb.app.models.FileUpload;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.firebase.FirebaseService;
-import com.istb.app.services.firebase.FirebaseServiceImpl;
 import com.istb.app.services.user.UserService;
 
 @RestController
@@ -53,26 +45,8 @@ public class UserApiController {
 		usuario.setImagenPerfil(fileUpload.getName());
 		userService.update(usuario);
 		File upload = new File(file[0].getOriginalFilename());
-		deleteFile(upload.getPath(), upload.getName());
+		fbmanager.deleteFile(upload.getPath(), upload.getName());
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(fileUpload);
-	}
-
-	public boolean deleteFile(String sourceFilePath, String nameFilePath) {
-		boolean fileStatus = false;
-		File sourceFile = new File(sourceFilePath);
-		File nameFile = new File(nameFilePath);
-		if (sourceFile.canRead() && nameFile.canRead()) {
-			if (nameFile.exists()) {
-				fileStatus = nameFile.delete();
-				if (!fileStatus) {
-					System.out.println("Target deletion failed");
-				}
-			}
-		} else {
-			System.out.println("Cannot read file");
-			return false;
-		}
-		return true;
 	}
 
 }
