@@ -4,7 +4,7 @@ $(document).ready(function() {
 		"serverSide": true,
 		"ordering": false,
 		"ajax": {
-			"url": "/api/data-profesores-inasistencia"
+			"url": "/api/data-profesores"
 		},
 		"columns": [
 			{ data : "cedula" },

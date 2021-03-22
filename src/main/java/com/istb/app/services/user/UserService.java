@@ -20,5 +20,9 @@ public interface UserService {
 
 	String encodePassword(String contrasena);
 
+	boolean checkIfValidOldPassword(Usuario usuario, String oldPassword);
+
+	void changeUserPassword(Usuario usuario, String password);
+
 	void delete(int id);
 }

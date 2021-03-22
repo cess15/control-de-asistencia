@@ -35,7 +35,7 @@ public class SecurityServiceImpl implements SecurityService {
 						"/ver-permisos/**")
 			.hasAuthority("Secretaria")
 
-			.antMatchers("/inicio","/api/profile/avatar")
+			.antMatchers("/inicio","/api/profile/avatar","/settings")
 			.hasAnyAuthority("Secretaria","Docente")
 			
 			.antMatchers("/editar/**", 

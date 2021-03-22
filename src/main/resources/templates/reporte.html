@@ -98,18 +98,20 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="row">
-					<div class="col text-center text-light bg-secondary">
-						<strong style="margin-left: -225px">OBSERVACIONES O
-							JUSTIFICATIVOS</strong>
+				<div class="row" th:each="permiso : ${attributes.permiso}">
+					<div th:if="${!permiso.observacion.isEmpty()}">
+						<div class="col text-center text-light bg-secondary">
+							<strong style="margin-left: -225px">OBSERVACIONES O
+								JUSTIFICATIVOS</strong>
+						</div>
 					</div>
+					<table>
+						<tr>
+							<td th:each="permiso : ${attributes.permiso}"><textarea
+									th:text="${permiso.observacion}"></textarea></td>
+						</tr>
+					</table>
 				</div>
-				<table>
-					<tr>
-						<td th:each="permiso : ${attributes.permiso}"><textarea
-								th:text="${permiso.observacion}"></textarea></td>
-					</tr>
-				</table>
 				<div class="row">
 					<div class="col text-light bg-secondary">
 						<strong style="margin-left: 28%">TIPO DE PERMISO</strong>
@@ -155,7 +157,7 @@
 					</div>
 				</div>
 				<div th:if="${attributes.adjuntos!=null}">
-					<div style="margin-top: 5%">
+					<div style="margin-top: 10%">
 						<div class="row">
 							<div class="col text-light bg-secondary">
 								<strong style="margin-left: 30%">ANEXOS</strong>
@@ -163,8 +165,9 @@
 						</div>
 					</div>
 					<div class="row" th:each="adjunto : ${attributes.adjuntos}">
-						<div style="width: 680px; text-align:center">
-							<img th:src="${adjunto.urlAdjunto}" alt="adjunto" />
+						<div style="width: 680px; text-align: center; margin-top: 2%">
+							<img th:src="${adjunto.urlAdjunto}" width="240px" height="240px"
+								alt="adjunto" />
 						</div>
 					</div>
 				</div>

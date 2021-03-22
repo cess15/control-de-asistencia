@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		return null;
 
 	}
-	
+
 	@Transactional
 	@Override
 	public void delete(int id) {
@@ -41,31 +41,30 @@ public class UserServiceImpl implements UserService {
 
 		Map<String, String> errorAttributes = new HashMap<>();
 		boolean existeNombreUsuario = findByNombreUsuario(usuario.getNombreUsuario()) != null;
-		
+
 		String password = encodePassword(usuario.getContrasena());
-		
+
 		if (existeNombreUsuario) {
-			
-			errorAttributes.put("nombreUsuario", "Usuario ".concat(
-				usuario.getNombreUsuario()).concat(" ya existe"));
+
+			errorAttributes.put("nombreUsuario", "Usuario ".concat(usuario.getNombreUsuario()).concat(" ya existe"));
 			errorAttributes.put("clase", "text-danger");
-		
+
 			return errorAttributes;
 
-		} 
-		
+		}
+
 		usuario.setEstado(false);
 		usuario.setContrasena(password);
-		
+
 		userRepository.save(usuario);
 
 		return errorAttributes;
-		
+
 	}
 
 	@Override
 	public Map<String, String> update(Usuario usuario) {
-		
+
 		userRepository.save(usuario);
 
 		return null;
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService {
 		if (usuario != null) {
 			return usuario;
 		}
-		
+
 		return null;
 
 	}
@@ -102,6 +101,22 @@ public class UserServiceImpl implements UserService {
 			return usuario.get();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean checkIfValidOldPassword(Usuario usuario, String oldPassword) {
+
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y, 12);
+		if (passwordEncoder.matches(oldPassword, usuario.getContrasena())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void changeUserPassword(Usuario usuario, String newPassword) {
+		usuario.setContrasena(encodePassword(newPassword));
+		userRepository.save(usuario);
 	}
 
 }

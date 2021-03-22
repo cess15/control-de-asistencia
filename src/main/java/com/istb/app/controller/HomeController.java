@@ -1,14 +1,11 @@
 package com.istb.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.istb.app.entities.Usuario;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.firebase.FirebaseService;
 import com.istb.app.services.profesor.ProfesorServiceImpl;
@@ -33,12 +30,15 @@ public class HomeController {
 	public String inicio(Model model) {
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
-		
+
 		return "inicio";
 	}
-		
-	@PostMapping("/uploadfile")
-	public ResponseEntity<?> uploadImage(MultipartFile[] file) throws Exception {
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(fbmanager.uploadFile(file[0]));
+
+	@GetMapping(value = "/settings")
+	public String settings(Model model) {
+		model.addAttribute("title", "Panel ISTB");
+		model.addAttribute("user", userCredentials.getUserAuth());
+		return "dashboard/user/settings";
 	}
+
 }
