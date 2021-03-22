@@ -112,6 +112,6 @@ public class InasistenciaController {
 		permisoService.update(permiso);
 		inasistencia.setJustificacionFisica(true);
 		inasistenciaService.update(inasistencia);
-		return "dashboard/inasistencias/inasistencias";
+		return "redirect:/inasistencias-justificadas";
 	}
 }

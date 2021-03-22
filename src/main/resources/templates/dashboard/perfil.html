@@ -1,198 +1,171 @@
 <!DOCTYPE html>
-<html
-  lang="es"
-  xmlns="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="layout/app :: head"></head>
+<html lang="es" xmlns="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/app :: head"></head>
 
-  <body class="animsition">
-    <div class="page-wrapper">
-      <!-- Start header -->
-      <header th:replace="layout/app :: header-mobile"></header>
-      <!-- End header -->
-    </div>
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"></header>
+		<!-- End header -->
+	</div>
 
-    <!-- PAGE CONTAINER-->
-    <div class="page-container">
-      <!-- HEADER DESKTOP-->
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<!-- HEADER DESKTOP-->
 
-      <header th:replace="layout/app :: header-desktop"></header>
+		<header th:replace="layout/app :: header-desktop"></header>
 
-      <!-- HEADER DESKTOP-->
-      <!-- MENU SIDEBAR-->
-      <aside
-        class="menu-sidebar d-none d-lg-block"
-        th:replace="layout/app :: aside"
-      ></aside>
-      <!-- END MENU SIDEBAR-->
+		<!-- HEADER DESKTOP-->
+		<!-- MENU SIDEBAR-->
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
+		<!-- END MENU SIDEBAR-->
 
-      <!-- MAIN CONTENT-->
-      <div class="main-content">
-        <div style="position: relative; margin: 0 auto; padding: 0 30px">
-          <div class="container-fluid">
-            <div sec:authorize="hasAuthority('Docente')">
-              <div class="row">
-                <div class="col col-lg-12">
-                  <section class="card">
-                    <div class="card-body text-secondary">
-                      <h4>Perfil de Usuario</h4>
-                    </div>
-                  </section>
-                </div>
-              </div>
+		<!-- MAIN CONTENT-->
+		<div class="main-content">
+			<div style="position: relative; margin: 0 auto; padding: 0 30px">
+				<div class="container-fluid">
+					<div sec:authorize="hasAuthority('Docente')">
+						<div class="row">
+							<div class="col col-lg-12">
+								<section class="card">
+									<div class="card-body text-secondary">
+										<h4>Perfil de Usuario</h4>
+									</div>
+								</section>
+							</div>
+						</div>
 
-              <section class="card p-3">
-                <div class="row">
-                  <div class="col-sm-12 col-md-3">
-                    <section class="card">
-                      <div class="card-body text-secondary">
-                        <div class="user_profile">
-                          <div class="user-pro-img">
-                            <img
-                              th:src="${user.url_imagen_perfil}"
-                              id="img_loader"
-                              class="img_profile"
-                              width="180px"
-                              height="180px"
-                              alt="foto_perfil"
-                            />
-                            <div class="add-dp">
-                              <label for="file_picture_user"
-                                ><i class="fa fa-camera"></i
-                              ></label>
-                              <input
-                                type="file"
-                                id="file_picture_user"
-                                name="file"
-                              />
-                            </div>
-                          </div>
-                          <span th:text="${user.profesor.nombres+' '+user.profesor.apellidos}"></span>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="col-sm-12 col-md-9">
-                    <section class="card">
-                      <div class="card-body text-secondary">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                          <li class="nav-item">
-                            <a
-                              class="nav-link active"
-                              id="details-tab"
-                              data-toggle="tab"
-                              href="#details"
-                              role="tab"
-                              aria-controls="details"
-                              aria-selected="true"
-                              >Detalles</a
-                            >
-                          </li>
-                        </ul>
-                        <div class="row mt-1">
-                          <div class="col-md-6">
-                            <section class="card">
-                              <div class="card-body text-secondary">
-                                <h4>Detalles de usuario</h4>
-                                <div class="row mb-3">
-                                  <div class="col-8"></div>
-                                  <div class="col-4">
-                                    <span
-                                      ><a th:href="@{/editar}"
-                                        >Editar perfil</a
-                                      ></span
-                                    >
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col">
-                                    <h5>Dirección de correo</h5>
-                                    <span th:text="${user.profesor.correo}"></span>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col">
-                                    <h5>Nombres</h5>
-                                    <span th:text="${user.profesor.nombres}"></span>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col">
-                                    <h5>Apellidos</h5>
-                                    <span th:text="${user.profesor.apellidos}"></span>
-                                  </div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col">
-                                    <h5>Teléfono</h5>
-                                    <span th:text="${user.profesor.telefono}"></span>
-                                  </div>
-                                </div>
-                              </div>
-                            </section>
-                          </div>
-                          <div class="col-md-6">
-                            <section class="card">
-                              <div class="card-body text-secondary">
-                                <h4>Detalles de Periodo</h4>
-                                <div class="row mb-3">
-                                  <div class="col-12"></div>
-                                </div>
-                                <div class="row mb-3">
-                                  <div class="col">
-                                    <h5>Periodo</h5>
-                                    <span th:text="${fechaInicio+'-'+fechaFinal}"></span>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div class="row mb-3">
-                                    <div class="col">
-                                      <h5>Días faltados</h5>
-                                      <span></span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </section>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <section class="card">
-                              <div class="card-body text-secondary">
-                                <h4>Privacidad y Políticas</h4>
-                                <div class="row mt-3">
-                                  <div class="col">
-                                    <span
-                                      ><a
-                                        href="https://istb.edu.ec/panel-de-reglamentos-estatutos-codigos-y-normativas-istb/"
-                                        target="_blank"
-                                        >Reglamentos y Estatutos</a
-                                      ></span
-                                    >
-                                  </div>
-                                </div>
-                              </div>
-                            </section>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div class="row" th:replace="theme/lte/footer.html :: footer"></div>
-          </div>
-        </div>
-        <!-- END MAIN CONTENT-->
-      </div>
-    </div>
-    <!-- END PAGE CONTAINER-->
+						<section class="card p-3">
+							<div class="row">
+								<div class="col-sm-12 col-md-3">
+									<section class="card">
+										<div class="card-body text-secondary">
+											<div class="user_profile">
+												<div class="user-pro-img">
+													<img th:src="${user.url_imagen_perfil}" id="img_loader"
+														class="img_profile" width="180px" height="180px"
+														alt="foto_perfil" />
+													<div class="add-dp">
+														<label for="file_picture_user"><i
+															class="fa fa-camera"></i></label> <input type="file"
+															id="file_picture_user" name="file" />
+													</div>
+												</div>
+												<span
+													th:text="${user.profesor.nombres+' '+user.profesor.apellidos}"></span>
+											</div>
+										</div>
+									</section>
+								</div>
+								<div class="col-sm-12 col-md-9">
+									<section class="card">
+										<div class="card-body text-secondary">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item"><a class="nav-link active"
+													id="details-tab" data-toggle="tab" href="#details"
+													role="tab" aria-controls="details" aria-selected="true">Detalles</a>
+												</li>
+											</ul>
+											<div class="row mt-1">
+												<div class="col-md-6">
+													<section class="card">
+														<div class="card-body text-secondary">
+															<h4>Detalles de usuario</h4>
+															<div class="row mb-3">
+																<div class="col-8"></div>
+																<div class="col-4">
+																	<span><a
+																		th:href="@{/editar}">Editar
+																			perfil</a></span>
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="col">
+																	<h5>Dirección de correo</h5>
+																	<span th:text="${user.profesor.correo}"></span>
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="col">
+																	<h5>Nombres</h5>
+																	<span th:text="${user.profesor.nombres}"></span>
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="col">
+																	<h5>Apellidos</h5>
+																	<span th:text="${user.profesor.apellidos}"></span>
+																</div>
+															</div>
+															<div class="row mb-3">
+																<div class="col">
+																	<h5>Teléfono</h5>
+																	<span th:text="${user.profesor.telefono}"></span>
+																</div>
+															</div>
+														</div>
+													</section>
+												</div>
+												<div class="col-md-6">
+													<section class="card">
+														<div class="card-body text-secondary">
+															<h4>Detalles de Periodo</h4>
+															<div class="row mb-3">
+																<div class="col-12"></div>
+															</div>
+															<div class="row mb-3">
+																<div class="col">
+																	<h5>Periodo</h5>
+																	<span th:text="${fechaInicio+'-'+fechaFinal}"></span>
+																</div>
+															</div>
+															<div>
+																<div class="row mb-3">
+																	<div class="col">
+																		<h5>Días faltados</h5>
+																		<span></span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</section>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<section class="card">
+														<div class="card-body text-secondary">
+															<h4>Privacidad y Políticas</h4>
+															<div class="row mt-3">
+																<div class="col">
+																	<span><a
+																		href="https://istb.edu.ec/panel-de-reglamentos-estatutos-codigos-y-normativas-istb/"
+																		target="_blank">Reglamentos
+																			y Estatutos</a></span>
+																</div>
+															</div>
+														</div>
+													</section>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+				</div>
+			</div>
+			<!-- END MAIN CONTENT-->
+		</div>
+	</div>
+	<!-- END PAGE CONTAINER-->
 
-    <div th:replace="layout/app :: endPage"></div>
-    <script src="/js/perfil/upload-image.js"></script>
-  </body>
+	<div th:replace="layout/app :: endPage"></div>
+	<script src="/js/perfil/upload-image.js"></script>
+</body>
 </html>
 <!-- end document-->

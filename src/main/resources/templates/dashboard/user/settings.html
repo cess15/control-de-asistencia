@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/app :: head"></head>
+
+<body class="animsition">
+	<div class="page-wrapper">
+		<!-- Start header -->
+		<header th:replace="layout/app :: header-mobile"></header>
+		<!-- End header -->
+	</div>
+
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<!-- HEADER DESKTOP-->
+
+		<header th:replace="layout/app :: header-desktop"></header>
+
+		<!-- HEADER DESKTOP-->
+		<!-- MENU SIDEBAR-->
+		<aside class="menu-sidebar d-none d-lg-block"
+			th:replace="layout/app :: aside"></aside>
+		<!-- END MENU SIDEBAR-->
+
+		<!-- MAIN CONTENT-->
+		<div class="main-content">
+			<div style="position: relative; margin: 0 auto; padding: 0 30px">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col col-lg-12">
+							<section class="card">
+								<div class="card-body text-secondary">
+									<h4>Datos de la cuenta</h4>
+								</div>
+							</section>
+						</div>
+					</div>
+					<div sec:authorize="hasAuthority('Secretaria')">
+						<section class="card p-3">
+							<div class="row">
+								<div class="col-sm-12 col-md-3">
+									<section class="card">
+										<div class="card-body text-secondary">
+											<div class="user_profile">
+												<div class="user-pro-img">
+													<img th:src="${user.url_imagen_perfil}" id="img_loader"
+														class="img_profile" width="180px" height="180px"
+														alt="foto_perfil" />
+													<div class="add-dp">
+														<label for="file_picture_user"><i
+															class="fa fa-camera"></i></label> <input type="file"
+															id="file_picture_user" name="file" />
+													</div>
+												</div>
+												<span>Foto de perfil</span>
+											</div>
+										</div>
+									</section>
+								</div>
+								<div class="col-sm-12 col-md-9">
+									<section class="card">
+										<div class="card-body text-secondary">
+											<ul class="nav nav-tabs" id="myTab" role="tablist">
+												<li class="nav-item"><a class="nav-link active"
+													id="details-tab" data-toggle="tab" href="#details"
+													role="tab" aria-controls="details" aria-selected="true">Cambiar
+														contraseña</a></li>
+											</ul>
+											<div class="row mt-1">
+												<div class="col-md-12">
+													<section class="card">
+														<div class="card-body text-secondary">
+
+															<div class="form-group">
+																<form id="form-submit">
+																	<div class="row mt-2">
+																		<div class="col-12">
+																			<div class="input-group">
+																				<div class="input-group-addon">
+																					<i class="fa fa-asterisk"></i>
+																				</div>
+																				<input id="newPassword" type="password"
+																					class="form-control" placeholder="Nueva contraseña">
+																			</div>
+																		</div>
+																	</div>
+																	<span id="errorNewPassord" class="error text-danger"></span>
+																	<div class="row mt-2">
+																		<div class="col-12">
+																			<div class="input-group">
+																				<div class="input-group-addon">
+																					<i class="fa fa-asterisk"></i>
+																				</div>
+																				<input id="repeatPassword" type="password" required
+																					class="form-control"
+																					placeholder="Repita la contraseña">
+																			</div>
+																		</div>
+																	</div>
+																	<span id="errorPassword" class="error text-danger"></span>
+																	<div class="row mt-2">
+																		<div class="col-12">
+																			<div class="input-group">
+																				<div class="input-group-addon">
+																					<i class="fa fa-asterisk"></i>
+																				</div>
+																				<input id="oldPassword" type="password"
+																					name="oldPassword" class="form-control"
+																					placeholder="Contraseña actual">
+																			</div>
+																		</div>
+																	</div>
+																	<span id="errorPasswordNotEqual"
+																		class="error text-danger"></span> <span
+																		id="successChange" class="text-success"></span>
+																</form>
+																<div class="row mt-2">
+																	<div class="col-12">
+																		<button id="id-button" type="submit"
+																			class="btn btn-primary">
+																			<i class="fa fa-check"></i>Cambiar contraseña
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</section>
+												</div>
+												<div class="col-sm-12 col-md-12">
+													<section class="card">
+														<div class="card-body text-secondary">
+															<ul class="nav nav-tabs" id="myTab" role="tablist">
+																<li class="nav-item"><a class="nav-link active"
+																	id="details-tab" data-toggle="tab" href="#details"
+																	role="tab" aria-controls="details" aria-selected="true">Cambiar
+																		nombre de usuario</a></li>
+															</ul>
+															<div class="row mt-1">
+																<div class="col-md-12">
+																	<section class="card">
+																		<div class="card-body text-secondary">
+																			<div class="form-group">
+																				<div class="row mt-2">
+																					<div class="col-12">
+																						<div class="input-group">
+																							<div class="input-group-addon">
+																								<i class="fa fa-user"></i>
+																							</div>
+																							<input id="userName" type="text"
+																								class="form-control"
+																								placeholder="Nuevo nombre de usuario">
+																						</div>
+																					</div>
+																				</div>
+																				<span id="errorNewUserName"
+																					class="error text-danger"></span>
+																				<div class="row mt-2">
+																					<div class="col-12">
+																						<div class="input-group">
+																							<div class="input-group-addon">
+																								<i class="fa fa-user"></i>
+																							</div>
+																							<input id="repeatUserName" type="text" required
+																								class="form-control"
+																								placeholder="Repita su nombre de usuario">
+																						</div>
+																					</div>
+																				</div>
+																				<span id="errorRepeatUserName"
+																					class="error text-danger"></span>
+																				<div class="row mt-2">
+																					<div class="col-12">
+																						<div class="input-group">
+																							<div class="input-group-addon">
+																								<i class="fa fa-asterisk"></i>
+																							</div>
+																							<input id="oldPasswordUserName" type="password"
+																								class="form-control"
+																								placeholder="Contraseña actual">
+																						</div>
+																					</div>
+																				</div>
+																				<span id="errorPasswordNotFound"
+																					class="error text-danger"></span>
+																				<div class="row mt-2">
+																					<div class="col-12">
+																						<button id="id-button-username" type="submit"
+																							class="btn btn-primary">
+																							<i class="fa fa-check"></i>Cambiar nombre de
+																							usuario
+																						</button>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</section>
+																</div>
+															</div>
+														</div>
+													</section>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+						</section>
+					</div>
+					<div sec:authorize="hasAuthority('Docente')">
+						<div class="col-sm-12 col-md-12">
+							<section class="card">
+								<div class="card-body text-secondary">
+									<ul class="nav nav-tabs" id="myTab" role="tablist">
+										<li class="nav-item"><a class="nav-link active"
+											id="details-tab" data-toggle="tab" href="#details" role="tab"
+											aria-controls="details" aria-selected="true">Cambiar
+												contraseña</a></li>
+									</ul>
+									<div class="row mt-1">
+										<div class="col-md-12">
+											<section class="card">
+												<div class="card-body text-secondary">
+													<div class="form-group">
+														<form id="form-submit">
+															<div class="row mt-2">
+																<div class="col-12">
+																	<div class="input-group">
+																		<div class="input-group-addon">
+																			<i class="fa fa-asterisk"></i>
+																		</div>
+																		<input id="newPassword" type="password"
+																			class="form-control" placeholder="Nueva contraseña">
+																	</div>
+																</div>
+															</div>
+															<span id="errorNewPassord" class="error text-danger"></span>
+															<div class="row mt-2">
+																<div class="col-12">
+																	<div class="input-group">
+																		<div class="input-group-addon">
+																			<i class="fa fa-asterisk"></i>
+																		</div>
+																		<input id="repeatPassword" type="password" required
+																			class="form-control"
+																			placeholder="Repita la contraseña">
+																	</div>
+																</div>
+															</div>
+															<span id="errorPassword" class="error text-danger"></span>
+															<div class="row mt-2">
+																<div class="col-12">
+																	<div class="input-group">
+																		<div class="input-group-addon">
+																			<i class="fa fa-asterisk"></i>
+																		</div>
+																		<input id="oldPassword" type="password"
+																			class="form-control" placeholder="Contraseña actual">
+																	</div>
+																</div>
+															</div>
+															<span id="errorPasswordNotEqual"
+																class="error text-danger"></span>
+														</form>
+														<div class="row mt-2">
+															<div class="col-12">
+																<button id="id-button" type="submit"
+																	class="btn btn-primary">
+																	<i class="fa fa-check"></i>Cambiar contraseña
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</section>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+						<div class="col-sm-12 col-md-12">
+							<section class="card">
+								<div class="card-body text-secondary">
+									<ul class="nav nav-tabs" id="myTab" role="tablist">
+										<li class="nav-item"><a class="nav-link active"
+											id="details-tab" data-toggle="tab" href="#details" role="tab"
+											aria-controls="details" aria-selected="true">Cambiar
+												nombre de usuario</a></li>
+									</ul>
+									<div class="row mt-1">
+										<div class="col-md-12">
+											<section class="card">
+												<div class="card-body text-secondary">
+													<div class="form-group">
+														<div class="row mt-2">
+															<div class="col-12">
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<i class="fa fa-user"></i>
+																	</div>
+																	<input id="userName" type="text" class="form-control"
+																		placeholder="Nuevo nombre de usuario">
+																</div>
+															</div>
+														</div>
+														<span id="errorNewUserName" class="error text-danger"></span>
+														<div class="row mt-2">
+															<div class="col-12">
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<i class="fa fa-user"></i>
+																	</div>
+																	<input id="repeatUserName" type="text" required
+																		class="form-control"
+																		placeholder="Repita su nombre de usuario">
+																</div>
+															</div>
+														</div>
+														<span id="errorRepeatUserName" class="error text-danger"></span>
+														<div class="row mt-2">
+															<div class="col-12">
+																<div class="input-group">
+																	<div class="input-group-addon">
+																		<i class="fa fa-asterisk"></i>
+																	</div>
+																	<input id="oldPasswordUserName" type="password"
+																		class="form-control" placeholder="Contraseña actual">
+																</div>
+															</div>
+														</div>
+														<span id="errorPasswordNotFound" class="error text-danger"></span>
+														<div class="row mt-2">
+															<div class="col-12">
+																<button id="id-button-username" type="submit"
+																	class="btn btn-primary">
+																	<i class="fa fa-check"></i>Cambiar nombre de usuario
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</section>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+				<div class="row" th:replace="theme/lte/footer.html :: footer"></div>
+			</div>
+		</div>
+		<!-- END MAIN CONTENT-->
+	</div>
+	<!-- END PAGE CONTAINER-->
+
+	<div th:replace="layout/app :: endPage"></div>
+	<div sec:authorize="hasAuthority('Secretaria')">
+		<script src="/js/perfil/upload-image.js"></script>
+	</div>
+	<script src="/js/user/changePassword.js"></script>
+	<script src="/js/user/changeUserName.js"></script>
+</body>
+</html>

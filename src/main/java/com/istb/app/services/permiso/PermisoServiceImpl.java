@@ -1,6 +1,7 @@
 package com.istb.app.services.permiso;
 
 import java.io.ByteArrayOutputStream;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
@@ -69,13 +70,18 @@ public class PermisoServiceImpl implements PermisoService {
 			return errorAttributes;
 		}
 
-		int dias = permiso.getFechaFinal().getDayOfMonth() - permiso.getFechaInicio().getDayOfMonth();
+		List<DayOfWeek> ignore = new ArrayList<>();
+		ignore.add(DayOfWeek.SATURDAY);
+		ignore.add(DayOfWeek.SUNDAY);
+
 		permiso.setFechaCreacion(LocalDateTime.now());
 		permiso.setFechaActualizacion(LocalDateTime.now());
 		permiso.setFechaGeneracion(LocalDate.now());
-		permiso.setValorDescontar(permiso.addValorDescontar(dias));
+		permiso.setValorDescontar(
+				permiso.addValorDescontar(getDias(permiso.getFechaFinal(), permiso.getFechaInicio(), ignore)));
 		permiso.setInasistencia(inasistencia);
-		permiso.setDayDiference(dias);
+
+		permiso.setDayDiference(getDias(permiso.getFechaFinal(), permiso.getFechaInicio(), ignore));
 		permiso.addMotivo(motivo);
 
 		permisoRepository.save(permiso);
@@ -90,7 +96,16 @@ public class PermisoServiceImpl implements PermisoService {
 		if (inasistenciasJustified.size() > 0) {
 			inasistenciaService.sendEmailByJustified(inasistenciasJustified);
 		}
+
 		return errorAttributes;
+
+	}
+
+	public int getDias(LocalDate dateFinal, LocalDate dateStart, List<DayOfWeek> ignore) {
+
+		long dias = dateStart.datesUntil(dateFinal).filter(d -> !ignore.contains(d.getDayOfWeek())).count();
+		String diasToString = String.valueOf(dias);
+		return Integer.parseInt(diasToString);
 
 	}
 
