@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.istb.app.entities.Profesor;
 import com.istb.app.models.DataTableResponse;
+import com.istb.app.repository.ProfesorRepository;
 import com.istb.app.services.inasistencia.InasistenciaService;
 import com.istb.app.services.profesor.ProfesorService;
 
@@ -35,9 +36,12 @@ public class ProfesorApiController {
 		serviceProfesor = serviceProfe;
 	}
 
+	@Autowired
+	ProfesorRepository profesorRepository;
+
 	@GetMapping(value = "/profesores", headers = "Accept=Application/json")
 	public List<Profesor> findAll() {
-		List<Profesor> profesores = serviceProfesor.findAll().stream()
+		List<Profesor> profesores = profesorRepository.findAllByUsuario_EstadoIsTrue().stream()
 				.peek(p -> p.setInasistencias(serviceInasistencia.findByFechaActual(p.getId())))
 				.sorted(Comparator.comparing(Profesor::getApellidos)).collect(Collectors.toList());
 
@@ -54,14 +58,14 @@ public class ProfesorApiController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(dataTableResp);
 	}
-	
+
 	@GetMapping(value = "/data-profesores-inasistencia")
 	public ResponseEntity<?> dataProfesoresInasistence(@RequestParam(required = false, defaultValue = "1") Integer draw,
 			@RequestParam(required = false, defaultValue = "0") Integer start,
 			@RequestParam(required = false, defaultValue = "2") Integer length,
 			@RequestParam(required = false) Map<String, String> search) throws Exception {
-		DataTableResponse dataTableResp = serviceProfesor.findAllByInasistenciaGreaterThan(draw, start, length, search.get("search[value]"),
-				Sort.Direction.DESC, "cedula");
+		DataTableResponse dataTableResp = serviceProfesor.findAllByInasistenciaGreaterThan(draw, start, length,
+				search.get("search[value]"), Sort.Direction.DESC, "cedula");
 
 		return ResponseEntity.status(HttpStatus.OK).body(dataTableResp);
 	}
