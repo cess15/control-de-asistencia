@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.istb.app.entities.Adjunto;
 import com.istb.app.entities.Motivo;
@@ -39,6 +41,7 @@ public class PermisoController {
 	public String showView(Model model) {
 		model.addAttribute("title", "Panel ISTB");
 		model.addAttribute("user", userCredentials.getUserAuth());
+		model.addAttribute("permiso", new Permiso());
 		return "dashboard/licencias-permisos/licencias-permisos";
 	}
 
@@ -89,5 +92,17 @@ public class PermisoController {
 
 		return new ResponseEntity<>(permisoService.generatePDF(permisoId).toByteArray(), headers, HttpStatus.OK);
 
+	}
+
+	@PostMapping(value = "/permisos/reporte")
+	public ResponseEntity<byte[]> generateReport(@ModelAttribute("permiso") Permiso permiso) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_PDF);
+		
+		String startDate = String.valueOf(permiso.getFechaInicio());
+		String finalDate = String.valueOf(permiso.getFechaFinal());
+
+		return new ResponseEntity<>(permisoService.generateReport(startDate, finalDate).toByteArray(), headers,
+				HttpStatus.OK);
 	}
 }

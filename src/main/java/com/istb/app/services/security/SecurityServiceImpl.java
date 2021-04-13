@@ -32,6 +32,7 @@ public class SecurityServiceImpl implements SecurityService {
 						"/inasistencias-justificadas/**",
 						"/data-profesores",
 						"/licencias-permisos",
+						"/permisos/reporte",
 						"/ver-permisos/**")
 			.hasAuthority("Secretaria")
 
