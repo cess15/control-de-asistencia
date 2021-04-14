@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.istb.app.entities.Usuario;
 import com.istb.app.services.auth.UserCredentials;
 import com.istb.app.services.firebase.FirebaseService;
 import com.istb.app.services.profesor.ProfesorServiceImpl;

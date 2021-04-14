@@ -96,13 +96,18 @@ public class PermisoController {
 
 	@PostMapping(value = "/permisos/reporte")
 	public ResponseEntity<byte[]> generateReport(@ModelAttribute("permiso") Permiso permiso) {
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_PDF);
 		
 		String startDate = String.valueOf(permiso.getFechaInicio());
 		String finalDate = String.valueOf(permiso.getFechaFinal());
 
-		return new ResponseEntity<>(permisoService.generateReport(startDate, finalDate).toByteArray(), headers,
-				HttpStatus.OK);
+		return new ResponseEntity<>(
+			permisoService.generateReport(startDate, finalDate).toByteArray(), 
+			headers,
+			HttpStatus.OK);
+
 	}
+
 }

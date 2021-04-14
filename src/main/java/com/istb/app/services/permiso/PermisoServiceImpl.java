@@ -1,18 +1,18 @@
+
 package com.istb.app.services.permiso;
 
 import java.io.ByteArrayOutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -152,18 +152,22 @@ public class PermisoServiceImpl implements PermisoService {
 
 	@Override
 	public ByteArrayOutputStream generateReport(String fechaInicio, String fechaFinal) {
+		
 		LocalDate startDate = LocalDate.parse(fechaInicio);
 		LocalDate finalDate = LocalDate.parse(fechaFinal);
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
-		List<String> permisos = permisoRepository.findByFechaInicioBetween(startDate, finalDate);
+		List<?> permisos = permisoRepository.findByFechaInicioBetween(startDate, finalDate);
 		
 		Context ctx = new Context();
 
 		Map<String, Object> attributes = new HashMap<>();
 
-		attributes.put("fechaInicio", startDate);
-		attributes.put("fechaFinal", finalDate);
+		attributes.put("fechaInicio", dateFormatter.format(startDate));
+		attributes.put("fechaFinal", dateFormatter.format(finalDate));
 		attributes.put("permisos", permisos);
+		attributes.put("fechaGeneracion", 
+			dateFormatter.format( LocalDate.now() ));
 
 		ctx.setVariable("attributes", attributes);
 		String htmlTemplate = templateEngine.process("reporte-permiso", ctx);
@@ -184,6 +188,7 @@ public class PermisoServiceImpl implements PermisoService {
 		}
 
 		return out;
+	
 	}
 
 	@Override
