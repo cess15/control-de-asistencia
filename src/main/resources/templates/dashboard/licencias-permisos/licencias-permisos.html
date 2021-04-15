@@ -30,6 +30,27 @@
 						<h3 class="title-5 m-b-35">Listado de profesores con Licencias y Permisos</h3>
 						<div class="row">
 							<div class="col">
+								<form th:action="@{/permisos/reporte}" method="POST" target="_blank" th:object="${permiso}">
+									<div class="row">
+										<div class="col-md-4">
+											<label for="fechaInicio">Fecha Inicio</label>
+											<input type="date" class="form-control" th:field="*{fechaInicio}" required>
+										</div>
+										<div class="col-md-4">
+											<label for="fechaFinal">Fecha Final</label>
+											<input type="date" class="form-control" th:field="*{fechaFinal}" required>
+										</div>
+										<div class="col-md-4">
+						                    <div class="form-group mt-2">
+						                        <button id="pdfGeneratorBtn" type="submit" class="btn btn-primary mt-4">Generar reporte</button>
+						                    </div>
+                						</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
 								<div class="table-responsive table-responsive-data2">
 									<table id="profesor-permiso-table"
 										class="table table-data2">
@@ -56,5 +77,48 @@
 	<div th:replace="layout/app :: endPage"></div>
 	<script src="/datatables/datatables.min.js"></script>
 	<script src="/js/profesores/profesores-inasistencias.js"></script>
+	<script type="text/javascript">
+
+		let pdfGeneratorBtn = document.getElementById("pdfGeneratorBtn");
+
+		pdfGeneratorBtn.addEventListener("click", function(event) {
+
+			event.preventDefault();
+			let form = this.form;
+
+			if( form.checkValidity() ) {
+
+				let formData = new FormData();
+				formData.append("fechaFinal", form.fechaFinal.value);
+				formData.append("fechaInicio", form.fechaInicio.value);
+				
+				fetch(form.action, {
+					"method": "post",
+					"body": formData
+				
+				}).then( response => {
+					
+					return response.blob();
+
+				}).then( blob => {
+
+					let reportUrl = window.URL.createObjectURL(blob);
+					let anchorTmp = document.createElement("a");
+
+					anchorTmp.setAttribute("href", reportUrl);
+					anchorTmp.setAttribute("download", "reporte-faltas.pdf");
+					document.body.appendChild(anchorTmp);
+
+					anchorTmp.click();
+					anchorTmp.remove();
+
+				});
+
+			} else { 
+				alert("Necesita ingresar un rango de fechas"); }
+
+		});
+
+	</script>
 </body>
 </html>

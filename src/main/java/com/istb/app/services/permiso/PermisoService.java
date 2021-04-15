@@ -23,5 +23,7 @@ public interface PermisoService {
 	Permiso findbyInasistenciaId(int inasistenciaId);
 
 	String convertDateTime(LocalDateTime date);
+	
+	ByteArrayOutputStream generateReport(String fechaInicio, String fechaFinal);
 
 }
