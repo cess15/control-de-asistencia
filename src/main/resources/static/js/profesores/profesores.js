@@ -18,6 +18,12 @@ $(document).ready(function() {
 				}
 			},
 			{ data : "telefono" },
+			{
+				data : "usuario.fechaCreacion",
+				render:function(data, type, row){
+					return new Date(data).toLocaleDateString();
+				}
+			},
 			{ 
 				data : "id", 
 				render:function (data, type, row) {
