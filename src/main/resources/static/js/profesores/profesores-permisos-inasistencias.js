@@ -16,26 +16,26 @@ $(document).ready(function() {
 			{ data : "fechaFinal" },
 			{ data : "horaInicio" },
 			{ data : "horaFinal" },
-			{ 
-				data : "valorDescontar",
-				render : function(data, type, row) {
-					return `<i class="fa fa-dollar-sign"></i><span class="money-descontar">${data}</span>`;
-				}
-			},
+			// {
+			// 	data : "valorDescontar",
+			// 	render : function(data, type, row) {
+			// 		return `<i class="fa fa-dollar-sign"></i><span class="money-descontar">${data}</span>`;
+			// 	}
+			// },
 			{	data : "dayDiference" }
 		],
 		footerCallback: function(row, data, start, end, display)
         {
-        	let totalDescontar = this.api().column(6).data().reduce(function(start, end){
-               return parseFloat(start)+parseFloat(end);
-            }, 0)
+        	// let totalDescontar = this.api().column(6).data().reduce(function(start, end){
+            //    return parseFloat(start)+parseFloat(end);
+            // }, 0)
             
-            let totalDayDiference = this.api().column(7).data().reduce(function(start, end){
+            let totalDayDiference = this.api().column(6).data().reduce(function(start, end){
                return parseInt(start)+parseInt(end);
             }, 0)
             
-            $(this.api().column(6).footer()).html('Total: $'+totalDescontar);
-            $(this.api().column(7).footer()).html('Total: '+totalDayDiference);
+            // $(this.api().column(6).footer()).html('Total: $'+totalDescontar);
+            $(this.api().column(6).footer()).html('Total: '+totalDayDiference);
         },
 		"language": {
 			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -58,4 +58,3 @@ $(document).ready(function() {
 	})
 })
 
-            	
